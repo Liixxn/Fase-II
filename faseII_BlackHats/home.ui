@@ -36,199 +36,271 @@
     <property name="spacing">
      <number>0</number>
     </property>
-    <item row="0" column="0">
-     <widget class="QWidget" name="menu" native="true">
-      <layout class="QGridLayout" name="gridLayout">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QLabel" name="expandMenuLabel">
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Menú</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="1" column="0">
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout">
+    <item row="0" column="1">
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="pageHome">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="2" column="0">
+         <widget class="QWidget" name="divBotones" native="true">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>100</height>
+           </size>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_13">
            <item>
-            <widget class="QPushButton" name="btnHome">
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>Home</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>:/icons/icons/downloading.png</normaloff>:/icons/icons/downloading.png</iconset>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_4" native="true">
+               <layout class="QGridLayout" name="gridLayout_15">
+                <item row="0" column="0">
+                 <widget class="QPushButton" name="btnLassoHome">
+                  <property name="text">
+                   <string>Lasso</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_8" native="true">
+               <layout class="QGridLayout" name="gridLayout_16">
+                <item row="0" column="0">
+                 <widget class="QPushButton" name="btnRandomForestHome">
+                  <property name="text">
+                   <string>RandomForest</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_9" native="true">
+               <layout class="QGridLayout" name="gridLayout_17">
+                <item row="0" column="0">
+                 <widget class="QPushButton" name="btnDecisionTreeHome">
+                  <property name="text">
+                   <string>DecisionTree</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_6">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QWidget" name="divLogo" native="true">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>200</height>
+           </size>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="0" column="0">
+            <widget class="QWidget" name="widget_2" native="true">
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>16777215</height>
+              </size>
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QPushButton" name="btnLasso">
-             <property name="text">
-              <string>Lasso</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>:/icons/icons/folder.png</normaloff>:/icons/icons/folder.png</iconset>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
-             </property>
+           <item row="0" column="1">
+            <widget class="QWidget" name="widget_10" native="true">
+             <layout class="QGridLayout" name="gridLayout_14">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label">
+                <property name="maximumSize">
+                 <size>
+                  <width>350</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="resource.qrc">:/newPrefix/imgs/BlackHats-HPE.png</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
-           <item>
-            <widget class="QPushButton" name="btnRandomForest">
-             <property name="text">
-              <string>RandomForest</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>:/icons/icons/data-classification.png</normaloff>:/icons/icons/data-classification.png</iconset>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btnDecisionTree">
-             <property name="text">
-              <string>DecisionTree</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
+           <item row="0" column="2">
+            <widget class="QWidget" name="widget_11" native="true">
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>16777215</height>
+              </size>
              </property>
             </widget>
            </item>
           </layout>
-         </item>
-         <item>
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>438</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_3">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Demanda:</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QDoubleSpinBox" name="spinBoxDemanda">
-           <property name="font">
-            <font>
-             <pointsize>8</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-           <property name="decimals">
-            <number>4</number>
-           </property>
-           <property name="maximum">
-            <double>1000000000000.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnCalcular">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Calcular</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>10</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QStackedWidget" name="stackedWidget">
-      <property name="currentIndex">
-       <number>3</number>
-      </property>
-      <widget class="QWidget" name="pageHome">
-       <layout class="QGridLayout" name="gridLayout_2"/>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QWidget" name="divInformacion" native="true">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>1111111</height>
+           </size>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_18">
+           <item row="0" column="0">
+            <widget class="QWidget" name="widget_19" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>280</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_18">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_11">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="resource.qrc">:/newPrefix/imgs/presa2.jpg</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QWidget" name="widget_21" native="true">
+             <layout class="QGridLayout" name="gridLayout_19">
+              <item row="0" column="0">
+               <widget class="QTextBrowser" name="textBrowser">
+                <property name="html">
+                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot; bgcolor=&quot;#1c1c1c&quot;&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Consolas,Andale Mono WT,Andale Mono,Lucida Console,Lucida Sans Typewriter,DejaVu Sans Mono,Bitstream Vera Sans Mono,Liberation Mono,Nimbus Mono L,Monaco,Courier New,Courier,monospace'; font-size:10pt; color:#ffffff; background-color:#1c1c1c;&quot;&gt;El rol que poseen las estaciónes hidroeléctricas en la distribución de agua y energia es absolutamente esencial. Por ello, para afianzar el control de recursos hídricos de manera eficiente, BlackHats ha desarrollado esta aplicación, la cual ofrece un dashboard, 3 modelos predictivos y un sistema de control de despache de agua. Con los modelos predictivos desarrollados, la aplicación puede determinar los niveles del embalse en los proximos 7 dias, pudiendo así precisar mejor si despachar o no los recursos hídricos. Los modelos utilizan 3 fuentes de datos diferentes, los cuales son: valores climatologicos de la AEMET, oscilación del Atlántico Norte obtenidos de la NAOO y datos históricos de embalses obtenidos del MITECO. El usuario tiene la opción de ver las predicciones de los diferentes modelos para cada embalse y asimismo introducir los valores de demanda &amp;lt;&amp;lt; &amp;gt;&amp;gt; , dependiendo de los datos del sistema, este avisara si es necesario consumir los recursos hidricos.&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="pageRandomForest">
        <property name="styleSheet">
@@ -491,6 +563,8 @@
                           <property name="font">
                            <font>
                             <pointsize>10</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
                            </font>
                           </property>
                           <property name="text">
@@ -503,6 +577,11 @@
                         </item>
                         <item>
                          <widget class="QLabel" name="txtNombreProvinciaRf">
+                          <property name="font">
+                           <font>
+                            <pointsize>9</pointsize>
+                           </font>
+                          </property>
                           <property name="text">
                            <string/>
                           </property>
@@ -544,6 +623,8 @@
                           <property name="font">
                            <font>
                             <pointsize>10</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
                            </font>
                           </property>
                           <property name="text">
@@ -556,6 +637,11 @@
                         </item>
                         <item>
                          <widget class="QLabel" name="txtProvinciaRf">
+                          <property name="font">
+                           <font>
+                            <pointsize>9</pointsize>
+                           </font>
+                          </property>
                           <property name="text">
                            <string/>
                           </property>
@@ -600,6 +686,8 @@
                        <property name="font">
                         <font>
                          <pointsize>10</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
                         </font>
                        </property>
                        <property name="text">
@@ -612,6 +700,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtCapacidadEmbalseRf">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -653,6 +746,8 @@
                        <property name="font">
                         <font>
                          <pointsize>10</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
                         </font>
                        </property>
                        <property name="text">
@@ -665,6 +760,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtReservaActualRf">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -942,6 +1042,13 @@
                       <layout class="QVBoxLayout" name="verticalLayout_3">
                        <item>
                         <widget class="QLabel" name="label_12">
+                         <property name="font">
+                          <font>
+                           <pointsize>9</pointsize>
+                           <weight>75</weight>
+                           <bold>true</bold>
+                          </font>
+                         </property>
                          <property name="text">
                           <string>T.máx</string>
                          </property>
@@ -952,6 +1059,11 @@
                        </item>
                        <item>
                         <widget class="QLabel" name="txtTmaxRf">
+                         <property name="font">
+                          <font>
+                           <pointsize>9</pointsize>
+                          </font>
+                         </property>
                          <property name="text">
                           <string/>
                          </property>
@@ -987,6 +1099,13 @@
                       <layout class="QVBoxLayout" name="verticalLayout_4">
                        <item>
                         <widget class="QLabel" name="label_13">
+                         <property name="font">
+                          <font>
+                           <pointsize>9</pointsize>
+                           <weight>75</weight>
+                           <bold>true</bold>
+                          </font>
+                         </property>
                          <property name="text">
                           <string>T.min</string>
                          </property>
@@ -997,6 +1116,11 @@
                        </item>
                        <item>
                         <widget class="QLabel" name="txtTminRf">
+                         <property name="font">
+                          <font>
+                           <pointsize>9</pointsize>
+                          </font>
+                         </property>
                          <property name="text">
                           <string/>
                          </property>
@@ -1034,6 +1158,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_5">
                      <item>
                       <widget class="QLabel" name="label_14">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="text">
                         <string>T.media</string>
                        </property>
@@ -1044,6 +1175,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtTmediaRf">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -1100,6 +1236,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_6">
                      <item>
                       <widget class="QLabel" name="label_15">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="text">
                         <string>Velocidad media</string>
                        </property>
@@ -1110,6 +1253,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtVelMediaRf">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -1145,6 +1293,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_7">
                      <item>
                       <widget class="QLabel" name="label_16">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="text">
                         <string>Racha</string>
                        </property>
@@ -1155,6 +1310,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtRachaRf">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -1217,6 +1377,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_8">
                      <item>
                       <widget class="QLabel" name="label_17">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="toolTip">
                         <string/>
                        </property>
@@ -1233,6 +1400,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtSolRf">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -1289,6 +1461,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_9">
                      <item>
                       <widget class="QLabel" name="label_18">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="text">
                         <string>Precipitación</string>
                        </property>
@@ -1299,6 +1478,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtPrecipitacionRf">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -1579,6 +1763,8 @@
                           <property name="font">
                            <font>
                             <pointsize>10</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
                            </font>
                           </property>
                           <property name="text">
@@ -1591,6 +1777,11 @@
                         </item>
                         <item>
                          <widget class="QLabel" name="txtNombreProvinciaLasso">
+                          <property name="font">
+                           <font>
+                            <pointsize>9</pointsize>
+                           </font>
+                          </property>
                           <property name="text">
                            <string/>
                           </property>
@@ -1632,6 +1823,8 @@
                           <property name="font">
                            <font>
                             <pointsize>10</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
                            </font>
                           </property>
                           <property name="text">
@@ -1644,6 +1837,11 @@
                         </item>
                         <item>
                          <widget class="QLabel" name="txtProvinciaLasso">
+                          <property name="font">
+                           <font>
+                            <pointsize>9</pointsize>
+                           </font>
+                          </property>
                           <property name="text">
                            <string/>
                           </property>
@@ -1688,6 +1886,8 @@
                        <property name="font">
                         <font>
                          <pointsize>10</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
                         </font>
                        </property>
                        <property name="text">
@@ -1700,6 +1900,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtCapacidadEmbalseLasso">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -1741,6 +1946,8 @@
                        <property name="font">
                         <font>
                          <pointsize>10</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
                         </font>
                        </property>
                        <property name="text">
@@ -1753,6 +1960,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtReservaActualLasso">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -2030,6 +2242,13 @@
                       <layout class="QVBoxLayout" name="verticalLayout_3">
                        <item>
                         <widget class="QLabel" name="label_12">
+                         <property name="font">
+                          <font>
+                           <pointsize>9</pointsize>
+                           <weight>75</weight>
+                           <bold>true</bold>
+                          </font>
+                         </property>
                          <property name="text">
                           <string>T.máx</string>
                          </property>
@@ -2040,6 +2259,11 @@
                        </item>
                        <item>
                         <widget class="QLabel" name="txtTmaxLasso">
+                         <property name="font">
+                          <font>
+                           <pointsize>9</pointsize>
+                          </font>
+                         </property>
                          <property name="text">
                           <string/>
                          </property>
@@ -2075,6 +2299,13 @@
                       <layout class="QVBoxLayout" name="verticalLayout_4">
                        <item>
                         <widget class="QLabel" name="label_13">
+                         <property name="font">
+                          <font>
+                           <pointsize>9</pointsize>
+                           <weight>75</weight>
+                           <bold>true</bold>
+                          </font>
+                         </property>
                          <property name="text">
                           <string>T.min</string>
                          </property>
@@ -2085,6 +2316,11 @@
                        </item>
                        <item>
                         <widget class="QLabel" name="txtTminLasso">
+                         <property name="font">
+                          <font>
+                           <pointsize>9</pointsize>
+                          </font>
+                         </property>
                          <property name="text">
                           <string/>
                          </property>
@@ -2122,6 +2358,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_5">
                      <item>
                       <widget class="QLabel" name="label_14">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="text">
                         <string>T.media</string>
                        </property>
@@ -2132,6 +2375,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtTmediaLasso">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -2188,6 +2436,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_6">
                      <item>
                       <widget class="QLabel" name="label_15">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="text">
                         <string>Velocidad media</string>
                        </property>
@@ -2198,6 +2453,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtVelMediaLasso">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -2233,6 +2493,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_7">
                      <item>
                       <widget class="QLabel" name="label_16">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="text">
                         <string>Racha</string>
                        </property>
@@ -2243,6 +2510,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtRachaLasso">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -2305,6 +2577,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_8">
                      <item>
                       <widget class="QLabel" name="label_17">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="toolTip">
                         <string/>
                        </property>
@@ -2321,6 +2600,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtSolLasso">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -2377,6 +2661,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_9">
                      <item>
                       <widget class="QLabel" name="label_18">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="text">
                         <string>Precipitación</string>
                        </property>
@@ -2387,6 +2678,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtPrecipitacionLasso">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -2666,6 +2962,8 @@
                           <property name="font">
                            <font>
                             <pointsize>10</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
                            </font>
                           </property>
                           <property name="text">
@@ -2678,6 +2976,11 @@
                         </item>
                         <item>
                          <widget class="QLabel" name="txtNombreProvinciaDt">
+                          <property name="font">
+                           <font>
+                            <pointsize>9</pointsize>
+                           </font>
+                          </property>
                           <property name="text">
                            <string/>
                           </property>
@@ -2719,6 +3022,8 @@
                           <property name="font">
                            <font>
                             <pointsize>10</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
                            </font>
                           </property>
                           <property name="text">
@@ -2731,6 +3036,11 @@
                         </item>
                         <item>
                          <widget class="QLabel" name="txtProvinciaDt">
+                          <property name="font">
+                           <font>
+                            <pointsize>9</pointsize>
+                           </font>
+                          </property>
                           <property name="text">
                            <string/>
                           </property>
@@ -2775,6 +3085,8 @@
                        <property name="font">
                         <font>
                          <pointsize>10</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
                         </font>
                        </property>
                        <property name="text">
@@ -2787,6 +3099,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtCapacidadEmbalseDt">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -2828,6 +3145,8 @@
                        <property name="font">
                         <font>
                          <pointsize>10</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
                         </font>
                        </property>
                        <property name="text">
@@ -2840,6 +3159,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtReservaActualDt">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -3117,6 +3441,13 @@
                       <layout class="QVBoxLayout" name="verticalLayout_3">
                        <item>
                         <widget class="QLabel" name="label_12">
+                         <property name="font">
+                          <font>
+                           <pointsize>9</pointsize>
+                           <weight>75</weight>
+                           <bold>true</bold>
+                          </font>
+                         </property>
                          <property name="text">
                           <string>T.máx</string>
                          </property>
@@ -3127,6 +3458,13 @@
                        </item>
                        <item>
                         <widget class="QLabel" name="txtTmaxDt">
+                         <property name="font">
+                          <font>
+                           <pointsize>9</pointsize>
+                           <weight>50</weight>
+                           <bold>false</bold>
+                          </font>
+                         </property>
                          <property name="text">
                           <string/>
                          </property>
@@ -3162,6 +3500,13 @@
                       <layout class="QVBoxLayout" name="verticalLayout_4">
                        <item>
                         <widget class="QLabel" name="label_13">
+                         <property name="font">
+                          <font>
+                           <pointsize>9</pointsize>
+                           <weight>75</weight>
+                           <bold>true</bold>
+                          </font>
+                         </property>
                          <property name="text">
                           <string>T.min</string>
                          </property>
@@ -3172,6 +3517,11 @@
                        </item>
                        <item>
                         <widget class="QLabel" name="txtTminDt">
+                         <property name="font">
+                          <font>
+                           <pointsize>9</pointsize>
+                          </font>
+                         </property>
                          <property name="text">
                           <string/>
                          </property>
@@ -3209,6 +3559,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_5">
                      <item>
                       <widget class="QLabel" name="label_14">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="text">
                         <string>T.media</string>
                        </property>
@@ -3219,6 +3576,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtTmediaDt">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -3275,6 +3637,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_6">
                      <item>
                       <widget class="QLabel" name="label_15">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="text">
                         <string>Velocidad media</string>
                        </property>
@@ -3320,6 +3689,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_7">
                      <item>
                       <widget class="QLabel" name="label_16">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="text">
                         <string>Racha</string>
                        </property>
@@ -3330,6 +3706,12 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtRachaDt">
+                       <property name="font">
+                        <font>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -3392,6 +3774,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_8">
                      <item>
                       <widget class="QLabel" name="label_17">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="toolTip">
                         <string/>
                        </property>
@@ -3408,6 +3797,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtSolDt">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -3464,6 +3858,13 @@
                     <layout class="QVBoxLayout" name="verticalLayout_9">
                      <item>
                       <widget class="QLabel" name="label_18">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
                        <property name="text">
                         <string>Precipitación</string>
                        </property>
@@ -3474,6 +3875,11 @@
                      </item>
                      <item>
                       <widget class="QLabel" name="txtPrecipitacionDt">
+                       <property name="font">
+                        <font>
+                         <pointsize>9</pointsize>
+                        </font>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -3499,11 +3905,198 @@
       </widget>
      </widget>
     </item>
+    <item row="0" column="0">
+     <widget class="QWidget" name="menu" native="true">
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="expandMenuLabel">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Menú</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QPushButton" name="btnHome">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>Home</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>:/icons/icons/downloading.png</normaloff>:/icons/icons/downloading.png</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnLasso">
+             <property name="text">
+              <string>Lasso</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>:/icons/icons/folder.png</normaloff>:/icons/icons/folder.png</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnRandomForest">
+             <property name="text">
+              <string>RandomForest</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>:/icons/icons/data-classification.png</normaloff>:/icons/icons/data-classification.png</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnDecisionTree">
+             <property name="text">
+              <string>DecisionTree</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>438</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Demanda:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="spinBoxDemanda">
+           <property name="font">
+            <font>
+             <pointsize>8</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="decimals">
+            <number>4</number>
+           </property>
+           <property name="maximum">
+            <double>1000000000000.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnCalcular">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Calcular</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>10</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>
  <resources>
   <include location="resource.qrc"/>
+  <include location="../../../.designer/backup/resource.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -85,7 +85,7 @@ class MainWindow(QMainWindow):
         # ventanaPrincipal.btnHoy.setChecked(True)
         # ventanaPrincipal.btnHoy2.setChecked(True)
 
-        
+
 
 
 
@@ -202,6 +202,42 @@ class MainWindow(QMainWindow):
         webView.setHtml(data.getvalue().decode())
         layout.addWidget(webView)
 
+    #####################################################################################################
+
+            # Mapa del random decision tree
+            layout = QVBoxLayout()
+            ventanaPrincipal.mapaDt.setLayout(layout)
+
+            coordinate = (40.416775, -3.703790)
+            m = folium.Map(
+                tiles='OpenStreetMap',
+                zoom_start=6,
+                location=coordinate
+            )
+
+            dams_df = pd.read_csv("damLocation.csv", sep=',')
+
+            for i in range(0, (dams_df['Central'].size) - 1):
+                print(dams_df['Coordenadas'][i])
+                coordinates = dams_df['Coordenadas'][i].replace(',', '').split()
+
+                # Se ingresa el contenido en el popup
+                iframe = folium.IFrame('Nombre de la central: ' + (dams_df["Central"][i]) + '\n\n Ubicación: ' + (
+                    dams_df["Ubicación"][i]) + '\n\n Potencia instalada: ' + (dams_df["Potencia instalada"][i]))
+
+                # se inicializa el pop up y su tamaño
+                popup = folium.Popup(iframe, min_width=200, max_width=200)
+
+                folium.Marker(location=[coordinates[0], coordinates[1]],
+                              icon=folium.Icon(color='blue', icon='tint'), popup=popup).add_to(m)
+
+            # save map data to data object
+            data = io.BytesIO()
+            m.save(data, close_file=False)
+
+            webView = QWebEngineView()
+            webView.setHtml(data.getvalue().decode())
+            layout.addWidget(webView)
 
 
 
@@ -215,7 +251,7 @@ class MainWindow(QMainWindow):
         #     print("Marcador encontrado en ubicación: ", marcador.location)
 
         ###################################################################################################
-        
+
 
 
     ######################################################################################################
@@ -706,6 +742,7 @@ class MainWindow(QMainWindow):
 ##################################################################################33333
 # Main de la aplicacion
 if __name__ == "__main__":
+    app = QApplication(['', '--no-sandbox'])
 
     # Data gathering
     url = 'https://www.miteco.gob.es/es/agua/temas/evaluacion-de-los-recursos-hidricos/bd-embalses_tcm30-538779.zip'
@@ -731,16 +768,3 @@ if __name__ == "__main__":
     window.show()
 
     sys.exit(app.exec_())
-
-
-
-
-
-
-
-
-
-
-
-
-
