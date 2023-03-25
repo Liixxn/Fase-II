@@ -1,0 +1,92 @@
+[
+    {
+        "Hidroeléctrica": "Central de aldeadávila",
+        "Provincia": "Salamanca",
+        "Estación": "Vitigudino",
+        "Indicativo": "2916A",
+        "INICIO DATOS": "23/10/1991",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Presa del Embalse de José María de Oriol",
+        "Provincia": "Cáceres",
+        "Estación": "Coria",
+        "Indicativo": "3526X",
+        "INICIO DATOS": "01/02/1989",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Central de Villarino",
+        "Provincia": "Salamanca",
+        "Estación": "Vitigudino",
+        "Indicativo": "2916A",
+        "INICIO DATOS": "23/10/1991",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "embalse de cortes de la muela",
+        "Provincia": "Valencia",
+        "Estación": "Utiel",
+        "Indicativo": "8309",
+        "INICIO DATOS": "10/01/1991",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Central de Saucelle",
+        "Provincia": "Salamanca",
+        "Estación": "Vitigudino",
+        "Indicativo": "2916A",
+        "INICIO DATOS": "23/10/1991",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Central hidroelectrica de sedillo",
+        "Provincia": "Caceres",
+        "Estación": "Valencia de Alcántara",
+        "Indicativo": "3576X",
+        "INICIO DATOS": "01/08/1991",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Estefany gento sallente",
+        "Provincia": "Barcelona",
+        "Estación": "Manresa",
+        "Indicativo": "0149X",
+        "INICIO DATOS": "14/01/2005",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Central de tajo la encantada",
+        "Provincia": "Málaga",
+        "Estación": "Antequera",
+        "Indicativo": "6106X",
+        "INICIO DATOS": "01/01/2001",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Central de Aguayo",
+        "Provincia": "Cantabria",
+        "Estación": "Reinosa",
+        "Indicativo": "9001D",
+        "INICIO DATOS":	"21/02/2005",
+        "FIN DATOS":	"05/03/2023"
+    },
+
+    {
+        "Hidroeléctrica": "Mora de Luna",
+        "Provincia": "León",
+        "Estación": "León, Virgen del Camino",
+        "Indicativo": "2661",
+        "INICIO DATOS":	"01/01/1938",
+        "FIN DATOS":	"05/03/2017"
+    },
+
+    {
+        "Hidroeléctrica": "Mequinenza",
+        "Provincia": "Zaragoza",
+        "Estación": "Bujaraloz",
+        "Indicativo": "9771C",
+        "INICIO DATOS":	"07/07/1992",
+        "FIN DATOS":	"06/06/2018"
+    }
+]

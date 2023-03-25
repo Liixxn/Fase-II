@@ -1,0 +1,221 @@
+
+#centralwidget {
+    background-color: #1C1C1C;
+}
+
+#menu {
+    background-color: #01A982;
+    padding: 15px;
+}
+
+#expandMenuLabel {
+    margin-top: 20px;
+}
+
+
+#btnHome, #btnLasso, #btnRandomForest, #btnDecisionTree {
+    padding: 5px;
+	border: none;
+	width: 100px;
+	height: 30px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#btnCalcular{
+    background-color: #117B82;
+    color: white;
+    font-weight: bold;
+
+}
+
+
+
+
+
+#btnHome:hover,
+#btnLasso:hover,
+#btnRandomForest:hover,
+#btnDecisionTree:hover {
+    border-bottom: 2px solid white;
+    color: white;
+}
+
+
+#btnHome:checked,
+#btnLasso:checked,
+#btnRandomForest:checked {
+    border-bottom: 2px solid white;
+    color: white;
+}
+
+#btnDecisionTree:checked {
+    border-bottom: 2px solid white;
+    color: white;
+}
+
+
+
+#labelRf, #labelLasso, #labelDt, #label_3 {
+    font-size: 14px;
+	font-weight: bold;
+}
+
+
+#btnHoy,
+#btnManiana,
+#btn2dias,
+#btn3dias,
+#btn4dias,
+#btn5dias,
+#btn6dias,
+#btn7dias{
+    padding: 5px;
+    border: 1px solid black;
+    background-color: #00739D;
+    color: white;
+    border-radius: 5px;
+}
+
+
+#btnHoy2,
+#btnManiana2,
+#btn2dias2,
+#btn3dias2,
+#btn4dias2,
+#btn5dias2,
+#btn6dias2,
+#btn7dias2{
+    padding: 5px;
+    border: 1px solid black;
+    background-color: #00739D;
+    color: white;
+    border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+#btnHoy3,
+#btnManiana3,
+#btn2dias3,
+#btn3dias3,
+#btn4dias3,
+#btn5dias3,
+#btn6dias3,
+#btn7dias3{
+    padding: 5px;
+    border: 1px solid black;
+    background-color: #00739D;
+    color: white;
+    border-radius: 5px;
+}
+
+
+
+
+
+#btnHoy:hover,
+#btnManiana:hover,
+#btn2dias:hover,
+#btn3dias:hover,
+#btn4dias:hover,
+#btn5dias:hover,
+#btn6dias:hover,
+#btn7dias:hover{
+    background-color: #01A982;
+}
+
+
+
+#btnHoy:checked,
+#btnManiana:checked,
+#btn2dias:checked,
+#btn3dias:checked,
+#btn4dias:checked,
+#btn5dias:checked,
+#btn6dias:checked,
+#btn7dias:checked{
+    background-color: #01A982;
+    color: white;
+}
+
+
+#btnHoy2:hover,
+#btnManiana2:hover,
+#btn2dias2:hover,
+#btn3dias2:hover,
+#btn4dias2:hover,
+#btn5dias2:hover,
+#btn6dias2:hover,
+#btn7dias2:hover{
+    background-color: #01A982;
+
+}
+
+
+
+#btnHoy2:checked,
+#btnManiana2:checked,
+#btn2dias2:checked,
+#btn3dias2:checked,
+#btn4dias2:checked,
+#btn5dias2:checked,
+#btn6dias2:checked,
+#btn7dias2:checked{
+    background-color: #01A982;
+    color: white;
+
+}
+
+
+
+#btnHoy3:hover,
+#btnManiana3:hover,
+#btn2dias3:hover,
+#btn3dias3:hover,
+#btn4dias3:hover,
+#btn5dias3:hover,
+#btn6dias3:hover,
+#btn7dias3:hover{
+    background-color: #01A982;
+
+}
+
+
+#btnHoy3:checked,
+#btnManiana3:checked,
+#btn2dias3:checked,
+#btn3dias3:checked,
+#btn4dias3:checked,
+#btn5dias3:checked,
+#btn6dias3:checked,
+#btn7dias3:checked{
+    background-color: #01A982;
+    color: white;
+
+}
+
+
+
+
+#boardTemperatura, #boardViento, #boardSol, #boardPrecipitacion,
+ #boardTemperatura_2, #boardViento_2, #boardSol_2, #boardPrecipitacion_2, #boardTemperatura_3, #boardViento_3, #boardSol_3, #boardPrecipitacion_3 {
+
+    border-radius: 10px;
+    background-color: #00739D;
+    margin: 0 10px;
+    color: black;
+}
+
+#boardDamm {
+    margin-top: 10px;
+}
+
+
+#boardNombre, #boardCapacidadRf, #boardReservaRf, #boardNombre_2, #boardCapacidadLasso, #boardReservaLasso, #boardNombre_3, #boardCapacidadDt, #boardReservaDt {
+    border-radius: 10px;
+    background-color: #00739D;
+    margin: 5px 10px;
+    color: black;
+}
+

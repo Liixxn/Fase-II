@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>imgs/home1.png</file>
+    <file>icons/senal-de-alerta.png</file>
+  </qresource>
+</RCC>
