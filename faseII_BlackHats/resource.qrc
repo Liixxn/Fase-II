@@ -1,6 +1,11 @@
 <RCC>
   <qresource prefix="newPrefix">
-    <file>imgs/home1.png</file>
+    <file>imgs/presa2.jpg</file>
     <file>icons/senal-de-alerta.png</file>
+  </qresource>
+  <qresource prefix="newPrefix">
+    <file>imgs/presa.jpg</file>
+    <file>imgs/BlackHats-HPE.png</file>
+    <file>imgs/BlackHats-logo.png</file>
   </qresource>
 </RCC>

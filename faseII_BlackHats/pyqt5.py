@@ -61,6 +61,13 @@ class MainWindow(QMainWindow):
         ventanaPrincipal.btnLasso.clicked.connect(self.toogleButton)
         ventanaPrincipal.btnDecisionTree.clicked.connect(self.toogleButton)
 
+
+        ventanaPrincipal.btnLassoHome.clicked.connect(self.toogleButtonHome)
+        ventanaPrincipal.btnRandomForestHome.clicked.connect(self.toogleButtonHome)
+        ventanaPrincipal.btnDecisionTreeHome.clicked.connect(self.toogleButtonHome)
+
+
+
         # botones para el random forest
         ventanaPrincipal.btnHoy.clicked.connect(self.displayDataRf)
         ventanaPrincipal.btnManiana.clicked.connect(self.displayDataRf)
@@ -202,42 +209,40 @@ class MainWindow(QMainWindow):
         webView.setHtml(data.getvalue().decode())
         layout.addWidget(webView)
 
-    #####################################################################################################
+        # Mapa del random decision tree
+        layout = QVBoxLayout()
+        ventanaPrincipal.mapaDt.setLayout(layout)
 
-            # Mapa del random decision tree
-            layout = QVBoxLayout()
-            ventanaPrincipal.mapaDt.setLayout(layout)
+        coordinate = (40.416775, -3.703790)
+        m = folium.Map(
+            tiles='OpenStreetMap',
+            zoom_start=6,
+            location=coordinate
+        )
 
-            coordinate = (40.416775, -3.703790)
-            m = folium.Map(
-                tiles='OpenStreetMap',
-                zoom_start=6,
-                location=coordinate
-            )
+        dams_df = pd.read_csv("data/damLocation.csv", sep=',')
 
-            dams_df = pd.read_csv("damLocation.csv", sep=',')
+        for i in range(0, (dams_df['Central'].size) - 1):
+            print(dams_df['Coordenadas'][i])
+            coordinates = dams_df['Coordenadas'][i].replace(',', '').split()
 
-            for i in range(0, (dams_df['Central'].size) - 1):
-                print(dams_df['Coordenadas'][i])
-                coordinates = dams_df['Coordenadas'][i].replace(',', '').split()
+            # Se ingresa el contenido en el popup
+            iframe = folium.IFrame('Nombre de la central: ' + (dams_df["Central"][i]) + '\n\n Ubicación: ' + (
+                dams_df["Ubicación"][i]) + '\n\n Potencia instalada: ' + (dams_df["Potencia instalada"][i]))
 
-                # Se ingresa el contenido en el popup
-                iframe = folium.IFrame('Nombre de la central: ' + (dams_df["Central"][i]) + '\n\n Ubicación: ' + (
-                    dams_df["Ubicación"][i]) + '\n\n Potencia instalada: ' + (dams_df["Potencia instalada"][i]))
+            # se inicializa el pop up y su tamaño
+            popup = folium.Popup(iframe, min_width=200, max_width=200)
 
-                # se inicializa el pop up y su tamaño
-                popup = folium.Popup(iframe, min_width=200, max_width=200)
+            folium.Marker(location=[coordinates[0], coordinates[1]],
+                          icon=folium.Icon(color='blue', icon='tint'), popup=popup).add_to(m)
 
-                folium.Marker(location=[coordinates[0], coordinates[1]],
-                              icon=folium.Icon(color='blue', icon='tint'), popup=popup).add_to(m)
+        # save map data to data object
+        data = io.BytesIO()
+        m.save(data, close_file=False)
 
-            # save map data to data object
-            data = io.BytesIO()
-            m.save(data, close_file=False)
-
-            webView = QWebEngineView()
-            webView.setHtml(data.getvalue().decode())
-            layout.addWidget(webView)
+        webView = QWebEngineView()
+        webView.setHtml(data.getvalue().decode())
+        layout.addWidget(webView)
 
 
 
@@ -283,9 +288,19 @@ class MainWindow(QMainWindow):
 
     #################################################################################################333333
 
+    def toogleButtonHome(self):
 
+        if str(self.sender().objectName()).__contains__("Lasso"):
+            self.ui.btnLasso.setChecked(True)
+            self.ui.stackedWidget.setCurrentIndex(1)
 
+        if str(self.sender().objectName()).__contains__("RandomForest"):
+            self.ui.btnRandomForest.setChecked(True)
+            self.ui.stackedWidget.setCurrentIndex(2)
 
+        if str(self.sender().objectName()).__contains__("DecisionTree"):
+            self.ui.btnDecisionTree.setChecked(True)
+            self.ui.stackedWidget.setCurrentIndex(3)
 
 
 
@@ -739,6 +754,7 @@ class MainWindow(QMainWindow):
             print(e)
 
 
+
 ##################################################################################33333
 # Main de la aplicacion
 if __name__ == "__main__":
@@ -752,11 +768,6 @@ if __name__ == "__main__":
     # data.fileFromZip('bbdd_embalses.zip', 'BD-Embalses.mdb')
     #
     # data.bbddToCsv('./BD-Embalses.mdb', 'T_Datos Embalses 1988-2023', 'embalses.csv')
-
-
-
-
-    app = QApplication(['', '--no-sandbox'])
 
     # Hoja de estilos
     style_file = QFile("index.qss")
