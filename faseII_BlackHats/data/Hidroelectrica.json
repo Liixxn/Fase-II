@@ -1,90 +1,92 @@
 [
     {
-        "Hidroel閏trica": "Aldead醰ila",
+        "Hidroel茅ctrica": "Aldead谩vila",
         "Provincia": "Salamanca",
-        "Estaci髇": "Vitigudino",
+        "Estaci贸n": "Vitigudino",
         "Indicativo": "2916A",
         "INICIO DATOS": "23/10/1991",
         "FIN DATOS": "05/03/2023"
     },
     {
-        "Hidroel閏trica": "Alc醤tara",
-        "Provincia": "C醕eres",
-        "Estaci髇": "Coria",
+        "Hidroel茅ctrica": "Alc谩ntara",
+        "Provincia": "C谩ceres",
+        "Estaci贸n": "Coria",
         "Indicativo": "3526X",
         "INICIO DATOS": "01/02/1989",
         "FIN DATOS": "05/03/2023"
     },
     {
-        "Hidroel閏trica": "Almendra",
+        "Hidroel茅ctrica": "Almendra",
         "Provincia": "Salamanca",
-        "Estaci髇": "Vitigudino",
+        "Estaci贸n": "Vitigudino",
         "Indicativo": "2916A",
         "INICIO DATOS": "23/10/1991",
         "FIN DATOS": "05/03/2023"
     },
     {
-        "Hidroel閏trica": "La Muela",
+        "Hidroel茅ctrica": "La Muela",
         "Provincia": "Valencia",
-        "Estaci髇": "Utiel",
+        "Estaci贸n": "Utiel",
         "Indicativo": "8309X",
         "INICIO DATOS": "10/01/1991",
         "FIN DATOS": "05/03/2023"
     },
     {
-        "Hidroel閏trica": "Saucelle",
+        "Hidroel茅ctrica": "Saucelle",
         "Provincia": "Salamanca",
-        "Estaci髇": "Vitigudino",
+        "Estaci贸n": "Vitigudino",
         "Indicativo": "2916A",
         "INICIO DATOS": "23/10/1991",
         "FIN DATOS": "05/03/2023"
     },
     {
-        "Hidroel閏trica": "Cedillo",
+        "Hidroel茅ctrica": "Cedillo",
         "Provincia": "Caceres",
-        "Estaci髇": "Valencia de Alc醤tara",
+        "Estaci贸n": "Valencia de Alc谩ntara",
         "Indicativo": "3576X",
         "INICIO DATOS": "01/08/1991",
         "FIN DATOS": "05/03/2023"
     },
     {
-        "Hidroel閏trica": "Sallente",
+        "Hidroel茅ctrica": "Sallente",
         "Provincia": "Barcelona",
-        "Estaci髇": "Manresa",
+        "Estaci贸n": "Manresa",
         "Indicativo": "0149X",
         "INICIO DATOS": "14/01/2005",
         "FIN DATOS": "05/03/2023"
     },
     {
-        "Hidroel閏trica": "Conde Guadalhorce",
-        "Provincia": "M醠aga",
-        "Estaci髇": "Antequera",
+        "Hidroel茅ctrica": "Conde Guadalhorce",
+        "Provincia": "M谩laga",
+        "Estaci贸n": "Antequera",
         "Indicativo": "6106X",
         "INICIO DATOS": "01/01/2001",
         "FIN DATOS": "05/03/2023"
     },
     {
-        "Hidroel閏trica": "Alsa",
+        "Hidroel茅ctrica": "Alsa",
         "Provincia": "Cantabria",
-        "Estaci髇": "Reinosa",
+        "Estaci贸n": "Reinosa",
         "Indicativo": "9001D",
-        "INICIO DATOS": "21/02/2005",
-        "FIN DATOS": "05/03/2023"
+        "INICIO DATOS":	"21/02/2005",
+        "FIN DATOS":	"05/03/2023"
     },
+
     {
-        "Hidroel閏trica": "Barrios de Luna",
-        "Provincia": "Le髇",
-        "Estaci髇": "Le髇, Virgen del Camino",
+        "Hidroel茅ctrica": "Barrios de Luna",
+        "Provincia": "Le贸n",
+        "Estaci贸n": "Le贸n, Virgen del Camino",
         "Indicativo": "2661",
-        "INICIO DATOS": "01/01/1938",
-        "FIN DATOS": "05/03/2017"
+        "INICIO DATOS":	"01/01/1938",
+        "FIN DATOS":	"05/03/2017"
     },
+
     {
-        "Hidroel閏trica": "Mequinenza",
+        "Hidroel茅ctrica": "Mequinenza",
         "Provincia": "LLEIDA",
-        "Estaci髇": "LLEIDA",
+        "Estaci贸n": "LLEIDA",
         "Indicativo": "9771C",
-        "INICIO DATOS": "01/02/1983",
-        "FIN DATOS": "01/02/1983"
+        "INICIO DATOS":	"01/02/1983",
+        "FIN DATOS":	"01/02/1983"
     }
 ]

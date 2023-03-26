@@ -7,7 +7,7 @@ import folium
 import pandas as pd
 from PyQt5.QtCore import QFile, QTextStream
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QMessageBox, QComboBox
 
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.uic.properties import QtGui, QtWidgets
@@ -30,6 +30,7 @@ import requests
 
 
 # import data
+import aemet_predictions
 
 import os
 
@@ -45,12 +46,23 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
 
         # Carga de las diferentes ventanas
-        self.ui = Ui_MainWindow()
 
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+
 
         # Inicializacion de los elementos
         ventanaPrincipal = self.ui
+
+        """comboBoxDt = QComboBox(self)
+
+        embalses = ["Central de Aldeadávila", "Central José María de Oriol", "Central de Villarino", "Central de Cortes-La Muela",
+                    "Central de Saucelle", "Cedillo", "Estany-Gento Sallente", "Central de Tajo de la Encantada",
+                    "Central de Aguayo", "Mequinenza", "Mora de Luna"]
+
+        comboBoxDt.addItems(embalses)
+        comboBoxDt.currentIndexChanged.connect(self.displayDataDecisionTree)"""
 
         ventanaPrincipal.stackedWidget.setCurrentIndex(0)
         ventanaPrincipal.btnHome.setChecked(True)
@@ -77,9 +89,9 @@ class MainWindow(QMainWindow):
         ventanaPrincipal.btn5dias.clicked.connect(self.displayDataRf)
         ventanaPrincipal.btn6dias.clicked.connect(self.displayDataRf)
         ventanaPrincipal.btn7dias.clicked.connect(self.displayDataRf)
+        #ventanaPrincipal.comboBoxRt.currentIndexChanged.connect(self.displayDataRf)
 
         # botones para el lasso
-
         ventanaPrincipal.btnHoy2.clicked.connect(self.displayDataLasso)
         ventanaPrincipal.btnManiana2.clicked.connect(self.displayDataLasso)
         ventanaPrincipal.btn2dias2.clicked.connect(self.displayDataLasso)
@@ -89,11 +101,15 @@ class MainWindow(QMainWindow):
         ventanaPrincipal.btn6dias2.clicked.connect(self.displayDataLasso)
         ventanaPrincipal.btn7dias2.clicked.connect(self.displayDataLasso)
 
-        # ventanaPrincipal.btnHoy.setChecked(True)
-        # ventanaPrincipal.btnHoy2.setChecked(True)
-
-
-
+        # botones para el Decision Tree
+        ventanaPrincipal.btnHoy3.clicked.connect(self.displayDataDecisionTree)
+        ventanaPrincipal.btnManiana3.clicked.connect(self.displayDataDecisionTree)
+        ventanaPrincipal.btn2dias3.clicked.connect(self.displayDataDecisionTree)
+        ventanaPrincipal.btn3dias3.clicked.connect(self.displayDataDecisionTree)
+        ventanaPrincipal.btn4dias3.clicked.connect(self.displayDataDecisionTree)
+        ventanaPrincipal.btn5dias3.clicked.connect(self.displayDataDecisionTree)
+        ventanaPrincipal.btn6dias3.clicked.connect(self.displayDataDecisionTree)
+        ventanaPrincipal.btn7dias3.clicked.connect(self.displayDataDecisionTree)
 
 
 
@@ -112,7 +128,7 @@ class MainWindow(QMainWindow):
         dams_df = pd.read_csv("data/damLocation.csv", sep=',')
 
         for i in range(0, (dams_df['Central'].size) - 1):
-            print(dams_df['Coordenadas'][i])
+            # print(dams_df['Coordenadas'][i])
             coordinates = dams_df['Coordenadas'][i].replace(',', '').split()
 
             # Se ingresa el contenido en el popup
@@ -149,7 +165,7 @@ class MainWindow(QMainWindow):
         dams_df = pd.read_csv("data/damLocation.csv", sep=',')
 
         for i in range(0, (dams_df['Central'].size) - 1):
-            print(dams_df['Coordenadas'][i])
+            # print(dams_df['Coordenadas'][i])
             coordinates = dams_df['Coordenadas'][i].replace(',', '').split()
 
             # Se ingresa el contenido en el popup
@@ -314,9 +330,8 @@ class MainWindow(QMainWindow):
         x = pd.to_datetime(nao_data[["year", "month", "day"]]).values
 
         # Data Preprocessing
-
-        aemet_data = pd.read_csv("data/aemet_data.csv")
-        aemet_data = aemet_data.drop(['indicativo', 'nombre', 'provincia', 'altitud', 'horatmax', 'horaracha',
+        aemet_data = pd.read_csv('./data/aemet_data.csv', sep=',')
+        """aemet_data = aemet_data.drop(['indicativo', 'nombre', 'provincia', 'altitud', 'horatmax', 'horaracha',
                                       'horatmin', 'horaPresMax', 'horaPresMin', 'presMax', 'presMin'], axis=1)
 
         aemet_data['tmed'] = aemet_data['tmed'].replace(',', '.', regex=True)
@@ -337,7 +352,7 @@ class MainWindow(QMainWindow):
         aemet_data['racha'] = aemet_data['racha'].astype(float)
         aemet_data['sol'] = aemet_data['sol'].astype(float)
         aemet_data['tmax'] = aemet_data['tmax'].astype(float)
-        aemet_data['tmin'] = aemet_data['tmin'].astype(float)
+        aemet_data['tmin'] = aemet_data['tmin'].astype(float)"""
         aemet_data['fecha'] = pd.to_datetime(aemet_data['fecha'])
 
         # Obtain nao data from 1988
@@ -400,349 +415,190 @@ class MainWindow(QMainWindow):
 
     def displayDataRf(self):
 
-        df_aemet = pd.read_csv('data/aemet_data.csv', sep=",")
+        embalse = self.comboBoxRf.currentText()
 
-        df_aemet = df_aemet.drop(['indicativo', 'nombre', 'provincia', 'altitud', 'horatmax', 'horaracha',
-                                  'horatmin', 'horaPresMax', 'horaPresMin', 'presMax', 'presMin'], axis=1)
-
-        df_aemet['tmed'] = df_aemet['tmed'].replace(',', '.', regex=True)
-        df_aemet['prec'] = df_aemet['prec'].replace(',', '.', regex=True)
-        df_aemet['velmedia'] = df_aemet['velmedia'].replace(',', '.', regex=True)
-        df_aemet['racha'] = df_aemet['racha'].replace(',', '.', regex=True)
-        df_aemet['sol'] = df_aemet['sol'].replace(',', '.', regex=True)
-        df_aemet['tmax'] = df_aemet['tmax'].replace(',', '.', regex=True)
-        df_aemet['tmin'] = df_aemet['tmin'].replace(',', '.', regex=True)
-
-        df_aemet = df_aemet.replace('Ip', 0, inplace=False, regex=False, limit=None)
-
-        df_aemet['tmed'] = df_aemet['tmed'].astype(float)
-        df_aemet['prec'] = df_aemet['prec'].astype(float)
-        df_aemet['velmedia'] = df_aemet['velmedia'].astype(float)
-        df_aemet['racha'] = df_aemet['racha'].astype(float)
-        df_aemet['sol'] = df_aemet['sol'].astype(float)
-        df_aemet['tmax'] = df_aemet['tmax'].astype(float)
-        df_aemet['tmin'] = df_aemet['tmin'].astype(float)
-        df_aemet['fecha'] = pd.to_datetime(df_aemet['fecha'])
-
-        # se obtiene la fecha actual y se obtienen los datos de la semana actual
-        current_date = datetime.datetime.now()
-        fecha = datetime.datetime(current_date.year, current_date.month, current_date.day)
-
-        fechas_menores = df_aemet.loc[df_aemet['fecha'] >= fecha]
-        fechas_seleccionadas = fechas_menores.head(8)
-
-        fechas = fechas_seleccionadas['fecha'].tolist()
-        tmpMedias = fechas_seleccionadas['tmed'].tolist()
-        precipitaciones = fechas_seleccionadas['prec'].tolist()
-        tmpMin = fechas_seleccionadas['tmin'].tolist()
-        tmpMax = fechas_seleccionadas['tmax'].tolist()
-        direcciones = fechas_seleccionadas['dir'].tolist()
-        velocidadMedia = fechas_seleccionadas['velmedia'].tolist()
-        rachas = fechas_seleccionadas['racha'].tolist()
-        sols = fechas_seleccionadas['sol'].tolist()
 
         if self.ui.btnHoy.isChecked():
             try:
-                self.ui.fechaRf.setText(str(fechas[0]))
-
-                self.ui.txtTmaxRf.setText(str(tmpMax[0]))
-                self.ui.txtTminRf.setText(str(tmpMin[0]))
-                self.ui.txtTmediaRf.setText(str(tmpMedias[0]))
-
-                self.ui.txtPrecipitacionRf.setText(str(precipitaciones[0]))
-                self.ui.txtVelMediaRf.setText(str(velocidadMedia[0]))
-                self.ui.txtRachaRf.setText(str(rachas[0]))
-
-                self.ui.txtSolRf.setText(str(sols[0]))
+                self.btn_checked_random_forest(0, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btnManiana.isChecked():
             try:
-                self.ui.fechaRf.setText(str(fechas[1]))
-
-                self.ui.txtTmaxRf.setText(str(tmpMax[1]))
-                self.ui.txtTminRf.setText(str(tmpMin[1]))
-                self.ui.txtTmediaRf.setText(str(tmpMedias[1]))
-
-                self.ui.txtPrecipitacionRf.setText(str(precipitaciones[1]))
-                self.ui.txtVelMediaRf.setText(str(velocidadMedia[1]))
-                self.ui.txtRachaRf.setText(str(rachas[1]))
-
-                self.ui.txtSolRf.setText(str(sols[1]))
+                self.btn_checked_random_forest(1, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn2dias.isChecked():
             try:
-                self.ui.fechaRf.setText(str(fechas[2]))
-
-                self.ui.txtTmaxRf.setText(str(tmpMax[2]))
-                self.ui.txtTminRf.setText(str(tmpMin[2]))
-                self.ui.txtTmediaRf.setText(str(tmpMedias[2]))
-
-                self.ui.txtPrecipitacionRf.setText(str(precipitaciones[2]))
-                self.ui.txtVelMediaRf.setText(str(velocidadMedia[2]))
-                self.ui.txtRachaRf.setText(str(rachas[2]))
-
-                self.ui.txtSolRf.setText(str(sols[2]))
+                self.btn_checked_random_forest(2, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn3dias.isChecked():
             try:
-                self.ui.fechaRf.setText(str(fechas[3]))
-
-                self.ui.txtTmaxRf.setText(str(tmpMax[3]))
-                self.ui.txtTminRf.setText(str(tmpMin[3]))
-                self.ui.txtTmediaRf.setText(str(tmpMedias[3]))
-
-                self.ui.txtPrecipitacionRf.setText(str(precipitaciones[3]))
-                self.ui.txtVelMediaRf.setText(str(velocidadMedia[3]))
-                self.ui.txtRachaRf.setText(str(rachas[3]))
-
-                self.ui.txtSolRf.setText(str(sols[3]))
+                self.btn_checked_random_forest(3, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn4dias.isChecked():
             try:
-                self.ui.fechaRf.setText(str(fechas[4]))
-
-                self.ui.txtTmaxRf.setText(str(tmpMax[4]))
-                self.ui.txtTminRf.setText(str(tmpMin[4]))
-                self.ui.txtTmediaRf.setText(str(tmpMedias[4]))
-
-                self.ui.txtPrecipitacionRf.setText(str(precipitaciones[4]))
-                self.ui.txtVelMediaRf.setText(str(velocidadMedia[4]))
-                self.ui.txtRachaRf.setText(str(rachas[4]))
-
-                self.ui.txtSolRf.setText(str(sols[4]))
+                self.btn_checked_random_forest(4, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn5dias.isChecked():
             try:
-                self.ui.fechaRf.setText(str(fechas[5]))
-
-                self.ui.txtTmaxRf.setText(str(tmpMax[5]))
-                self.ui.txtTminRf.setText(str(tmpMin[5]))
-                self.ui.txtTmediaRf.setText(str(tmpMedias[5]))
-
-                self.ui.txtPrecipitacionRf.setText(str(precipitaciones[5]))
-                self.ui.txtVelMediaRf.setText(str(velocidadMedia[5]))
-                self.ui.txtRachaRf.setText(str(rachas[5]))
-
-                self.ui.txtSolRf.setText(str(sols[5]))
+                self.btn_checked_random_forest(5, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn6dias.isChecked():
             try:
-                self.ui.fechaRf.setText(str(fechas[6]))
-
-                self.ui.txtTmaxRf.setText(str(tmpMax[6]))
-                self.ui.txtTminRf.setText(str(tmpMin[6]))
-                self.ui.txtTmediaRf.setText(str(tmpMedias[6]))
-
-                self.ui.txtPrecipitacionRf.setText(str(precipitaciones[6]))
-                self.ui.txtVelMediaRf.setText(str(velocidadMedia[6]))
-                self.ui.txtRachaRf.setText(str(rachas[6]))
-
-                self.ui.txtSolRf.setText(str(sols[6]))
+                self.btn_checked_random_forest(6, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
-        if self.ui.btn7dias.isChecked():
-            try:
-                self.ui.fechaRf.setText(str(fechas[7]))
-
-                self.ui.txtTmaxRf.setText(str(tmpMax[7]))
-                self.ui.txtTminRf.setText(str(tmpMin[7]))
-                self.ui.txtTmediaRf.setText(str(tmpMedias[7]))
-
-                self.ui.txtPrecipitacionRf.setText(str(precipitaciones[7]))
-                self.ui.txtVelMediaRf.setText(str(velocidadMedia[7]))
-                self.ui.txtRachaRf.setText(str(rachas[7]))
-
-                self.ui.txtSolRf.setText(str(sols[7]))
-
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
 
     ###########################################################################################
 
-    def displayDataLasso(self):
+    def displayDataDecisionTree(self):
+        embalse = self.ui.comboBoxDt.currentText()
+        print(embalse)
 
-        df_aemet = pd.read_csv('data/aemet_data.csv', sep=",")
-
-        df_aemet = df_aemet.drop(['indicativo', 'nombre', 'provincia', 'altitud', 'horatmax', 'horaracha',
-                                  'horatmin', 'horaPresMax', 'horaPresMin', 'presMax', 'presMin'], axis=1)
-
-        df_aemet['tmed'] = df_aemet['tmed'].replace(',', '.', regex=True)
-        df_aemet['prec'] = df_aemet['prec'].replace(',', '.', regex=True)
-        df_aemet['velmedia'] = df_aemet['velmedia'].replace(',', '.', regex=True)
-        df_aemet['racha'] = df_aemet['racha'].replace(',', '.', regex=True)
-        df_aemet['sol'] = df_aemet['sol'].replace(',', '.', regex=True)
-        df_aemet['tmax'] = df_aemet['tmax'].replace(',', '.', regex=True)
-        df_aemet['tmin'] = df_aemet['tmin'].replace(',', '.', regex=True)
-
-        df_aemet = df_aemet.replace('Ip', 0, inplace=False, regex=False, limit=None)
-
-        df_aemet['tmed'] = df_aemet['tmed'].astype(float)
-        df_aemet['prec'] = df_aemet['prec'].astype(float)
-        df_aemet['velmedia'] = df_aemet['velmedia'].astype(float)
-        df_aemet['racha'] = df_aemet['racha'].astype(float)
-        df_aemet['sol'] = df_aemet['sol'].astype(float)
-        df_aemet['tmax'] = df_aemet['tmax'].astype(float)
-        df_aemet['tmin'] = df_aemet['tmin'].astype(float)
-        df_aemet['fecha'] = pd.to_datetime(df_aemet['fecha'])
-
-        # se obtiene la fecha actual y se obtienen los datos de la semana actual
-        current_date = datetime.datetime.now()
-        fecha = datetime.datetime(current_date.year, current_date.month, current_date.day)
-
-        fechas_menores = df_aemet.loc[df_aemet['fecha'] >= fecha]
-        fechas_seleccionadas = fechas_menores.head(8)
-
-        fechas = fechas_seleccionadas['fecha'].tolist()
-        tmpMedias = fechas_seleccionadas['tmed'].tolist()
-        precipitaciones = fechas_seleccionadas['prec'].tolist()
-        tmpMin = fechas_seleccionadas['tmin'].tolist()
-        tmpMax = fechas_seleccionadas['tmax'].tolist()
-        direcciones = fechas_seleccionadas['dir'].tolist()
-        velocidadMedia = fechas_seleccionadas['velmedia'].tolist()
-        rachas = fechas_seleccionadas['racha'].tolist()
-        sols = fechas_seleccionadas['sol'].tolist()
-
-        if self.ui.btnHoy2.isChecked():
+        if self.ui.btnHoy3.isChecked():
             try:
-                self.ui.fechaLasso.setText(str(fechas[0]))
+                self.btn_checked_decision_tree(0, aemet_predictions.select_municipality(embalse))
+            except Exception as e:
+                self.mensaje_error(e)
 
-                self.ui.txtTmaxLasso.setText(str(tmpMax[0]))
-                self.ui.txtTminLasso.setText(str(tmpMin[0]))
-                self.ui.txtTmediaLasso.setText(str(tmpMedias[0]))
-
-                self.ui.txtPrecipitacionLasso.setText(str(precipitaciones[0]))
-                self.ui.txtVelMediaLasso.setText(str(velocidadMedia[0]))
-                self.ui.txtRachaLasso.setText(str(rachas[0]))
-
-                self.ui.txtSolLasso.setText(str(sols[0]))
+        if self.ui.btnManiana3.isChecked():
+            try:
+                self.btn_checked_decision_tree(1, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
+        if self.ui.btn2dias3.isChecked():
+            try:
+                self.btn_checked_decision_tree(2, aemet_predictions.select_municipality(embalse))
+            except Exception as e:
+                self.mensaje_error("No hay datos para la fecha seleccionada")
+
+        if self.ui.btn3dias3.isChecked():
+            try:
+                self.btn_checked_decision_tree(3, aemet_predictions.select_municipality(embalse))
+            except Exception as e:
+                self.mensaje_error("No hay datos para la fecha seleccionada")
+
+        if self.ui.btn4dias3.isChecked():
+            try:
+                self.btn_checked_decision_tree(4, aemet_predictions.select_municipality(embalse))
+            except Exception as e:
+                self.mensaje_error("No hay datos para la fecha seleccionada")
+
+        if self.ui.btn5dias3.isChecked():
+            try:
+                self.btn_checked_decision_tree(5, aemet_predictions.select_municipality(embalse))
+            except Exception as e:
+                self.mensaje_error("No hay datos para la fecha seleccionada")
+
+        if self.ui.btn6dias3.isChecked():
+            try:
+                self.btn_checked_decision_tree(6, aemet_predictions.select_municipality(embalse))
+            except Exception as e:
+                self.mensaje_error("No hay datos para la fecha seleccionada")
+
+
+
+    def displayDataLasso(self):
+
+        #print(self.MainWindow)
+        embalse = self.ui.comboBoxLasso.currentText()
+        print(embalse)
+        if self.ui.btnHoy2.isChecked():
+            try:
+                self.btn_checked_lasso(0, aemet_predictions.select_municipality(embalse))
+            except Exception as e:
+                self.mensaje_error(e)
+
         if self.ui.btnManiana2.isChecked():
             try:
-                self.ui.fechaLasso.setText(str(fechas[1]))
-
-                self.ui.txtTmaxLasso.setText(str(tmpMax[1]))
-                self.ui.txtTminLasso.setText(str(tmpMin[1]))
-                self.ui.txtTmediaLasso.setText(str(tmpMedias[1]))
-
-                self.ui.txtPrecipitacionLasso.setText(str(precipitaciones[1]))
-                self.ui.txtVelMediaLasso.setText(str(velocidadMedia[1]))
-                self.ui.txtRachaLasso.setText(str(rachas[1]))
-
-                self.ui.txtSolLasso.setText(str(sols[1]))
+                self.btn_checked_lasso(1, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn2dias2.isChecked():
             try:
-                self.ui.fechaLasso.setText(str(fechas[2]))
-
-                self.ui.txtTmaxLasso.setText(str(tmpMax[2]))
-                self.ui.txtTminLasso.setText(str(tmpMin[2]))
-                self.ui.txtTmediaLasso.setText(str(tmpMedias[2]))
-
-                self.ui.txtPrecipitacionLasso.setText(str(precipitaciones[2]))
-                self.ui.txtVelMediaLasso.setText(str(velocidadMedia[2]))
-                self.ui.txtRachaLasso.setText(str(rachas[2]))
-
-                self.ui.txtSolLasso.setText(str(sols[2]))
+                self.btn_checked_lasso(2, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn3dias2.isChecked():
             try:
-                self.ui.fechaLasso.setText(str(fechas[3]))
-
-                self.ui.txtTmaxLasso.setText(str(tmpMax[3]))
-                self.ui.txtTminLasso.setText(str(tmpMin[3]))
-                self.ui.txtTmediaLasso.setText(str(tmpMedias[3]))
-
-                self.ui.txtPrecipitacionLasso.setText(str(precipitaciones[3]))
-                self.ui.txtVelMediaLasso.setText(str(velocidadMedia[3]))
-                self.ui.txtRachaLasso.setText(str(rachas[3]))
-
-                self.ui.txtSolLasso.setText(str(sols[3]))
+                self.btn_checked_lasso(3, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn4dias2.isChecked():
             try:
-                self.ui.fechaLasso.setText(str(fechas[4]))
-
-                self.ui.txtTmaxLasso.setText(str(tmpMax[4]))
-                self.ui.txtTminLasso.setText(str(tmpMin[4]))
-                self.ui.txtTmediaLasso.setText(str(tmpMedias[4]))
-
-                self.ui.txtPrecipitacionLasso.setText(str(precipitaciones[4]))
-                self.ui.txtVelMediaLasso.setText(str(velocidadMedia[4]))
-                self.ui.txtRachaLasso.setText(str(rachas[4]))
-
-                self.ui.txtSolLasso.setText(str(sols[4]))
+                self.btn_checked_lasso(4, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn5dias2.isChecked():
             try:
-                self.ui.fechaLasso.setText(str(fechas[5]))
-
-                self.ui.txtTmaxLasso.setText(str(tmpMax[5]))
-                self.ui.txtTminLasso.setText(str(tmpMin[5]))
-                self.ui.txtTmediaLasso.setText(str(tmpMedias[5]))
-
-                self.ui.txtPrecipitacionLasso.setText(str(precipitaciones[5]))
-                self.ui.txtVelMediaLasso.setText(str(velocidadMedia[5]))
-                self.ui.txtRachaLasso.setText(str(rachas[5]))
-
-                self.ui.txtSolLasso.setText(str(sols[5]))
+                self.btn_checked_lasso(5, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn6dias2.isChecked():
             try:
-                self.ui.fechaLasso.setText(str(fechas[6]))
-
-                self.ui.txtTmaxLasso.setText(str(tmpMax[6]))
-                self.ui.txtTminLasso.setText(str(tmpMin[6]))
-                self.ui.txtTmediaLasso.setText(str(tmpMedias[6]))
-
-                self.ui.txtPrecipitacionLasso.setText(str(precipitaciones[6]))
-                self.ui.txtVelMediaLasso.setText(str(velocidadMedia[6]))
-                self.ui.txtRachaLasso.setText(str(rachas[6]))
-
-                self.ui.txtSolLasso.setText(str(sols[6]))
+                self.btn_checked_lasso(6, aemet_predictions.select_municipality(embalse))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn7dias2.isChecked():
             try:
-                self.ui.fechaLasso.setText(str(fechas[7]))
-
-                self.ui.txtTmaxLasso.setText(str(tmpMax[7]))
-                self.ui.txtTminLasso.setText(str(tmpMin[7]))
-                self.ui.txtTmediaLasso.setText(str(tmpMedias[7]))
-
-                self.ui.txtPrecipitacionLasso.setText(str(precipitaciones[7]))
-                self.ui.txtVelMediaLasso.setText(str(velocidadMedia[7]))
-                self.ui.txtRachaLasso.setText(str(rachas[7]))
-
-                self.ui.txtSolLasso.setText(str(sols[7]))
+                self.btn_checked_lasso(7, aemet_predictions.select_municipality(embalse))
 
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
+
+
+    def btn_checked_random_forest(self, day, data):
+        self.ui.fechaRf.setText(str(data.at[day, "date"]))
+        self.ui.txtTmaxRf.setText(str(data.at[day, "tmax"]))
+        self.ui.txtTminRf.setText(str(data.at[day, "tmin"]))
+        self.ui.txtTmediaRf.setText(str(data.at[day, "tmed"]))
+        self.ui.txtPrecipitacionRf.setText(str(data.at[day, "prec"]))
+        self.ui.txtVelMediaRf.setText(str(data.at[day, "velmedia"]))
+        self.ui.txtRachaRf.setText(str(data.at[day, "racha"]))
+        self.ui.txtSolRf.setText(str(data.at[day, "sol"]))
+
+
+    def btn_checked_lasso(self, day, data):
+        self.ui.fechaLasso.setText(str(data.at[day, "date"]))
+        self.ui.txtTmaxLasso.setText(str(data.at[day, "tmax"]))
+        self.ui.txtTminLasso.setText(str(data.at[day, "tmin"]))
+        self.ui.txtTmediaLasso.setText(str(data.at[day, "tmed"]))
+        self.ui.txtPrecipitacionLasso.setText(str(data.at[day, "prec"]))
+        self.ui.txtVelMediaLasso.setText(str(data.at[day, "velmedia"]))
+        self.ui.txtRachaLasso.setText(str(data.at[day, "racha"]))
+        self.ui.txtSolLasso.setText(str(data.at[day, "sol"]))
+
+        
+    def btn_checked_decision_tree(self, day, data):
+        print(data.dtypes)
+        self.ui.fechaDt.setText(str(data.at[day, "date"]))
+        self.ui.txtTmaxDt.setText(str(data.at[day, "tmax"]))
+        self.ui.txtTminDt.setText(str(data.at[day, "tmin"]))
+        self.ui.txtTmediaDt.setText(str(data.at[day, "tmed"]))
+        self.ui.txtPrecipitacionDt.setText(str(data.at[day, "prec"]))
+        self.ui.txtVelMediaDt.setText(str(data.at[day, "velmedia"]))
+        self.ui.txtRachaDt.setText(str(data.at[day, "racha"]))
+        self.ui.txtSolDt.setText(str(data.at[day, "sol"]))
+
 
     ##############################################################################################3333
 
