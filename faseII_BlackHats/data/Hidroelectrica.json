@@ -1,0 +1,90 @@
+[
+    {
+        "Hidroeléctrica": "Aldeadávila",
+        "Provincia": "Salamanca",
+        "Estación": "Vitigudino",
+        "Indicativo": "2916A",
+        "INICIO DATOS": "23/10/1991",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Alcántara",
+        "Provincia": "Cáceres",
+        "Estación": "Coria",
+        "Indicativo": "3526X",
+        "INICIO DATOS": "01/02/1989",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Almendra",
+        "Provincia": "Salamanca",
+        "Estación": "Vitigudino",
+        "Indicativo": "2916A",
+        "INICIO DATOS": "23/10/1991",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "La Muela",
+        "Provincia": "Valencia",
+        "Estación": "Utiel",
+        "Indicativo": "8309X",
+        "INICIO DATOS": "10/01/1991",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Saucelle",
+        "Provincia": "Salamanca",
+        "Estación": "Vitigudino",
+        "Indicativo": "2916A",
+        "INICIO DATOS": "23/10/1991",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Cedillo",
+        "Provincia": "Caceres",
+        "Estación": "Valencia de Alcántara",
+        "Indicativo": "3576X",
+        "INICIO DATOS": "01/08/1991",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Sallente",
+        "Provincia": "Barcelona",
+        "Estación": "Manresa",
+        "Indicativo": "0149X",
+        "INICIO DATOS": "14/01/2005",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Conde Guadalhorce",
+        "Provincia": "Málaga",
+        "Estación": "Antequera",
+        "Indicativo": "6106X",
+        "INICIO DATOS": "01/01/2001",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Alsa",
+        "Provincia": "Cantabria",
+        "Estación": "Reinosa",
+        "Indicativo": "9001D",
+        "INICIO DATOS": "21/02/2005",
+        "FIN DATOS": "05/03/2023"
+    },
+    {
+        "Hidroeléctrica": "Barrios de Luna",
+        "Provincia": "León",
+        "Estación": "León, Virgen del Camino",
+        "Indicativo": "2661",
+        "INICIO DATOS": "01/01/1938",
+        "FIN DATOS": "05/03/2017"
+    },
+    {
+        "Hidroeléctrica": "Mequinenza",
+        "Provincia": "LLEIDA",
+        "Estación": "LLEIDA",
+        "Indicativo": "9771C",
+        "INICIO DATOS": "01/02/1983",
+        "FIN DATOS": "01/02/1983"
+    }
+]
