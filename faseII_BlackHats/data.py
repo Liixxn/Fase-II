@@ -220,11 +220,10 @@ def update_aemet_data():
     -guardar el csv
     """
     embalses = get_dam()
-    print(embalses[0]['Hidroeléctrica'])
     for embalse in embalses:
         df_aemet = pd.read_csv('./data/aemet_data.csv', sep=',')
         df_embalse_alcantara = df_aemet[df_aemet["embalse"] == embalse['Hidroeléctrica']]
-        print(df_embalse_alcantara)
+
         if (len(df_embalse_alcantara) != 0):
             last_value = df_embalse_alcantara.iloc[-1]['fecha']
             today_date = date.today()
@@ -292,7 +291,6 @@ def predictions_preprocessing(df_embalse, historic_data, alias):
     nao_date = pd.to_datetime(nao_data[["year", "month", "day"]]).values
     nao_data["date"] = nao_date
     nao_data = nao_data.drop(['year', 'month', 'day'], axis=1)
-    print(embalse['date'])
     df = pd.merge(embalse, historic_data, on='date')
     df = pd.merge(df, nao_data, on='date')
     df = df.drop(['fecha'], axis=1)
@@ -315,11 +313,32 @@ def predictions_preprocessing(df_embalse, historic_data, alias):
 
 pd.set_option('display.max_columns', None)
 
-def generate_model(model, df, prediction_data):
+def generate_model(model, municipality):
     # each number represents a specific model: 1 = random forest,  2 = lasso ,  3 = decision tree
     # if day 6 or 7 have null values is better not to predict them
     # prediction_data dataframe which contains the data of the days to predict
     # df contains the dataframes to trai
+
+    centrales = [{'Central': 'Central de Aldeadávila', 'Alias': 'Aldeadávila', 'ID': '37014'},
+                 {'Central': 'Central José María de Oriol', 'Alias': 'Alcántara', 'ID': '10008'},
+                 {'Central': 'Central de Villarino', 'Alias': 'Almendra', 'ID': '37364'},
+                 {'Central': 'Central de Cortes-La Muela', 'Alias': 'La Muela', 'ID': '46099'},
+                 {'Central': 'Central de Saucelle', 'Alias': 'Saucelle', 'ID': '37302'},
+                 {'Central': 'Cedillo', 'Alias': 'Cedillo', 'ID': '10062'},
+                 {'Central': 'Estany-Gento Sallente', 'Alias': 'Sallente', 'ID': '25227'},
+                 {'Central': 'Central de Tajo de la Encantada', 'Alias': 'Conde Guadalhorce', 'ID': '29012'},
+                 {'Central': 'Central de Aguayo', 'Alias': 'Alsa', 'ID': '39070'},
+                 {'Central': 'Mequinenza', 'Alias': 'MEQUINENZA', 'ID': '50165'},
+                 {'Central': 'Mora de Luna', 'Alias': 'Barrios de Luna', 'ID': '24012'}]
+    for i in centrales:
+        if i.get('Central') == municipality:
+            embalseAlias = i.get('Alias')
+
+    historic_data = pd.read_csv('./data/aemet_data.csv', sep=',')
+    embalse = pd.read_csv('./data/embalses.csv', sep=';')
+    prediction_data = aemet_predictions.select_municipality(municipality)
+
+    df = predictions_preprocessing(embalse, historic_data, embalseAlias)
 
 
 
@@ -361,10 +380,4 @@ def generate_model(model, df, prediction_data):
 
     return prediccion
 
-historic_data = pd.read_csv('./data/aemet_data.csv', sep=',')
-embalse = pd.read_csv('./data/embalses.csv', sep=';')
-prediction_data = aemet_predictions.data('37364')
-
-df_to_train = predictions_preprocessing(embalse, historic_data, 'Aldeadávila')
-generate_model(2,df_to_train,prediction_data, 'Aldeadávila')
 

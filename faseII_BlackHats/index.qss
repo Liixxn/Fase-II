@@ -82,8 +82,7 @@
 #btn3dias,
 #btn4dias,
 #btn5dias,
-#btn6dias,
-#btn7dias{
+#btn6dias {
     padding: 5px;
     border: 1px solid black;
     background-color: #00739D;
@@ -98,8 +97,7 @@
 #btn3dias2,
 #btn4dias2,
 #btn5dias2,
-#btn6dias2,
-#btn7dias2{
+#btn6dias2 {
     padding: 5px;
     border: 1px solid black;
     background-color: #00739D;
@@ -115,8 +113,7 @@
 #btn3dias3,
 #btn4dias3,
 #btn5dias3,
-#btn6dias3,
-#btn7dias3{
+#btn6dias3 {
     padding: 5px;
     border: 1px solid black;
     background-color: #00739D;
@@ -134,8 +131,7 @@
 #btn3dias:hover,
 #btn4dias:hover,
 #btn5dias:hover,
-#btn6dias:hover,
-#btn7dias:hover{
+#btn6dias:hover {
     background-color: #01A982;
 }
 
@@ -147,8 +143,7 @@
 #btn3dias:checked,
 #btn4dias:checked,
 #btn5dias:checked,
-#btn6dias:checked,
-#btn7dias:checked{
+#btn6dias:checked {
     background-color: #01A982;
     color: white;
 }
@@ -160,8 +155,7 @@
 #btn3dias2:hover,
 #btn4dias2:hover,
 #btn5dias2:hover,
-#btn6dias2:hover,
-#btn7dias2:hover{
+#btn6dias2:hover {
     background-color: #01A982;
 
 }
@@ -174,8 +168,7 @@
 #btn3dias2:checked,
 #btn4dias2:checked,
 #btn5dias2:checked,
-#btn6dias2:checked,
-#btn7dias2:checked{
+#btn6dias2:checked {
     background-color: #01A982;
     color: white;
 
@@ -189,8 +182,7 @@
 #btn3dias3:hover,
 #btn4dias3:hover,
 #btn5dias3:hover,
-#btn6dias3:hover,
-#btn7dias3:hover{
+#btn6dias3:hover {
     background-color: #01A982;
 
 }
@@ -202,8 +194,7 @@
 #btn3dias3:checked,
 #btn4dias3:checked,
 #btn5dias3:checked,
-#btn6dias3:checked,
-#btn7dias3:checked{
+#btn6dias3:checked {
     background-color: #01A982;
     color: white;
 
@@ -226,9 +217,22 @@
 }
 
 
-#boardNombre, #boardCapacidadRf, #boardReservaRf, #boardNombre_2, #boardCapacidadLasso, #boardReservaLasso, #boardNombre_3, #boardCapacidadDt, #boardReservaDt {
+#boardCapacidadRf, #boardCapacidadLasso, #boardCapacidadDt, #boardProvincia, #boardProvincia_2, #boardProvincia_3 {
     border-radius: 10px;
     background-color: #00739D;
     margin: 5px 10px;
     color: black;
+}
+
+#boardReservaDt, #boardReservaLasso, #boardReservaRf {
+    border-radius: 10px;
+    background-color: #01A982;
+    margin: 5px 10px;
+    color: black;
+
+}
+
+#txtReservaActualRf, #txtReservaActualLasso, #txtReservaActualDt {
+    font-size: 15px;
+
 }

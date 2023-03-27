@@ -228,4 +228,4 @@ def data(id_municipio):
 
     return dataframe(datos)
 
-data('10008')
+

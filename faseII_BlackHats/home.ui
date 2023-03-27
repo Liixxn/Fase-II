@@ -39,7 +39,7 @@
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="pageHome">
        <layout class="QGridLayout" name="gridLayout_2">
@@ -539,64 +539,7 @@ p, li { white-space: pre-wrap; }
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QWidget" name="widget_24" native="true">
-                     <layout class="QHBoxLayout" name="horizontalLayout_9">
-                      <property name="spacing">
-                       <number>0</number>
-                      </property>
-                      <property name="leftMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="topMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="rightMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="bottomMargin">
-                       <number>0</number>
-                      </property>
-                      <item>
-                       <layout class="QVBoxLayout" name="verticalLayout_10">
-                        <item>
-                         <widget class="QLabel" name="label_4">
-                          <property name="font">
-                           <font>
-                            <pointsize>10</pointsize>
-                            <weight>75</weight>
-                            <bold>true</bold>
-                           </font>
-                          </property>
-                          <property name="text">
-                           <string>Nombre</string>
-                          </property>
-                          <property name="alignment">
-                           <set>Qt::AlignCenter</set>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLabel" name="txtNombreProvinciaRf">
-                          <property name="font">
-                           <font>
-                            <pointsize>9</pointsize>
-                           </font>
-                          </property>
-                          <property name="text">
-                           <string/>
-                          </property>
-                          <property name="alignment">
-                           <set>Qt::AlignCenter</set>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </item>
-                     </layout>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QWidget" name="widget_25" native="true">
+                    <widget class="QWidget" name="boardProvincia" native="true">
                      <layout class="QHBoxLayout" name="horizontalLayout_10">
                       <property name="spacing">
                        <number>0</number>
@@ -614,7 +557,7 @@ p, li { white-space: pre-wrap; }
                        <number>0</number>
                       </property>
                       <item>
-                       <layout class="QVBoxLayout" name="verticalLayout_11">
+                       <layout class="QVBoxLayout" name="verticalLayout_19">
                         <property name="spacing">
                          <number>0</number>
                         </property>
@@ -691,7 +634,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>Capacidad embalse</string>
+                        <string>Capacidad total del embalse</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -751,7 +694,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>Reserva actual</string>
+                        <string>Predicción nivel agua actual (%)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -947,19 +890,6 @@ p, li { white-space: pre-wrap; }
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QPushButton" name="btn7dias">
-               <property name="text">
-                <string>En 7 días</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="autoExclusive">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
           </layout>
@@ -1050,7 +980,7 @@ p, li { white-space: pre-wrap; }
                           </font>
                          </property>
                          <property name="text">
-                          <string>T.máx</string>
+                          <string>T.máx (ºC)</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -1107,7 +1037,7 @@ p, li { white-space: pre-wrap; }
                           </font>
                          </property>
                          <property name="text">
-                          <string>T.min</string>
+                          <string>T.min (ºC)</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -1166,7 +1096,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>T.media</string>
+                        <string>T.media (ºC)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -1244,7 +1174,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>Velocidad media</string>
+                        <string>Velocidad media (km/h)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -1391,7 +1321,7 @@ p, li { white-space: pre-wrap; }
                         <string notr="true"/>
                        </property>
                        <property name="text">
-                        <string>Sol</string>
+                        <string>Insolación (h)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -1469,7 +1399,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>Precipitación</string>
+                        <string>Precipitación (mm3)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -1739,64 +1669,7 @@ p, li { white-space: pre-wrap; }
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QWidget" name="widget_24" native="true">
-                     <layout class="QHBoxLayout" name="horizontalLayout_9">
-                      <property name="spacing">
-                       <number>0</number>
-                      </property>
-                      <property name="leftMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="topMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="rightMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="bottomMargin">
-                       <number>0</number>
-                      </property>
-                      <item>
-                       <layout class="QVBoxLayout" name="verticalLayout_10">
-                        <item>
-                         <widget class="QLabel" name="label_4">
-                          <property name="font">
-                           <font>
-                            <pointsize>10</pointsize>
-                            <weight>75</weight>
-                            <bold>true</bold>
-                           </font>
-                          </property>
-                          <property name="text">
-                           <string>Nombre</string>
-                          </property>
-                          <property name="alignment">
-                           <set>Qt::AlignCenter</set>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLabel" name="txtNombreProvinciaLasso">
-                          <property name="font">
-                           <font>
-                            <pointsize>9</pointsize>
-                           </font>
-                          </property>
-                          <property name="text">
-                           <string/>
-                          </property>
-                          <property name="alignment">
-                           <set>Qt::AlignCenter</set>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </item>
-                     </layout>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QWidget" name="widget_25" native="true">
+                    <widget class="QWidget" name="boardProvincia_2" native="true">
                      <layout class="QHBoxLayout" name="horizontalLayout_10">
                       <property name="spacing">
                        <number>0</number>
@@ -1891,7 +1764,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>Capacidad embalse</string>
+                        <string>Capacidad total del embalse</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -1951,7 +1824,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>Reserva actual</string>
+                        <string>Predicción nivel agua actual (%)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -2147,19 +2020,6 @@ p, li { white-space: pre-wrap; }
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QPushButton" name="btn7dias2">
-               <property name="text">
-                <string>En 7 días</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="autoExclusive">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
           </layout>
@@ -2250,7 +2110,7 @@ p, li { white-space: pre-wrap; }
                           </font>
                          </property>
                          <property name="text">
-                          <string>T.máx</string>
+                          <string>T.máx (ºC)</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -2307,7 +2167,7 @@ p, li { white-space: pre-wrap; }
                           </font>
                          </property>
                          <property name="text">
-                          <string>T.min</string>
+                          <string>T.min (ºC)</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -2366,7 +2226,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>T.media</string>
+                        <string>T.media (ºC)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -2444,7 +2304,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>Velocidad media</string>
+                        <string>Velocidad media (km/h)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -2591,7 +2451,7 @@ p, li { white-space: pre-wrap; }
                         <string notr="true"/>
                        </property>
                        <property name="text">
-                        <string>Sol</string>
+                        <string>Insolación (h)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -2669,7 +2529,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>Precipitación</string>
+                        <string>Precipitación (mm3)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -2938,64 +2798,7 @@ p, li { white-space: pre-wrap; }
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QWidget" name="widget_24" native="true">
-                     <layout class="QHBoxLayout" name="horizontalLayout_9">
-                      <property name="spacing">
-                       <number>0</number>
-                      </property>
-                      <property name="leftMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="topMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="rightMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="bottomMargin">
-                       <number>0</number>
-                      </property>
-                      <item>
-                       <layout class="QVBoxLayout" name="verticalLayout_10">
-                        <item>
-                         <widget class="QLabel" name="label_4">
-                          <property name="font">
-                           <font>
-                            <pointsize>10</pointsize>
-                            <weight>75</weight>
-                            <bold>true</bold>
-                           </font>
-                          </property>
-                          <property name="text">
-                           <string>Nombre</string>
-                          </property>
-                          <property name="alignment">
-                           <set>Qt::AlignCenter</set>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLabel" name="txtNombreProvinciaDt">
-                          <property name="font">
-                           <font>
-                            <pointsize>9</pointsize>
-                           </font>
-                          </property>
-                          <property name="text">
-                           <string/>
-                          </property>
-                          <property name="alignment">
-                           <set>Qt::AlignCenter</set>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </item>
-                     </layout>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QWidget" name="widget_25" native="true">
+                    <widget class="QWidget" name="boardProvincia_3" native="true">
                      <layout class="QHBoxLayout" name="horizontalLayout_10">
                       <property name="spacing">
                        <number>0</number>
@@ -3090,7 +2893,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>Capacidad embalse</string>
+                        <string>Capacidad total del embalse</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -3150,7 +2953,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>Reserva actual</string>
+                        <string>Predicción nivel agua actual (%)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -3346,19 +3149,6 @@ p, li { white-space: pre-wrap; }
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QPushButton" name="btn7dias3">
-               <property name="text">
-                <string>En 7 días</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="autoExclusive">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
           </layout>
@@ -3449,7 +3239,7 @@ p, li { white-space: pre-wrap; }
                           </font>
                          </property>
                          <property name="text">
-                          <string>T.máx</string>
+                          <string>T.máx (ºC)</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -3508,7 +3298,7 @@ p, li { white-space: pre-wrap; }
                           </font>
                          </property>
                          <property name="text">
-                          <string>T.min</string>
+                          <string>T.min (ºC)</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -3567,7 +3357,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>T.media</string>
+                        <string>T.media (ºC)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -3645,7 +3435,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>Velocidad media</string>
+                        <string>Velocidad media (km/h)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -3788,7 +3578,7 @@ p, li { white-space: pre-wrap; }
                         <string notr="true"/>
                        </property>
                        <property name="text">
-                        <string>Sol</string>
+                        <string>Insolación (h)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -3866,7 +3656,7 @@ p, li { white-space: pre-wrap; }
                         </font>
                        </property>
                        <property name="text">
-                        <string>Precipitación</string>
+                        <string>Precipitación (mm3)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -4036,7 +3826,7 @@ p, li { white-space: pre-wrap; }
             </font>
            </property>
            <property name="text">
-            <string>Demanda:</string>
+            <string>Demanda de agua (hm3):</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -4096,7 +3886,7 @@ p, li { white-space: pre-wrap; }
  </widget>
  <resources>
   <include location="resource.qrc"/>
-  <include location="../../../.designer/backup/resource.qrc"/>
+  <include location="resource.qrc"/>
  </resources>
  <connections/>
 </ui>
