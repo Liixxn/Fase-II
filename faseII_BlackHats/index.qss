@@ -73,6 +73,7 @@
 #labelRf, #labelLasso, #labelDt, #label_3 {
     font-size: 14px;
 	font-weight: bold;
+	color: white;
 }
 
 
@@ -209,11 +210,12 @@
     border-radius: 10px;
     background-color: #00739D;
     margin: 0 10px;
-    color: black;
+    color: white;
 }
 
 #boardDamm {
     margin-top: 10px;
+    color: white;
 }
 
 
@@ -221,18 +223,19 @@
     border-radius: 10px;
     background-color: #00739D;
     margin: 5px 10px;
-    color: black;
+    color: white;
 }
 
 #boardReservaDt, #boardReservaLasso, #boardReservaRf {
     border-radius: 10px;
     background-color: #01A982;
     margin: 5px 10px;
-    color: black;
+    color: white;
 
 }
 
 #txtReservaActualRf, #txtReservaActualLasso, #txtReservaActualDt {
     font-size: 15px;
+    color: white;
 
 }

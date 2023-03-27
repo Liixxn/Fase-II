@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\lemba\Documents\GitHub\Fase-II\popup.ui'
+# Form implementation generated from reading ui file 'C:\Users\lemba\Documents\GitHub\Fase-II\faseII_BlackHats\popup.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.2
 #
@@ -32,7 +32,10 @@ class Ui_Dialog(object):
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3.setSpacing(0)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.alertMessage = QtWidgets.QPlainTextEdit(self.widget_3)
+        self.alertMessage = QtWidgets.QTextEdit(self.widget_3)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.alertMessage.setFont(font)
         self.alertMessage.setReadOnly(True)
         self.alertMessage.setObjectName("alertMessage")
         self.horizontalLayout_3.addWidget(self.alertMessage)

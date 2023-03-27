@@ -11,7 +11,8 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QMessageBox, QComboBox, QSplashScreen
 
 from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5.uic.properties import QtGui, QtWidgets
+from PyQt5.uic.properties import QtGui
+from PyQt5 import QtWidgets
 from matplotlib.backends.backend_qt import MainWindow
 
 from sklearn.tree import DecisionTreeClassifier
@@ -30,7 +31,6 @@ import seaborn as sns
 import requests
 import data
 
-
 # import data
 import aemet_predictions
 
@@ -38,13 +38,13 @@ import os
 
 from datetime import date
 
-
 from home_ui import Ui_MainWindow
 import popup_ui
 
 lassoLastDame = ""
 rfLastDam = ""
 dTreeDam = ""
+embalsePredictions = ""
 
 
 # Clase principal de la aplicacion
@@ -59,16 +59,10 @@ class MainWindow(QMainWindow):
         # pop up
         self.Second_MainWindow = QtWidgets.QDialog()
 
-
         self.ui.setupUi(self)
-
-
-
-
 
         # Inicializacion de los elementos
         ventanaPrincipal = self.ui
-
 
         ventanaPrincipal.stackedWidget.setCurrentIndex(0)
         ventanaPrincipal.btnHome.setChecked(True)
@@ -78,7 +72,6 @@ class MainWindow(QMainWindow):
         ventanaPrincipal.btnRandomForest.clicked.connect(self.toogleButton)
         ventanaPrincipal.btnLasso.clicked.connect(self.toogleButton)
         ventanaPrincipal.btnDecisionTree.clicked.connect(self.toogleButton)
-
 
         ventanaPrincipal.btnLassoHome.clicked.connect(self.toogleButtonHome)
         ventanaPrincipal.btnRandomForestHome.clicked.connect(self.toogleButtonHome)
@@ -96,7 +89,7 @@ class MainWindow(QMainWindow):
         ventanaPrincipal.btn4dias.clicked.connect(self.displayDataRf)
         ventanaPrincipal.btn5dias.clicked.connect(self.displayDataRf)
         ventanaPrincipal.btn6dias.clicked.connect(self.displayDataRf)
-        #ventanaPrincipal.comboBoxRt.currentIndexChanged.connect(self.displayDataRf)
+        # ventanaPrincipal.comboBoxRt.currentIndexChanged.connect(self.displayDataRf)
 
         # botones para el lasso
         ventanaPrincipal.btnHoy2.clicked.connect(self.displayDataLasso)
@@ -116,30 +109,27 @@ class MainWindow(QMainWindow):
         ventanaPrincipal.btn5dias3.clicked.connect(self.displayDataDecisionTree)
         ventanaPrincipal.btn6dias3.clicked.connect(self.displayDataDecisionTree)
 
-
-
         #######################################################################################
         # lasso map
         layoutLasso = QVBoxLayout()
         ventanaPrincipal.mapaLasso.setLayout(layoutLasso)
-        self.create_map(layoutLasso)
+        self.create_map(layoutLasso, 40.416775, -3.703790, 6)
 
         # random forest map
         layoutRf = QVBoxLayout()
         ventanaPrincipal.mapaRf.setLayout(layoutRf)
-        self.create_map(layoutRf)
+        self.create_map(layoutRf, 40.416775, -3.703790, 6)
 
         # Decision tree map
         layoutDt = QVBoxLayout()
         ventanaPrincipal.mapaDt.setLayout(layoutDt)
-        self.create_map(layoutDt)
+        self.create_map(layoutDt, 40.416775, -3.703790, 6)
 
-
-    def create_map(self, layout):
-        coordinate = (40.416775, -3.703790)
+    def create_map(self, layout, x, y, zoom):
+        coordinate = (x, y)
         m = folium.Map(
             tiles='OpenStreetMap',
-            zoom_start=6,
+            zoom_start=zoom,
             location=coordinate
         )
 
@@ -166,7 +156,7 @@ class MainWindow(QMainWindow):
         webView = QWebEngineView()
         webView.setHtml(data.getvalue().decode())
         layout.addWidget(webView)
-
+        return layout
         # elementos = m._children
         #
         # marcadores = []
@@ -178,7 +168,14 @@ class MainWindow(QMainWindow):
 
         ###################################################################################################
 
-
+    def zoom_map(self, central, layout_central):
+        """# dams_df = pd.read_csv("data/damLocation.csv", sep=',')
+        print(central)
+        #self.m.zoom_start = 10
+        print(self.ui.mapaLasso.layout().itemAt(0).widget().show())"""
+        layout_map = QVBoxLayout()
+        self.ui.mapaLasso.setLayout(layout_map)
+        self.create_map(layout_map, 40.416775, -3.703790, 12)
 
     ######################################################################################################
     # Funcion para mostrar los errores
@@ -223,163 +220,226 @@ class MainWindow(QMainWindow):
             self.ui.btnDecisionTree.setChecked(True)
             self.ui.stackedWidget.setCurrentIndex(3)
 
-
-
-
     def displayDataRf(self):
 
         embalse = self.ui.comboBoxRf.currentText()
-
+        """self.zoom_map(embalse, self.ui.mapaRf)"""
+        global rfLastDam
+        global embalsePredictions
+        if rfLastDam != embalse:
+            embalsePredictions = my_rounded_list = [round(elem, 2) for elem in data.generate_model(2, embalse)]
+            rfLastDam = embalse
 
         if self.ui.btnHoy.isChecked():
             try:
                 self.btn_checked_random_forest(0, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualRf.setText(str(embalsePredictions[0]))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btnManiana.isChecked():
             try:
                 self.btn_checked_random_forest(1, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualRf.setText(str(embalsePredictions[1]))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn2dias.isChecked():
             try:
                 self.btn_checked_random_forest(2, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualRf.setText(str(embalsePredictions[2]))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn3dias.isChecked():
             try:
                 self.btn_checked_random_forest(3, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualRf.setText(str(embalsePredictions[3]))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn4dias.isChecked():
             try:
                 self.btn_checked_random_forest(4, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualRf.setText(str(embalsePredictions[4]))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn5dias.isChecked():
             try:
                 self.btn_checked_random_forest(5, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualRf.setText(str(embalsePredictions[5]))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn6dias.isChecked():
             try:
                 self.btn_checked_random_forest(6, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualRf.setText(str(embalsePredictions[6]))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
-
 
     ###########################################################################################
 
     def displayDataDecisionTree(self):
         embalse = self.ui.comboBoxDt.currentText()
         print(embalse)
+        global dTreeDam
+        global embalsePredictions
+        if dTreeDam != embalse:
+            embalsePredictions = my_rounded_list = [round(elem, 2) for elem in data.generate_model(2, embalse)]
+            dTreeDam = embalse
+        """ self.zoom_map(embalse, self.ui.mapaDt)"""
 
         if self.ui.btnHoy3.isChecked():
             try:
                 self.btn_checked_decision_tree(0, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualDt.setText(str(embalsePredictions[0]))
+
             except Exception as e:
                 self.mensaje_error(e)
 
         if self.ui.btnManiana3.isChecked():
             try:
                 self.btn_checked_decision_tree(1, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualDt.setText(str(embalsePredictions[1]))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn2dias3.isChecked():
             try:
                 self.btn_checked_decision_tree(2, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualDt.setText(str(embalsePredictions[2]))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn3dias3.isChecked():
             try:
                 self.btn_checked_decision_tree(3, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualDt.setText(str(embalsePredictions[3]))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn4dias3.isChecked():
             try:
                 self.btn_checked_decision_tree(4, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualDt.setText(str(embalsePredictions[4]))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn5dias3.isChecked():
             try:
                 self.btn_checked_decision_tree(5, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualDt.setText(str(embalsePredictions[5]))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn6dias3.isChecked():
             try:
                 self.btn_checked_decision_tree(6, aemet_predictions.select_municipality(embalse))
+                self.ui.txtReservaActualDt.setText(str(embalsePredictions[6]))
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
-
-
 
     def displayDataLasso(self):
 
         embalse = self.ui.comboBoxLasso.currentText()
-        print(embalse+"    "lassoLastDame)
 
+        """
+        try:
+            self.zoom_map(embalse, self.ui.mapaLasso)
+        except Exception as e:
+            print(e)
+        """
+
+        global lassoLastDame
+        global embalsePredictions
         if lassoLastDame != embalse:
-            embalsePredictions = data.generate_model(2, embalse)
+            embalsePredictions = my_rounded_list = [round(elem, 2) for elem in data.generate_model(2, embalse)]
             lassoLastDame = embalse
+
 
         if self.ui.btnHoy2.isChecked():
             try:
-                self.btn_checked_lasso(0, aemet_predictions.select_municipality(embalse))
+                self.btn_checked_lasso(0, aemet_predictions.select_municipality(embalse), embalse)
                 self.ui.txtReservaActualLasso.setText(str(embalsePredictions[0]))
+                self.checkPredictionLasoo(embalsePredictions[0])
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
         if self.ui.btnManiana2.isChecked():
             try:
-                self.btn_checked_lasso(1, aemet_predictions.select_municipality(embalse))
+                self.btn_checked_lasso(1, aemet_predictions.select_municipality(embalse), embalse)
                 self.ui.txtReservaActualLasso.setText(str(embalsePredictions[1]))
+                self.checkPredictionLasoo(embalsePredictions[1])
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn2dias2.isChecked():
             try:
-                self.btn_checked_lasso(2, aemet_predictions.select_municipality(embalse))
+                self.btn_checked_lasso(2, aemet_predictions.select_municipality(embalse), embalse)
                 self.ui.txtReservaActualLasso.setText(str(embalsePredictions[2]))
+                self.checkPredictionLasoo(embalsePredictions[2])
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn3dias2.isChecked():
             try:
-                self.btn_checked_lasso(3, aemet_predictions.select_municipality(embalse))
+                self.btn_checked_lasso(3, aemet_predictions.select_municipality(embalse), embalse)
                 self.ui.txtReservaActualLasso.setText(str(embalsePredictions[3]))
+                self.checkPredictionLasoo(embalsePredictions[3])
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn4dias2.isChecked():
             try:
-                self.btn_checked_lasso(4, aemet_predictions.select_municipality(embalse))
+                self.btn_checked_lasso(4, aemet_predictions.select_municipality(embalse), embalse)
                 self.ui.txtReservaActualLasso.setText(str(embalsePredictions[4]))
+                self.checkPredictionLasoo(embalsePredictions[4])
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn5dias2.isChecked():
             try:
-                self.btn_checked_lasso(5, aemet_predictions.select_municipality(embalse))
+                self.btn_checked_lasso(5, aemet_predictions.select_municipality(embalse), embalse)
                 self.ui.txtReservaActualLasso.setText(str(embalsePredictions[5]))
+                self.checkPredictionLasoo(embalsePredictions[5])
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
 
         if self.ui.btn6dias2.isChecked():
             try:
-                self.btn_checked_lasso(6, aemet_predictions.select_municipality(embalse))
+                self.btn_checked_lasso(6, aemet_predictions.select_municipality(embalse), embalse)
                 self.ui.txtReservaActualLasso.setText(str(embalsePredictions[6]))
+                self.checkPredictionLasoo(embalsePredictions[6])
             except Exception as e:
                 self.mensaje_error("No hay datos para la fecha seleccionada")
+
+    def checkPredictionLasoo(self, embalsePredictions):
+        if embalsePredictions >= 90:
+            self.ui.boardReservaLasso.setStyleSheet(
+                "background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
+            self.popUpAlert = popup_ui.Ui_Dialog()
+            self.popUpAlert.setupUi(self.Second_MainWindow)
+
+            self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxLasso.currentText()
+                                                 + " se encuentra al " + str(embalsePredictions) + "%."
+                                                 " Se recomienda abrir las compuertas.")
+
+            self.Second_MainWindow.show()
+        if embalsePredictions < 30:
+
+            self.ui.boardReservaLasso.setStyleSheet("background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
+            self.popUpAlert = popup_ui.Ui_Dialog()
+            self.popUpAlert.setupUi(self.Second_MainWindow)
+
+            self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxLasso.currentText()
+                                                 + " se encuentra al " + str(embalsePredictions) + "%."
+                                                 " Con un nivel más bajo, la presa llegará a su límite inferior.")
+
+            self.Second_MainWindow.show()
+            
+
+            
 
 
 
@@ -396,10 +456,12 @@ class MainWindow(QMainWindow):
         self.ui.txtRachaRf.setText(str(data.at[day, "racha"]))
         self.ui.txtSolRf.setText(str(data.at[day, "sol"]))
 
-
-    def btn_checked_lasso(self, day, data):
-        unixToDatetime = datetime.datetime.fromtimestamp(data.at[day, "date"]).date() # Unix Time
+    def btn_checked_lasso(self, day, data, embalse):
+        unixToDatetime = datetime.datetime.fromtimestamp(data.at[day, "date"]).date()  # Unix Time
         velMed = round(data.at[day, "velmedia"], 2)
+        damlocation = pd.read_csv('./data/damLocation.csv')
+        province = damlocation.loc[damlocation['Central'] == embalse]
+        province = province['Ubicación'][0]
 
         self.ui.fechaLasso.setText(str(unixToDatetime))
         self.ui.txtTmaxLasso.setText(str(data.at[day, "tmax"]))
@@ -409,14 +471,12 @@ class MainWindow(QMainWindow):
         self.ui.txtVelMediaLasso.setText(str(data.at[day, "velmedia"]))
         self.ui.txtRachaLasso.setText(str(data.at[day, "racha"]))
         self.ui.txtSolLasso.setText(str(data.at[day, "sol"]))
+        self.ui.txtProvinciaLasso.setText(str(province))
 
-
-
-        
     def btn_checked_decision_tree(self, day, data):
         print(data.dtypes)
         unixToDatetime = datetime.datetime.fromtimestamp(data.at[day, "date"]).date()  # Unix Time
-        velMed = round(data.at[day,"velmedia"], 2)
+        velMed = round(data.at[day, "velmedia"], 2)
 
         self.ui.fechaDt.setText(str(unixToDatetime))
         self.ui.txtTmaxDt.setText(str(data.at[day, "tmax"]))
@@ -427,7 +487,6 @@ class MainWindow(QMainWindow):
         self.ui.txtRachaDt.setText(str(data.at[day, "racha"]))
         self.ui.txtSolDt.setText(str(data.at[day, "sol"]))
 
-
     ##############################################################################################3333
 
     # Funcion que cierra la aplicacion y las ventanas que esten abiertas
@@ -437,7 +496,6 @@ class MainWindow(QMainWindow):
             event.accept()
         except Exception as e:
             print(e)
-
 
 
 ##################################################################################33333
