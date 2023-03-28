@@ -151,19 +151,20 @@ def estadoCielo(diccionario):
     sol['sol'] = None
     sol['date'] = None
     for i in diccionario:
-        suma = 0
         total = 0
-        iterador = 0
         estadoCielo['sol'] = i['estadoCielo']
         estadoCielo['date'] = i['fecha']
         fecha.append(estadoCielo['date'])
 
         if (estadoCielo['date'] == i['fecha']):
             for n in estadoCielo['sol']:
-                if (n['descripcion'] == 'Despejado'):
-                    horas = n['periodo']
-                    num = horas.split('-')
-                    total = int(num[1]) - int(num[0])
+                try:
+                    if (n['descripcion'] == 'Despejado'):
+                        horas = n['periodo']
+                        num = horas.split('-')
+                        total = int(num[1]) - int(num[0])
+                except:
+                    total = 0
         despejado.append(float(total))
 
     sol['sol'] = despejado
