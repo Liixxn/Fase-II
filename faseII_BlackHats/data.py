@@ -231,7 +231,6 @@ def update_aemet_data():
                 fecha = datetime.strptime(last_value, "%Y-%m-%d").date()
                 diferencia_dias = (fecha - today_date).days
                 # api request from the last day to today
-                print(last_value)
                 get_aemet_data_embalse(embalse['Hidroeléctrica'], embalse['Indicativo'], fecha, diferencia_dias)
         else:
             get_aemet_data_embalse(embalse['Hidroeléctrica'], embalse['Indicativo'], 0, 99999)
@@ -282,8 +281,10 @@ def predictions_preprocessing(df_embalse, historic_data, alias):
     embalse['AGUA_ACTUAL'] = embalse['AGUA_ACTUAL'].astype(float)
     embalse['TARGET'] = (embalse['AGUA_ACTUAL'] / embalse['AGUA_TOTAL']) * 100
     embalse['date'] = pd.to_datetime(embalse['FECHA'])
+    agua_total = embalse.iloc[0]['AGUA_TOTAL']
     embalse = embalse.drop(['AGUA_TOTAL', 'AGUA_ACTUAL', 'AMBITO_NOMBRE', 'EMBALSE_NOMBRE', 'ELECTRICO_FLAG', 'FECHA'],
                             axis=1)
+
 
     historic_data['date'] = pd.to_datetime(historic_data['fecha'])
     nao_data = pd.read_csv("https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.aao.cdas.z700.19790101_current.csv")
@@ -308,7 +309,7 @@ def predictions_preprocessing(df_embalse, historic_data, alias):
 
 
 
-    return df
+    return df, agua_total
 
 
 pd.set_option('display.max_columns', None)
@@ -319,26 +320,28 @@ def generate_model(model, municipality):
     # prediction_data dataframe which contains the data of the days to predict
     # df contains the dataframes to trai
 
-    centrales = [{'Central': 'Central de Aldeadávila', 'Alias': 'Aldeadávila', 'ID': '37014'},
-                 {'Central': 'Central José María de Oriol', 'Alias': 'Alcántara', 'ID': '10008'},
-                 {'Central': 'Central de Villarino', 'Alias': 'Almendra', 'ID': '37364'},
-                 {'Central': 'Central de Cortes-La Muela', 'Alias': 'La Muela', 'ID': '46099'},
-                 {'Central': 'Central de Saucelle', 'Alias': 'Saucelle', 'ID': '37302'},
-                 {'Central': 'Cedillo', 'Alias': 'Cedillo', 'ID': '10062'},
-                 {'Central': 'Estany-Gento Sallente', 'Alias': 'Sallente', 'ID': '25227'},
-                 {'Central': 'Central de Tajo de la Encantada', 'Alias': 'Conde Guadalhorce', 'ID': '29012'},
-                 {'Central': 'Central de Aguayo', 'Alias': 'Alsa', 'ID': '39070'},
-                 {'Central': 'Mequinenza', 'Alias': 'MEQUINENZA', 'ID': '50165'},
-                 {'Central': 'Mora de Luna', 'Alias': 'Barrios de Luna', 'ID': '24012'}]
+    centrales = [{'Central': 'Central de Aldeadávila', 'Alias': 'Aldeadávila', 'ID': '37014', 'provincia': 'Salamanca'},
+                 {'Central': 'Central José María de Oriol', 'Alias': 'Alcántara', 'ID': '10008', 'provincia': 'Cáceres'},
+                 {'Central': 'Central de Villarino', 'Alias': 'Almendra', 'ID': '37364', 'provincia': 'Salamanca'},
+                 {'Central': 'Central de Cortes-La Muela', 'Alias': 'La Muela', 'ID': '46099', 'provincia': 'Valencia'},
+                 {'Central': 'Central de Saucelle', 'Alias': 'Saucelle', 'ID': '37302', 'provincia': 'Salamanca'},
+                 {'Central': 'Cedillo', 'Alias': 'Cedillo', 'ID': '10062', 'provincia': 'Caceres'},
+                 {'Central': 'Estany-Gento Sallente', 'Alias': 'Sallente', 'ID': '25227', 'provincia': 'Lleida'},
+                 {'Central': 'Central de Tajo de la Encantada', 'Alias': 'Conde Guadalhorce', 'ID': '29012', 'provincia': 'Málaga'},
+                 {'Central': 'Central de Aguayo', 'Alias': 'Alsa', 'ID': '39070', 'provincia': 'Cantabria'},
+                 {'Central': 'Mequinenza', 'Alias': 'MEQUINENZA', 'ID': '50165', 'provincia': 'Zaragoza'},
+                 {'Central': 'Mora de Luna', 'Alias': 'Barrios de Luna', 'ID': '24012', 'provincia': 'León'}]
+
     for i in centrales:
         if i.get('Central') == municipality:
             embalseAlias = i.get('Alias')
+            provincia = i.get('provincia')
 
     historic_data = pd.read_csv('./data/aemet_data.csv', sep=',')
     embalse = pd.read_csv('./data/embalses.csv', sep=';')
     prediction_data = aemet_predictions.select_municipality(municipality)
+    df, agua_total = predictions_preprocessing(embalse, historic_data, embalseAlias)
 
-    df = predictions_preprocessing(embalse, historic_data, embalseAlias)
 
 
 
@@ -378,6 +381,7 @@ def generate_model(model, municipality):
         prediccion = dtree.predict(prediction_data)
 
 
-    return prediccion
+    return prediccion, agua_total, provincia
 
 
+#generate_model(2, "Central de Aldeadávila")

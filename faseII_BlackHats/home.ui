@@ -39,7 +39,7 @@
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="pageHome">
        <layout class="QGridLayout" name="gridLayout_2">
@@ -346,6 +346,9 @@ p, li { white-space: pre-wrap; }
                     <pointsize>12</pointsize>
                    </font>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);</string>
+                  </property>
                   <property name="text">
                    <string>Fecha:</string>
                   </property>
@@ -362,6 +365,9 @@ p, li { white-space: pre-wrap; }
                     <weight>50</weight>
                     <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -383,6 +389,9 @@ p, li { white-space: pre-wrap; }
                    <font>
                     <pointsize>11</pointsize>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);</string>
                   </property>
                   <property name="text">
                    <string>Estación Hidroeléctrica:</string>
@@ -570,6 +579,9 @@ p, li { white-space: pre-wrap; }
                             <bold>true</bold>
                            </font>
                           </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(255, 255, 255);</string>
+                          </property>
                           <property name="text">
                            <string>Provincia</string>
                           </property>
@@ -584,6 +596,9 @@ p, li { white-space: pre-wrap; }
                            <font>
                             <pointsize>9</pointsize>
                            </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(255, 255, 255);</string>
                           </property>
                           <property name="text">
                            <string/>
@@ -633,8 +648,11 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
-                        <string>Capacidad total del embalse</string>
+                        <string>Capacidad total (hm3)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -647,6 +665,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -693,6 +714,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>Predicción nivel agua actual (%)</string>
                        </property>
@@ -707,6 +731,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>12</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -770,6 +797,9 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <property name="autoFillBackground">
                    <bool>false</bool>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);</string>
                   </property>
                   <property name="text">
                    <string>Predicción</string>
@@ -979,6 +1009,9 @@ p, li { white-space: pre-wrap; }
                            <bold>true</bold>
                           </font>
                          </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(255, 255, 255);</string>
+                         </property>
                          <property name="text">
                           <string>T.máx (ºC)</string>
                          </property>
@@ -993,6 +1026,9 @@ p, li { white-space: pre-wrap; }
                           <font>
                            <pointsize>9</pointsize>
                           </font>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(255, 255, 255);</string>
                          </property>
                          <property name="text">
                           <string/>
@@ -1036,6 +1072,9 @@ p, li { white-space: pre-wrap; }
                            <bold>true</bold>
                           </font>
                          </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(255, 255, 255);</string>
+                         </property>
                          <property name="text">
                           <string>T.min (ºC)</string>
                          </property>
@@ -1050,6 +1089,9 @@ p, li { white-space: pre-wrap; }
                           <font>
                            <pointsize>9</pointsize>
                           </font>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(255, 255, 255);</string>
                          </property>
                          <property name="text">
                           <string/>
@@ -1095,6 +1137,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>T.media (ºC)</string>
                        </property>
@@ -1109,6 +1154,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -1173,6 +1221,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>Velocidad media (km/h)</string>
                        </property>
@@ -1187,6 +1238,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -1230,6 +1284,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>Racha</string>
                        </property>
@@ -1244,6 +1301,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -1318,7 +1378,7 @@ p, li { white-space: pre-wrap; }
                         <string/>
                        </property>
                        <property name="styleSheet">
-                        <string notr="true"/>
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string>Insolación (h)</string>
@@ -1334,6 +1394,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -1398,6 +1461,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>Precipitación (mm3)</string>
                        </property>
@@ -1412,6 +1478,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -1472,6 +1541,9 @@ p, li { white-space: pre-wrap; }
              </property>
              <item>
               <widget class="QWidget" name="widget_6" native="true">
+               <property name="styleSheet">
+                <string notr="true">color: rgb(255, 255, 255);</string>
+               </property>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
                  <widget class="QLabel" name="label_2">
@@ -1479,6 +1551,9 @@ p, li { white-space: pre-wrap; }
                    <font>
                     <pointsize>12</pointsize>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);</string>
                   </property>
                   <property name="text">
                    <string>Fecha:</string>
@@ -1519,6 +1594,9 @@ p, li { white-space: pre-wrap; }
                     <weight>50</weight>
                     <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);</string>
                   </property>
                   <property name="text">
                    <string>Estación Hidroeléctrica:</string>
@@ -1700,6 +1778,9 @@ p, li { white-space: pre-wrap; }
                             <bold>true</bold>
                            </font>
                           </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(255, 255, 255);</string>
+                          </property>
                           <property name="text">
                            <string>Provincia</string>
                           </property>
@@ -1714,6 +1795,9 @@ p, li { white-space: pre-wrap; }
                            <font>
                             <pointsize>9</pointsize>
                            </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(255, 255, 255);</string>
                           </property>
                           <property name="text">
                            <string/>
@@ -1763,8 +1847,11 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
-                        <string>Capacidad total del embalse</string>
+                        <string>Capacidad total (hm3)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -1777,6 +1864,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -1818,10 +1908,13 @@ p, li { white-space: pre-wrap; }
                       <widget class="QLabel" name="label_10">
                        <property name="font">
                         <font>
-                         <pointsize>9</pointsize>
+                         <pointsize>8</pointsize>
                          <weight>75</weight>
                          <bold>true</bold>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string>Predicción nivel agua actual (%)</string>
@@ -1837,6 +1930,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>12</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -1900,6 +1996,9 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <property name="autoFillBackground">
                    <bool>false</bool>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);</string>
                   </property>
                   <property name="text">
                    <string>Predicción</string>
@@ -2109,6 +2208,9 @@ p, li { white-space: pre-wrap; }
                            <bold>true</bold>
                           </font>
                          </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(255, 255, 255);</string>
+                         </property>
                          <property name="text">
                           <string>T.máx (ºC)</string>
                          </property>
@@ -2123,6 +2225,9 @@ p, li { white-space: pre-wrap; }
                           <font>
                            <pointsize>9</pointsize>
                           </font>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(255, 255, 255);</string>
                          </property>
                          <property name="text">
                           <string/>
@@ -2166,6 +2271,9 @@ p, li { white-space: pre-wrap; }
                            <bold>true</bold>
                           </font>
                          </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(255, 255, 255);</string>
+                         </property>
                          <property name="text">
                           <string>T.min (ºC)</string>
                          </property>
@@ -2180,6 +2288,9 @@ p, li { white-space: pre-wrap; }
                           <font>
                            <pointsize>9</pointsize>
                           </font>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(255, 255, 255);</string>
                          </property>
                          <property name="text">
                           <string/>
@@ -2225,6 +2336,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>T.media (ºC)</string>
                        </property>
@@ -2239,6 +2353,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -2303,6 +2420,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>Velocidad media (km/h)</string>
                        </property>
@@ -2317,6 +2437,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -2360,6 +2483,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>Racha</string>
                        </property>
@@ -2374,6 +2500,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -2448,7 +2577,7 @@ p, li { white-space: pre-wrap; }
                         <string/>
                        </property>
                        <property name="styleSheet">
-                        <string notr="true"/>
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string>Insolación (h)</string>
@@ -2464,6 +2593,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -2528,6 +2660,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>Precipitación (mm3)</string>
                        </property>
@@ -2542,6 +2677,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -2610,6 +2748,9 @@ p, li { white-space: pre-wrap; }
                     <pointsize>12</pointsize>
                    </font>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);</string>
+                  </property>
                   <property name="text">
                    <string>Fecha:</string>
                   </property>
@@ -2624,6 +2765,9 @@ p, li { white-space: pre-wrap; }
                    <font>
                     <pointsize>12</pointsize>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -2645,6 +2789,9 @@ p, li { white-space: pre-wrap; }
                    <font>
                     <pointsize>11</pointsize>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);</string>
                   </property>
                   <property name="text">
                    <string>Estación Hidroeléctrica:</string>
@@ -2829,6 +2976,9 @@ p, li { white-space: pre-wrap; }
                             <bold>true</bold>
                            </font>
                           </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(255, 255, 255);</string>
+                          </property>
                           <property name="text">
                            <string>Provincia</string>
                           </property>
@@ -2892,8 +3042,11 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
-                        <string>Capacidad total del embalse</string>
+                        <string>Capacidad total (hm3)</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -2906,6 +3059,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -2952,6 +3108,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>Predicción nivel agua actual (%)</string>
                        </property>
@@ -2966,6 +3125,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>12</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -3029,6 +3191,9 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <property name="autoFillBackground">
                    <bool>false</bool>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);</string>
                   </property>
                   <property name="text">
                    <string>Predicción</string>
@@ -3238,6 +3403,9 @@ p, li { white-space: pre-wrap; }
                            <bold>true</bold>
                           </font>
                          </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(255, 255, 255);</string>
+                         </property>
                          <property name="text">
                           <string>T.máx (ºC)</string>
                          </property>
@@ -3254,6 +3422,9 @@ p, li { white-space: pre-wrap; }
                            <weight>50</weight>
                            <bold>false</bold>
                           </font>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(255, 255, 255);</string>
                          </property>
                          <property name="text">
                           <string/>
@@ -3297,6 +3468,9 @@ p, li { white-space: pre-wrap; }
                            <bold>true</bold>
                           </font>
                          </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(255, 255, 255);</string>
+                         </property>
                          <property name="text">
                           <string>T.min (ºC)</string>
                          </property>
@@ -3311,6 +3485,9 @@ p, li { white-space: pre-wrap; }
                           <font>
                            <pointsize>9</pointsize>
                           </font>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(255, 255, 255);</string>
                          </property>
                          <property name="text">
                           <string/>
@@ -3356,6 +3533,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>T.media (ºC)</string>
                        </property>
@@ -3370,6 +3550,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -3434,6 +3617,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>Velocidad media (km/h)</string>
                        </property>
@@ -3444,6 +3630,9 @@ p, li { white-space: pre-wrap; }
                      </item>
                      <item>
                       <widget class="QLabel" name="txtVelMediaDt">
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -3486,6 +3675,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>Racha</string>
                        </property>
@@ -3501,6 +3693,9 @@ p, li { white-space: pre-wrap; }
                          <weight>75</weight>
                          <bold>true</bold>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -3575,7 +3770,7 @@ p, li { white-space: pre-wrap; }
                         <string/>
                        </property>
                        <property name="styleSheet">
-                        <string notr="true"/>
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string>Insolación (h)</string>
@@ -3591,6 +3786,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -3655,6 +3853,9 @@ p, li { white-space: pre-wrap; }
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
                        <property name="text">
                         <string>Precipitación (mm3)</string>
                        </property>
@@ -3669,6 +3870,9 @@ p, li { white-space: pre-wrap; }
                         <font>
                          <pointsize>9</pointsize>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
                        </property>
                        <property name="text">
                         <string/>
