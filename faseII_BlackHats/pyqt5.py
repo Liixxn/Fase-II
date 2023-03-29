@@ -218,213 +218,237 @@ class MainWindow(QMainWindow):
 
     def displayDataRf(self):
 
-        embalse = self.ui.comboBoxRf.currentText()
-        """self.zoom_map(embalse, self.ui.mapaRf)"""
-        global rfLastDam
-        global cap_total
-        global embalsePredictions
-        global provincia
-        if rfLastDam != embalse:
-            embalsePredictions, cap_total, provincia = data.generate_model(2, embalse)
-            embalsePredictions = [round(elem, 2) for elem in embalsePredictions]
-            rfLastDam = embalse
+        if ((self.ui.btnHoy.isChecked()) or (self.ui.btnManiana.isChecked()) or (self.ui.btn2dias.isChecked()) or
+                (self.ui.btn3dias.isChecked()) or (self.ui.btn4dias.isChecked()) or (self.ui.btn5dias.isChecked())
+                or (self.ui.btn6dias.isChecked())):
 
-        if self.ui.btnHoy.isChecked():
-            try:
-                self.btn_checked_random_forest(0, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualRf.setText(str(embalsePredictions[0]))
-                self.checkPredictionRandomForest(embalsePredictions[0])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            embalse = self.ui.comboBoxRf.currentText()
+            """self.zoom_map(embalse, self.ui.mapaRf)"""
+            global rfLastDam
+            global cap_total
+            global embalsePredictions
+            global provincia
+            if rfLastDam != embalse:
+                embalsePredictions, cap_total, provincia = data.generate_model(2, embalse)
+                embalsePredictions = [round(elem, 2) for elem in embalsePredictions]
+                rfLastDam = embalse
 
-        if self.ui.btnManiana.isChecked():
-            try:
-                self.btn_checked_random_forest(1, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualRf.setText(str(embalsePredictions[1]))
-                self.checkPredictionRandomForest(embalsePredictions[1])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btnHoy.isChecked():
+                try:
+                    self.btn_checked_random_forest(0, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[0]))
+                    self.checkPredictionRandomForest(embalsePredictions[0])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
 
-        if self.ui.btn2dias.isChecked():
-            try:
-                self.btn_checked_random_forest(2, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualRf.setText(str(embalsePredictions[2]))
-                self.checkPredictionRandomForest(embalsePredictions[2])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btnManiana.isChecked():
+                try:
+                    self.btn_checked_random_forest(1, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[1]))
+                    self.checkPredictionRandomForest(embalsePredictions[1])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
 
-        if self.ui.btn3dias.isChecked():
-            try:
-                self.btn_checked_random_forest(3, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualRf.setText(str(embalsePredictions[3]))
-                self.checkPredictionRandomForest(embalsePredictions[3])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btn2dias.isChecked():
+                try:
+                    self.btn_checked_random_forest(2, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[2]))
+                    self.checkPredictionRandomForest(embalsePredictions[2])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
 
-        if self.ui.btn4dias.isChecked():
-            try:
-                self.btn_checked_random_forest(4, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualRf.setText(str(embalsePredictions[4]))
-                self.checkPredictionRandomForest(embalsePredictions[4])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btn3dias.isChecked():
+                try:
+                    self.btn_checked_random_forest(3, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[3]))
+                    self.checkPredictionRandomForest(embalsePredictions[3])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
 
-        if self.ui.btn5dias.isChecked():
-            try:
-                self.btn_checked_random_forest(5, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualRf.setText(str(embalsePredictions[5]))
-                self.checkPredictionRandomForest(embalsePredictions[5])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btn4dias.isChecked():
+                try:
+                    self.btn_checked_random_forest(4, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[4]))
+                    self.checkPredictionRandomForest(embalsePredictions[4])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
 
-        if self.ui.btn6dias.isChecked():
-            try:
-                self.btn_checked_random_forest(6, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualRf.setText(str(embalsePredictions[6]))
-                self.checkPredictionRandomForest(embalsePredictions[6])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btn5dias.isChecked():
+                try:
+                    self.btn_checked_random_forest(5, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[5]))
+                    self.checkPredictionRandomForest(embalsePredictions[5])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
+
+            if self.ui.btn6dias.isChecked():
+                try:
+                    self.btn_checked_random_forest(6, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[6]))
+                    self.checkPredictionRandomForest(embalsePredictions[6])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
+        else:
+            self.mensaje_error("No se ha seleccionado una fecha para mostrar los datos")
 
     ###########################################################################################
 
     def displayDataDecisionTree(self):
-        embalse = self.ui.comboBoxDt.currentText()
-        print(embalse)
-        global dTreeDam
-        global cap_total
-        global embalsePredictions
-        global provincia
-        if dTreeDam != embalse:
-            embalsePredictions, cap_total, provincia = data.generate_model(2, embalse)
-            embalsePredictions = [round(elem, 2) for elem in embalsePredictions]
-            dTreeDam = embalse
 
-        if self.ui.btnHoy3.isChecked():
-            try:
-                self.btn_checked_decision_tree(0, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualDt.setText(str(embalsePredictions[0]))
-                self.checkPredictionDecisionTree(embalsePredictions[0])
-            except Exception as e:
-                self.mensaje_error(e)
+        if ((self.ui.btnHoy3.isChecked()) or (self.ui.btnManiana3.isChecked()) or (self.ui.btn2dias3.isChecked()) or
+                (self.ui.btn3dias3.isChecked()) or (self.ui.btn4dias3.isChecked()) or (self.ui.btn5dias3.isChecked())
+                or (self.ui.btn6dias3.isChecked())):
 
-        if self.ui.btnManiana3.isChecked():
-            try:
-                self.btn_checked_decision_tree(1, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualDt.setText(str(embalsePredictions[1]))
-                self.checkPredictionDecisionTree(embalsePredictions[1])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
 
-        if self.ui.btn2dias3.isChecked():
-            try:
-                self.btn_checked_decision_tree(2, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualDt.setText(str(embalsePredictions[2]))
-                self.checkPredictionDecisionTree(embalsePredictions[2])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            embalse = self.ui.comboBoxDt.currentText()
+            print(embalse)
+            global dTreeDam
+            global cap_total
+            global embalsePredictions
+            global provincia
+            if dTreeDam != embalse:
+                embalsePredictions, cap_total, provincia = data.generate_model(2, embalse)
+                embalsePredictions = [round(elem, 2) for elem in embalsePredictions]
+                dTreeDam = embalse
 
-        if self.ui.btn3dias3.isChecked():
-            try:
-                self.btn_checked_decision_tree(3, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualDt.setText(str(embalsePredictions[3]))
-                self.checkPredictionDecisionTree(embalsePredictions[3])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btnHoy3.isChecked():
+                try:
+                    self.btn_checked_decision_tree(0, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[0]))
+                    self.checkPredictionDecisionTree(embalsePredictions[0])
+                except Exception as e:
+                    self.mensaje_error(e)
 
-        if self.ui.btn4dias3.isChecked():
-            try:
-                self.btn_checked_decision_tree(4, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualDt.setText(str(embalsePredictions[4]))
-                self.checkPredictionDecisionTree(embalsePredictions[4])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btnManiana3.isChecked():
+                try:
+                    self.btn_checked_decision_tree(1, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[1]))
+                    self.checkPredictionDecisionTree(embalsePredictions[1])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
 
-        if self.ui.btn5dias3.isChecked():
-            try:
-                self.btn_checked_decision_tree(5, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualDt.setText(str(embalsePredictions[5]))
-                self.checkPredictionDecisionTree(embalsePredictions[5])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btn2dias3.isChecked():
+                try:
+                    self.btn_checked_decision_tree(2, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[2]))
+                    self.checkPredictionDecisionTree(embalsePredictions[2])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
 
-        if self.ui.btn6dias3.isChecked():
-            try:
-                self.btn_checked_decision_tree(6, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualDt.setText(str(embalsePredictions[6]))
-                self.checkPredictionDecisionTree(embalsePredictions[6])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btn3dias3.isChecked():
+                try:
+                    self.btn_checked_decision_tree(3, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[3]))
+                    self.checkPredictionDecisionTree(embalsePredictions[3])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
+
+            if self.ui.btn4dias3.isChecked():
+                try:
+                    self.btn_checked_decision_tree(4, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[4]))
+                    self.checkPredictionDecisionTree(embalsePredictions[4])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
+
+            if self.ui.btn5dias3.isChecked():
+                try:
+                    self.btn_checked_decision_tree(5, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[5]))
+                    self.checkPredictionDecisionTree(embalsePredictions[5])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
+
+            if self.ui.btn6dias3.isChecked():
+                try:
+                    self.btn_checked_decision_tree(6, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[6]))
+                    self.checkPredictionDecisionTree(embalsePredictions[6])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
+
+        else:
+            self.mensaje_error("No se ha seleccionado una fecha para mostrar los datos")
+
+    ###########################################################################################
 
     def displayDataLasso(self):
 
-        embalse = self.ui.comboBoxLasso.currentText()
+        if ((self.ui.btnHoy2.isChecked()) or (self.ui.btnManiana2.isChecked()) or (self.ui.btn2dias2.isChecked()) or
+                (self.ui.btn3dias2.isChecked()) or (self.ui.btn4dias2.isChecked()) or (self.ui.btn5dias2.isChecked())
+                or (self.ui.btn6dias2.isChecked())):
 
-        global lassoLastDame
-        global embalsePredictions
-        global cap_total
-        global provincia
+            embalse = self.ui.comboBoxLasso.currentText()
 
-        contador = 0
+            global lassoLastDame
+            global embalsePredictions
+            global cap_total
+            global provincia
 
-        if lassoLastDame != embalse:
-            embalsePredictions, cap_total, provincia = data.generate_model(2, embalse)
-            embalsePredictions = [round(elem, 2) for elem in embalsePredictions]
-            lassoLastDame = embalse
+            contador = 0
 
-        if self.ui.btnHoy2.isChecked():
-            try:
-                self.btn_checked_lasso(0, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualLasso.setText(str(embalsePredictions[0]))
-                self.checkPredictionLasso(embalsePredictions[0])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
-        if self.ui.btnManiana2.isChecked():
-            try:
-                self.btn_checked_lasso(1, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualLasso.setText(str(embalsePredictions[1]))
-                self.checkPredictionLasso(embalsePredictions[1])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if lassoLastDame != embalse:
+                embalsePredictions, cap_total, provincia = data.generate_model(2, embalse)
+                embalsePredictions = [round(elem, 2) for elem in embalsePredictions]
+                lassoLastDame = embalse
 
-        if self.ui.btn2dias2.isChecked():
-            try:
-                self.btn_checked_lasso(2, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualLasso.setText(str(embalsePredictions[2]))
-                self.checkPredictionLasso(embalsePredictions[2])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btnHoy2.isChecked():
+                try:
+                    self.btn_checked_lasso(0, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualLasso.setText(str(embalsePredictions[0]))
+                    self.checkPredictionLasso(embalsePredictions[0])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btnManiana2.isChecked():
+                try:
+                    self.btn_checked_lasso(1, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualLasso.setText(str(embalsePredictions[1]))
+                    self.checkPredictionLasso(embalsePredictions[1])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
 
-        if self.ui.btn3dias2.isChecked():
-            try:
-                self.btn_checked_lasso(3, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualLasso.setText(str(embalsePredictions[3]))
-                self.checkPredictionLasso(embalsePredictions[3])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btn2dias2.isChecked():
+                try:
+                    self.btn_checked_lasso(2, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualLasso.setText(str(embalsePredictions[2]))
+                    self.checkPredictionLasso(embalsePredictions[2])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
 
-        if self.ui.btn4dias2.isChecked():
-            try:
-                self.btn_checked_lasso(4, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualLasso.setText(str(embalsePredictions[4]))
-                self.checkPredictionLasso(embalsePredictions[4])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btn3dias2.isChecked():
+                try:
+                    self.btn_checked_lasso(3, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualLasso.setText(str(embalsePredictions[3]))
+                    self.checkPredictionLasso(embalsePredictions[3])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
 
-        if self.ui.btn5dias2.isChecked():
-            try:
-                self.btn_checked_lasso(5, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualLasso.setText(str(embalsePredictions[5]))
-                self.checkPredictionLasso(embalsePredictions[5])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btn4dias2.isChecked():
+                try:
+                    self.btn_checked_lasso(4, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualLasso.setText(str(embalsePredictions[4]))
+                    self.checkPredictionLasso(embalsePredictions[4])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
 
-        if self.ui.btn6dias2.isChecked():
-            try:
-                self.btn_checked_lasso(6, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                self.ui.txtReservaActualLasso.setText(str(embalsePredictions[6]))
-                self.checkPredictionLasso(embalsePredictions[6])
-            except Exception as e:
-                self.mensaje_error("No hay datos para la fecha seleccionada")
+            if self.ui.btn5dias2.isChecked():
+                try:
+                    self.btn_checked_lasso(5, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualLasso.setText(str(embalsePredictions[5]))
+                    self.checkPredictionLasso(embalsePredictions[5])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
+
+            if self.ui.btn6dias2.isChecked():
+                try:
+                    self.btn_checked_lasso(6, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.ui.txtReservaActualLasso.setText(str(embalsePredictions[6]))
+                    self.checkPredictionLasso(embalsePredictions[6])
+                except Exception as e:
+                    self.mensaje_error("No hay datos para la fecha seleccionada")
+        else:
+            self.mensaje_error("No se ha seleccionado una fecha para mostrar los datos")
+
 
     def checkPredictionLasso(self, embalsePredictions):
         if embalsePredictions >= 90:
