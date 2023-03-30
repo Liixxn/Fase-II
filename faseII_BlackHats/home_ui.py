@@ -296,7 +296,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_13.setObjectName("verticalLayout_13")
         self.label_10 = QtWidgets.QLabel(self.boardReservaRf)
         font = QtGui.QFont()
-        font.setPointSize(9)
+        font.setPointSize(8)
         font.setBold(True)
         font.setWeight(75)
         self.label_10.setFont(font)
@@ -1311,7 +1311,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_132.setObjectName("verticalLayout_132")
         self.label_102 = QtWidgets.QLabel(self.boardReservaDt)
         font = QtGui.QFont()
-        font.setPointSize(9)
+        font.setPointSize(8)
         font.setBold(True)
         font.setWeight(75)
         self.label_102.setFont(font)
@@ -1720,7 +1720,7 @@ class Ui_MainWindow(object):
         font.setPointSize(8)
         self.spinBoxDemanda.setFont(font)
         self.spinBoxDemanda.setStyleSheet("")
-        self.spinBoxDemanda.setDecimals(4)
+        self.spinBoxDemanda.setDecimals(2)
         self.spinBoxDemanda.setMaximum(1000000000000.0)
         self.spinBoxDemanda.setObjectName("spinBoxDemanda")
         self.verticalLayout_2.addWidget(self.spinBoxDemanda)
@@ -1750,7 +1750,7 @@ class Ui_MainWindow(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#1c1c1c\">\n"
-"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Consolas,Andale Mono WT,Andale Mono,Lucida Console,Lucida Sans Typewriter,DejaVu Sans Mono,Bitstream Vera Sans Mono,Liberation Mono,Nimbus Mono L,Monaco,Courier New,Courier,monospace\'; font-size:10pt; color:#ffffff; background-color:#1c1c1c;\">El rol que poseen las estaciónes hidroeléctricas en la distribución de agua y energia es absolutamente esencial. Por ello, para afianzar el control de recursos hídricos de manera eficiente, BlackHats ha desarrollado esta aplicación, la cual ofrece un dashboard, 3 modelos predictivos y un sistema de control de despache de agua. Con los modelos predictivos desarrollados, la aplicación puede determinar los niveles del embalse en los proximos 7 dias, pudiendo así precisar mejor si despachar o no los recursos hídricos. Los modelos utilizan 3 fuentes de datos diferentes, los cuales son: valores climatologicos de la AEMET, oscilación del Atlántico Norte obtenidos de la NAOO y datos históricos de embalses obtenidos del MITECO. El usuario tiene la opción de ver las predicciones de los diferentes modelos para cada embalse y asimismo introducir los valores de demanda &lt;&lt; &gt;&gt; , dependiendo de los datos del sistema, este avisara si es necesario consumir los recursos hidricos.</span><span style=\" font-size:10pt;\"><br /></span></p></body></html>"))
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Consolas,Andale Mono WT,Andale Mono,Lucida Console,Lucida Sans Typewriter,DejaVu Sans Mono,Bitstream Vera Sans Mono,Liberation Mono,Nimbus Mono L,Monaco,Courier New,Courier,monospace\'; font-size:10pt; color:#ffffff; background-color:#1c1c1c;\">El rol que poseen las estaciónes hidroeléctricas en la distribución de agua y energia es absolutamente esencial. Por ello, para afianzar el control de recursos hídricos de manera eficiente, BlackHats ha desarrollado esta aplicación, la cual ofrece un dashboard, 3 modelos predictivos y un sistema de control de despache de agua. Con los modelos predictivos desarrollados, la aplicación puede determinar los niveles del embalse en los proximos 7 dias, pudiendo así precisar mejor si despachar o no los recursos hídricos. Los modelos utilizan 3 fuentes de datos diferentes, los cuales son: valores climatologicos de la AEMET, oscilación del Atlántico Norte obtenidos de la NAOO y datos históricos de embalses obtenidos del MITECO. El usuario tiene la opción de ver las predicciones de los diferentes modelos para cada embalse y asimismo introducir los valores de demanda de agua, dependiendo de los datos del sistema, este avisara si es necesario consumir los recursos hidricos.</span><span style=\" font-size:10pt;\"><br /></span></p></body></html>"))
         self.label_2.setText(_translate("MainWindow", "Fecha:"))
         self.label_5.setText(_translate("MainWindow", "Estación Hidroeléctrica:"))
         self.comboBoxRf.setCurrentText(_translate("MainWindow", "Central de Aldeadávila"))

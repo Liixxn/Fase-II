@@ -8,11 +8,13 @@ import pandas as pd
 from PyQt5.QtCore import QFile, QTextStream
 from PyQt5.QtGui import QPixmap
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QMessageBox, QComboBox, QSplashScreen
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QMessageBox, QComboBox, QSplashScreen, QDialog
 
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5 import QtWidgets
 from matplotlib.backends.backend_qt import MainWindow
+from pyqt_translucent_full_loading_screen_thread import LoadingThread, LoadingTranslucentScreen
+
 import data
 import aemet_predictions
 
@@ -23,6 +25,8 @@ lassoLastDame = ""
 rfLastDam = ""
 dTreeDam = ""
 embalsePredictions = []
+embalsePredictionsRf = []
+embalsePredictionsDt = []
 cap_total = 0
 provincia = ""
 
@@ -40,6 +44,8 @@ class MainWindow(QMainWindow):
 
         # pop up
         self.Second_MainWindow = QtWidgets.QDialog()
+
+
 
         self.ui.setupUi(self)
 
@@ -108,6 +114,15 @@ class MainWindow(QMainWindow):
         layoutDt = QVBoxLayout()
         ventanaPrincipal.mapaDt.setLayout(layoutDt)
         self.create_map(layoutDt, 40.416775, -3.703790, 6)
+
+    def __startLoadingThread(self):
+        self.__loadingTranslucentScreen = LoadingTranslucentScreen(parent=self,
+                                                                   description_text='Waiting')
+        self.__loadingTranslucentScreen.setDescriptionLabelDirection('Right')
+        self.__thread = LoadingThread(loading_screen=self.__loadingTranslucentScreen)
+        # for second result
+        # self.__thread = MyThread(loading_screen=self.__loadingTranslucentScreen)
+        self.__thread.start()
 
     def create_map(self, layout, x, y, zoom):
         coordinate = (x, y)
@@ -226,66 +241,67 @@ class MainWindow(QMainWindow):
             """self.zoom_map(embalse, self.ui.mapaRf)"""
             global rfLastDam
             global cap_total
-            global embalsePredictions
+            global embalsePredictionsRf
             global provincia
             if rfLastDam != embalse:
-                embalsePredictions, cap_total, provincia = data.generate_model(2, embalse)
-                embalsePredictions = [round(elem, 2) for elem in embalsePredictions]
+
+                embalsePredictionsRf, cap_total, provincia = data.generate_model(2, embalse)
+                embalsePredictionsRf = [round(elem, 2) for elem in embalsePredictionsRf]
                 rfLastDam = embalse
 
             if self.ui.btnHoy.isChecked():
                 try:
                     self.btn_checked_random_forest(0, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[0]))
-                    self.checkPredictionRandomForest(embalsePredictions[0])
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[0]))
+                    self.checkPredictionRandomForest(embalsePredictionsRf[0])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
             if self.ui.btnManiana.isChecked():
                 try:
                     self.btn_checked_random_forest(1, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[1]))
-                    self.checkPredictionRandomForest(embalsePredictions[1])
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[1]))
+                    self.checkPredictionRandomForest(embalsePredictionsRf[1])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
             if self.ui.btn2dias.isChecked():
                 try:
                     self.btn_checked_random_forest(2, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[2]))
-                    self.checkPredictionRandomForest(embalsePredictions[2])
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[2]))
+                    self.checkPredictionRandomForest(embalsePredictionsRf[2])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
             if self.ui.btn3dias.isChecked():
                 try:
                     self.btn_checked_random_forest(3, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[3]))
-                    self.checkPredictionRandomForest(embalsePredictions[3])
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[3]))
+                    self.checkPredictionRandomForest(embalsePredictionsRf[3])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
             if self.ui.btn4dias.isChecked():
                 try:
                     self.btn_checked_random_forest(4, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[4]))
-                    self.checkPredictionRandomForest(embalsePredictions[4])
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[4]))
+                    self.checkPredictionRandomForest(embalsePredictionsRf[4])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
             if self.ui.btn5dias.isChecked():
                 try:
                     self.btn_checked_random_forest(5, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[5]))
-                    self.checkPredictionRandomForest(embalsePredictions[5])
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[5]))
+                    self.checkPredictionRandomForest(embalsePredictionsRf[5])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
             if self.ui.btn6dias.isChecked():
                 try:
                     self.btn_checked_random_forest(6, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[6]))
-                    self.checkPredictionRandomForest(embalsePredictions[6])
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[6]))
+                    self.checkPredictionRandomForest(embalsePredictionsRf[6])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
         else:
@@ -304,66 +320,66 @@ class MainWindow(QMainWindow):
             print(embalse)
             global dTreeDam
             global cap_total
-            global embalsePredictions
+            global embalsePredictionsDt
             global provincia
             if dTreeDam != embalse:
-                embalsePredictions, cap_total, provincia = data.generate_model(2, embalse)
-                embalsePredictions = [round(elem, 2) for elem in embalsePredictions]
+                embalsePredictionsDt, cap_total, provincia = data.generate_model(2, embalse)
+                embalsePredictionsDt = [round(elem, 2) for elem in embalsePredictionsDt]
                 dTreeDam = embalse
 
             if self.ui.btnHoy3.isChecked():
                 try:
                     self.btn_checked_decision_tree(0, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[0]))
-                    self.checkPredictionDecisionTree(embalsePredictions[0])
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[0]))
+                    self.checkPredictionDecisionTree(embalsePredictionsDt[0])
                 except Exception as e:
                     self.mensaje_error(e)
 
             if self.ui.btnManiana3.isChecked():
                 try:
                     self.btn_checked_decision_tree(1, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[1]))
-                    self.checkPredictionDecisionTree(embalsePredictions[1])
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[1]))
+                    self.checkPredictionDecisionTree(embalsePredictionsDt[1])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
             if self.ui.btn2dias3.isChecked():
                 try:
                     self.btn_checked_decision_tree(2, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[2]))
-                    self.checkPredictionDecisionTree(embalsePredictions[2])
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[2]))
+                    self.checkPredictionDecisionTree(embalsePredictionsDt[2])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
             if self.ui.btn3dias3.isChecked():
                 try:
                     self.btn_checked_decision_tree(3, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[3]))
-                    self.checkPredictionDecisionTree(embalsePredictions[3])
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[3]))
+                    self.checkPredictionDecisionTree(embalsePredictionsDt[3])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
             if self.ui.btn4dias3.isChecked():
                 try:
                     self.btn_checked_decision_tree(4, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[4]))
-                    self.checkPredictionDecisionTree(embalsePredictions[4])
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[4]))
+                    self.checkPredictionDecisionTree(embalsePredictionsDt[4])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
             if self.ui.btn5dias3.isChecked():
                 try:
                     self.btn_checked_decision_tree(5, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[5]))
-                    self.checkPredictionDecisionTree(embalsePredictions[5])
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[5]))
+                    self.checkPredictionDecisionTree(embalsePredictionsDt[5])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
             if self.ui.btn6dias3.isChecked():
                 try:
                     self.btn_checked_decision_tree(6, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualDt.setText(str(embalsePredictions[6]))
-                    self.checkPredictionDecisionTree(embalsePredictions[6])
+                    self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[6]))
+                    self.checkPredictionDecisionTree(embalsePredictionsDt[6])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
@@ -467,6 +483,7 @@ class MainWindow(QMainWindow):
             self.Second_MainWindow.show()
 
 
+
         elif embalsePredictions < 30:
             self.ui.boardReservaLasso.setStyleSheet("background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
             self.popUpAlert = popup_ui.Ui_Dialog()
@@ -486,16 +503,17 @@ class MainWindow(QMainWindow):
             self.ui.boardReservaLasso.setStyleSheet(
                 "background-color: #00739D;border-radius: 10px;margin: 5px 10px;")
 
-    def checkPredictionRandomForest(self, embalsePredictions):
+    def checkPredictionRandomForest(self, embalsePredictionsRf):
 
-        if embalsePredictions >= 90:
+        if embalsePredictionsRf >= 90:
             self.ui.boardReservaRf.setStyleSheet(
                 "background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
             self.popUpAlert = popup_ui.Ui_Dialog()
+
             self.popUpAlert.setupUi(self.Second_MainWindow)
 
-            self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxRf.currentText()
-                                                 + " se encuentra al " + str(embalsePredictions) + "%.")
+            # self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxRf.currentText()
+            #                                      + " se encuentra al " + str(embalsePredictionsRf) + "%.")
 
             self.popUpAlert.fechaAlert.setText("Fecha de la alerta: " + str(self.ui.fechaRf.text()))
 
@@ -504,13 +522,13 @@ class MainWindow(QMainWindow):
             self.Second_MainWindow.show()
 
 
-        elif embalsePredictions < 30:
+        elif embalsePredictionsRf < 30:
             self.ui.boardReservaRf.setStyleSheet("background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
             self.popUpAlert = popup_ui.Ui_Dialog()
             self.popUpAlert.setupUi(self.Second_MainWindow)
 
             self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxRf.currentText()
-                                                 + " se encuentra al " + str(embalsePredictions) + "%."
+                                                 + " se encuentra al " + str(embalsePredictionsRf) + "%."
                                                  + " Con un nivel más bajo, la presa llegará a su límite inferior.")
 
             self.popUpAlert.fechaAlert.setText("Fecha de la alerta: " + str(self.ui.fechaRf.text()))
@@ -523,16 +541,16 @@ class MainWindow(QMainWindow):
             self.ui.boardReservaRf.setStyleSheet(
                 "background-color: #00739D;border-radius: 10px;margin: 5px 10px;")
 
-    def checkPredictionDecisionTree(self, embalsePredictions):
+    def checkPredictionDecisionTree(self, embalsePredictionsDt):
 
-        if embalsePredictions >= 90:
+        if embalsePredictionsDt >= 90:
             self.ui.boardReservaDt.setStyleSheet(
                 "background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
             self.popUpAlert = popup_ui.Ui_Dialog()
             self.popUpAlert.setupUi(self.Second_MainWindow)
 
             self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxDt.currentText()
-                                                 + " se encuentra al " + str(embalsePredictions) + "%.")
+                                                 + " se encuentra al " + str(embalsePredictionsDt) + "%.")
 
             self.popUpAlert.fechaAlert.setText("Fecha de la alerta: " + str(self.ui.fechaDt.text()))
 
@@ -541,13 +559,13 @@ class MainWindow(QMainWindow):
             self.Second_MainWindow.show()
 
 
-        elif embalsePredictions < 30:
+        elif embalsePredictionsDt < 30:
             self.ui.boardReservaDt.setStyleSheet("background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
             self.popUpAlert = popup_ui.Ui_Dialog()
             self.popUpAlert.setupUi(self.Second_MainWindow)
 
             self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxDt.currentText()
-                                                 + " se encuentra al " + str(embalsePredictions) + "%."
+                                                 + " se encuentra al " + str(embalsePredictionsDt) + "%."
                                                  + " Con un nivel más bajo, la presa llegará a su límite inferior.")
 
             self.popUpAlert.fechaAlert.setText("Fecha de la alerta: " + str(self.ui.fechaDt.text()))
@@ -574,28 +592,80 @@ class MainWindow(QMainWindow):
                     self.mensaje_error("No se han creado las predicciones para el embalse")
                 else:
 
-                    agua_total = self.ui.txtCapacidadEmbalseLasso.text()
-                    # calculate the % of water left
-                    agua_actual = (float(agua_total) * float(embalsePredictions[0])) / 100
-                    agua_texto = self.ui.spinBoxDemanda.text()
-                    agua_restante = agua_actual - float(agua_texto.replace(',', '.'))
-                    agua_restante=round(agua_restante, 2)
                     self.popUpAlert = popup_ui.Ui_Dialog()
-                    self.popUpAlert.setupUi(self.Second_MainWindow)
 
-                    self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxDt.currentText()
+                    agua_total = self.ui.txtCapacidadEmbalseLasso.text()
+
+
+                    agua_restante = self.pop_up_agua_restante(agua_total, self.ui.txtReservaActualLasso.text())
+
+
+                    self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxLasso.currentText()
                                                          + " tendria " + str(agua_restante) +
                                                          " hectometros cúbicos de agua")
-
                     self.Second_MainWindow.show()
 
             else:
                 self.mensaje_error("No se ha introducido ninguna cantidad de demanda")
 
+
         if self.ui.btnRandomForest.isChecked():
+            if self.ui.spinBoxDemanda.text() != "0,0000":
+                # check if dam predictions is full
+                if len(embalsePredictionsRf) == 0:
+                    self.mensaje_error("No se han creado las predicciones para el embalse")
+                else:
+                    agua_total = self.ui.txtCapacidadEmbalseRf.text()
+
+                    # calculate the % of water left
+                    #agua_restante = self.pop_up_agua_restante(agua_total)
+                    agua_actual = (float(agua_total) * float(embalsePredictionsRf[0])) / 100
+                    agua_texto = self.ui.spinBoxDemanda.text()
+                    agua_restante = agua_actual - float(agua_texto.replace(',', '.'))
+                    agua_restante = round(agua_restante, 2)
+                    print("Agua restante")
+                    print(agua_restante)
+                    self.popUpAlert = popup_ui.Ui_Dialog()
+                    self.popUpAlert.setupUi(self.Second_MainWindow)
+                    self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxRf.currentText()
+                                                         + " tendria " + str(agua_restante) +
+                                                         " hectometros cúbicos de agua")
+                    self.Second_MainWindow.show()
+
+            else:
+                self.mensaje_error("No se ha introducido ninguna cantidad de demanda")
             print("")
+
+
         if self.ui.btnDecisionTree.isChecked():
+            if self.ui.spinBoxDemanda.text() != "0,0000":
+                # check if dam predictions is full
+                if len(embalsePredictionsDt) == 0:
+                    self.mensaje_error("No se han creado las predicciones para el embalse")
+                else:
+                    agua_total = self.ui.txtCapacidadEmbalseDt.text()
+                    # calculate the % of water left
+                    agua_restante = self.pop_up_agua_restante(agua_total)
+
+                    #self.popUpAlert.alertMessage.text
+                    self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxDt.currentText()
+                                                         + " tendria " + str(agua_restante) +
+                                                         " hectometros cúbicos de agua")
+                    self.Second_MainWindow.show()
+
+            else:
+                self.mensaje_error("No se ha introducido ninguna cantidad de demanda")
             print("")
+
+
+    def pop_up_agua_restante(self, agua_total, prediction):
+        agua_actual = (float(agua_total) * float(prediction)) / 100
+        agua_texto = self.ui.spinBoxDemanda.text()
+        agua_restante = agua_actual - float(agua_texto.replace(',', '.'))
+        agua_restante = round(agua_restante, 2)
+
+
+        return agua_restante
 
     def btn_checked_random_forest(self, day, data, cap_total, provincia):
         unixToDatetime = datetime.datetime.fromtimestamp(data.at[day, "date"]).date()  # Unix Time
@@ -655,6 +725,35 @@ class MainWindow(QMainWindow):
             event.accept()
         except Exception as e:
             print(e)
+
+
+
+
+
+class SecondWindow(QDialog):
+    def __int__(self):
+        super().__init__()
+
+        self.uiPop = popup_ui.Ui_Dialog()
+
+        self.uiPop.setupUi(self)
+
+
+    def changeText(self):
+        self.uiPop.alertMessage.setText("Hola")
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ##################################################################################33333

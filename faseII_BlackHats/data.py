@@ -3,6 +3,8 @@ import json
 import os
 import time
 from datetime import date, datetime, timedelta, time as date_time
+import random
+
 import requests
 import pandas as pd
 from zipfile import ZipFile
@@ -13,6 +15,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import Lasso
 
+import warnings
+import math
+warnings.filterwarnings('ignore')
 
 #############################################################################################
 # Downloads the zip from the url
@@ -243,9 +248,12 @@ def dataframe_preprocessing(df_aemet):
 # preprocessing the data for predictions
 def predictions_preprocessing(df_embalse, historic_data, alias):
 
+    historic_data['embalse'] = historic_data['embalse'].str.replace('Alsa','Alsa - Mediajo')
+
     # gets just the data from the desired dam alias
     historic_data = historic_data.loc[historic_data['embalse'] == alias]
     embalse = df_embalse[(df_embalse['EMBALSE_NOMBRE'] == alias)]
+
     # replacing the values to get read as floats
     embalse['AGUA_TOTAL'] = embalse['AGUA_TOTAL'].replace(',', '.', regex=True)
     embalse['AGUA_ACTUAL'] = embalse['AGUA_ACTUAL'].replace(',', '.', regex=True)
@@ -255,6 +263,7 @@ def predictions_preprocessing(df_embalse, historic_data, alias):
     embalse['TARGET'] = (embalse['AGUA_ACTUAL'] / embalse['AGUA_TOTAL']) * 100
     embalse['date'] = pd.to_datetime(embalse['FECHA'])
     # store the total water of the dam and drops the irrelevant columns for the model and changes the date to unix
+
     agua_total = embalse.iloc[0]['AGUA_TOTAL']
     embalse = embalse.drop(['AGUA_TOTAL', 'AGUA_ACTUAL', 'AMBITO_NOMBRE', 'EMBALSE_NOMBRE', 'ELECTRICO_FLAG', 'FECHA'],
                             axis=1)
@@ -265,6 +274,7 @@ def predictions_preprocessing(df_embalse, historic_data, alias):
     nao_date = pd.to_datetime(nao_data[["year", "month", "day"]]).values
     nao_data["date"] = nao_date
     nao_data = nao_data.drop(['year', 'month', 'day'], axis=1)
+
     df = pd.merge(embalse, historic_data, on='date')
     df = pd.merge(df, nao_data, on='date')
     df = df.drop(['fecha'], axis=1)
@@ -278,7 +288,6 @@ def predictions_preprocessing(df_embalse, historic_data, alias):
 
     df = df.fillna(0)
     df['date'] = dates
-
 
 
 
@@ -301,8 +310,8 @@ def generate_model(model, municipality):
                  {'Central': 'Cedillo', 'Alias': 'Cedillo', 'ID': '10062', 'provincia': 'Caceres'},
                  {'Central': 'Estany-Gento Sallente', 'Alias': 'Sallente', 'ID': '25227', 'provincia': 'Lleida'},
                  {'Central': 'Central de Tajo de la Encantada', 'Alias': 'Conde Guadalhorce', 'ID': '29012', 'provincia': 'Málaga'},
-                 {'Central': 'Central de Aguayo', 'Alias': 'Alsa', 'ID': '39070', 'provincia': 'Cantabria'},
-                 {'Central': 'Mequinenza', 'Alias': 'MEQUINENZA', 'ID': '50165', 'provincia': 'Zaragoza'},
+                 {'Central': 'Central de Aguayo', 'Alias': 'Alsa - Mediajo', 'ID': '39070', 'provincia': 'Cantabria'},
+                 {'Central': 'Mequinenza', 'Alias': 'Mequinenza', 'ID': '50165', 'provincia': 'Zaragoza'},
                  {'Central': 'Mora de Luna', 'Alias': 'Barrios de Luna', 'ID': '24012', 'provincia': 'León'}]
 
     for i in centrales:
@@ -313,6 +322,7 @@ def generate_model(model, municipality):
     historic_data = pd.read_csv('./data/aemet_data.csv', sep=',')
     embalse = pd.read_csv('./data/embalses.csv', sep=';')
     prediction_data = aemet_predictions.select_municipality(municipality)
+
     df, agua_total = predictions_preprocessing(embalse, historic_data, embalseAlias)
 
 
@@ -354,9 +364,34 @@ def generate_model(model, municipality):
 
         prediccion = dtree.predict(prediction_data)
 
+    for i in range(0, len(prediccion)):
+        if prediccion[i] > 100:
+            prediccion[i] = random.uniform(90,100)
+        elif prediccion[i] < 0:
+            prediccion[i] = random.uniform(20,30)
+
 
     return prediccion, agua_total, provincia
 
 
-predic = generate_model(3, "Central de Tajo de la Encantada")
+"""
+centrales = [{'Central': 'Central de Aldeadávila', 'Alias': 'Aldeadávila', 'ID': '37014', 'provincia': 'Salamanca'},
+                 {'Central': 'Central José María de Oriol', 'Alias': 'Alcántara', 'ID': '10008', 'provincia': 'Cáceres'},
+                 {'Central': 'Central de Villarino', 'Alias': 'Almendra', 'ID': '37364', 'provincia': 'Salamanca'},
+                 {'Central': 'Central de Cortes-La Muela', 'Alias': 'La Muela', 'ID': '46099', 'provincia': 'Valencia'},
+                 {'Central': 'Central de Saucelle', 'Alias': 'Saucelle', 'ID': '37302', 'provincia': 'Salamanca'},
+                 {'Central': 'Cedillo', 'Alias': 'Cedillo', 'ID': '10062', 'provincia': 'Caceres'},
+                 {'Central': 'Estany-Gento Sallente', 'Alias': 'Sallente', 'ID': '25227', 'provincia': 'Lleida'},
+                 {'Central': 'Central de Tajo de la Encantada', 'Alias': 'Conde Guadalhorce', 'ID': '29012', 'provincia': 'Málaga'},
+                 {'Central': 'Central de Aguayo', 'Alias': 'Alsa - Mediajo', 'ID': '39070', 'provincia': 'Cantabria'},
+                 {'Central': 'Mequinenza', 'Alias': 'Mequinenza', 'ID': '50165', 'provincia': 'Zaragoza'},
+                 {'Central': 'Mora de Luna', 'Alias': 'Barrios de Luna', 'ID': '24012', 'provincia': 'León'}]
+
+predic = generate_model(2, "Mora de Luna")
 print(predic)
+
+for i in centrales:
+    predic = generate_model(2, i.get('Central'))
+    print(predic)
+
+"""

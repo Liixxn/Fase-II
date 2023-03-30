@@ -37,6 +37,7 @@ class Ui_Dialog(object):
         font.setPointSize(10)
         self.alertMessage.setFont(font)
         self.alertMessage.setReadOnly(True)
+        self.alertMessage.setOverwriteMode(True)
         self.alertMessage.setObjectName("alertMessage")
         self.horizontalLayout_3.addWidget(self.alertMessage)
         self.verticalLayout.addWidget(self.widget_3)
@@ -53,6 +54,7 @@ class Ui_Dialog(object):
         self.fechaAlert.setFont(font)
         self.fechaAlert.setText("")
         self.fechaAlert.setAlignment(QtCore.Qt.AlignCenter)
+        self.fechaAlert.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse)
         self.fechaAlert.setObjectName("fechaAlert")
         self.horizontalLayout.addWidget(self.fechaAlert)
         self.verticalLayout.addWidget(self.widget_4)
@@ -89,4 +91,6 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+
+
 import resource_rc

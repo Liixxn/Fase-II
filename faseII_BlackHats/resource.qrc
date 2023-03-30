@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="newPrefix">
+    <file>icons/Loading_icon.gif</file>
     <file>imgs/presa2.jpg</file>
     <file>icons/senal-de-alerta.png</file>
   </qresource>
