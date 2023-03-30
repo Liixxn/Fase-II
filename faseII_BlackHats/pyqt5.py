@@ -18,7 +18,7 @@ from pyqt_translucent_full_loading_screen_thread import LoadingThread, LoadingTr
 import data
 import aemet_predictions
 
-from home_ui import Ui_MainWindow
+import home_ui
 import popup_ui
 
 lassoLastDame = ""
@@ -33,6 +33,7 @@ provincia = ""
 predictionLasso = dict()
 
 
+
 # Clase principal de la aplicacion
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -40,10 +41,8 @@ class MainWindow(QMainWindow):
 
         # Carga de las diferentes ventanas
 
-        self.ui = Ui_MainWindow()
+        self.ui = home_ui.Ui_MainWindow()
 
-        # pop up
-        self.Second_MainWindow = QtWidgets.QDialog()
 
 
 
@@ -185,6 +184,14 @@ class MainWindow(QMainWindow):
             buttons=QMessageBox.Discard,
             defaultButton=QMessageBox.Discard,
         )
+
+    ######################################################################################################
+
+    def openSecondWindow(self, texto, fecha, central):
+
+        self.secondWindow = SecondWindow(texto, fecha, central)
+        self.secondWindow.show()
+
 
     ######################################################################################################
     # Function to change the page
@@ -470,113 +477,120 @@ class MainWindow(QMainWindow):
         if embalsePredictions >= 90:
             self.ui.boardReservaLasso.setStyleSheet(
                 "background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
-            self.popUpAlert = popup_ui.Ui_Dialog()
-            self.popUpAlert.setupUi(self.Second_MainWindow)
 
-            self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxLasso.currentText()
-                                                 + " se encuentra al " + str(embalsePredictions) + "%.")
 
-            self.popUpAlert.fechaAlert.setText("Fecha de la alerta: " + str(self.ui.fechaLasso.text()))
+            texto = "La reserva del embalse " + self.ui.comboBoxLasso.currentText() + " se encuentra al " + str(embalsePredictions) + "%."
 
-            self.popUpAlert.nombreCentral.setText("Alerta para la central: " + self.ui.comboBoxLasso.currentText())
+            fecha = "Fecha de la alerta: " + str(self.ui.fechaLasso.text())
 
-            self.Second_MainWindow.show()
+            central = "Alerta para la central: " + self.ui.comboBoxLasso.currentText()
+            try:
+                self.openSecondWindow(texto, fecha, central)
+            except Exception as e:
+                print(e)
 
 
 
         elif embalsePredictions < 30:
             self.ui.boardReservaLasso.setStyleSheet("background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
-            self.popUpAlert = popup_ui.Ui_Dialog()
-            self.popUpAlert.setupUi(self.Second_MainWindow)
 
-            self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxLasso.currentText()
-                                                 + " se encuentra al " + str(embalsePredictions) + "%."
-                                                 + " Con un nivel más bajo, la presa llegará a su límite inferior.")
+            texto = "La reserva del embalse " + self.ui.comboBoxLasso.currentText() + " se encuentra al " + str(
+                embalsePredictions) + "%. Con un nivel más bajo, la presa llegará a su límite inferior."
 
-            self.popUpAlert.fechaAlert.setText("Fecha de la alerta: " + str(self.ui.fechaLasso.text()))
+            fecha = "Fecha de la alerta: " + str(self.ui.fechaLasso.text())
 
-            self.popUpAlert.nombreCentral.setText("Alerta para la central: " + self.ui.comboBoxLasso.currentText())
+            central = "Alerta para la central: " + self.ui.comboBoxLasso.currentText()
+            try:
+                self.openSecondWindow(texto, fecha, central)
+            except Exception as e:
+                print(e)
 
-            self.Second_MainWindow.show()
 
         else:
             self.ui.boardReservaLasso.setStyleSheet(
-                "background-color: #00739D;border-radius: 10px;margin: 5px 10px;")
+                "background-color: #01A982;border-radius: 10px;margin: 5px 10px;")
 
     def checkPredictionRandomForest(self, embalsePredictionsRf):
 
         if embalsePredictionsRf >= 90:
             self.ui.boardReservaRf.setStyleSheet(
                 "background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
-            self.popUpAlert = popup_ui.Ui_Dialog()
 
-            self.popUpAlert.setupUi(self.Second_MainWindow)
+            texto = "La reserva del embalse " + self.ui.comboBoxRf.currentText() + " se encuentra al " + str(
+                embalsePredictionsRf) + "%."
 
-            # self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxRf.currentText()
-            #                                      + " se encuentra al " + str(embalsePredictionsRf) + "%.")
+            fecha = "Fecha de la alerta: " + str(self.ui.fechaRf.text())
 
-            self.popUpAlert.fechaAlert.setText("Fecha de la alerta: " + str(self.ui.fechaRf.text()))
+            central = "Alerta para la central: " + self.ui.comboBoxRf.currentText()
+            try:
+                self.openSecondWindow(texto, fecha, central)
+            except Exception as e:
+                print(e)
 
-            self.popUpAlert.nombreCentral.setText("Alerta para la central: " + self.ui.comboBoxRf.currentText())
-
-            self.Second_MainWindow.show()
 
 
         elif embalsePredictionsRf < 30:
             self.ui.boardReservaRf.setStyleSheet("background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
-            self.popUpAlert = popup_ui.Ui_Dialog()
-            self.popUpAlert.setupUi(self.Second_MainWindow)
 
-            self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxRf.currentText()
-                                                 + " se encuentra al " + str(embalsePredictionsRf) + "%."
-                                                 + " Con un nivel más bajo, la presa llegará a su límite inferior.")
+            texto = "La reserva del embalse " + self.ui.comboBoxRf.currentText() + " se encuentra al " + str(
+                embalsePredictionsRf) + "%. Con un nivel más bajo, la presa llegará a su límite inferior."
 
-            self.popUpAlert.fechaAlert.setText("Fecha de la alerta: " + str(self.ui.fechaRf.text()))
+            fecha = "Fecha de la alerta: " + str(self.ui.fechaRf.text())
 
-            self.popUpAlert.nombreCentral.setText("Alerta para la central: " + self.ui.comboBoxRf.currentText())
+            central = "Alerta para la central: " + self.ui.comboBoxRf.currentText()
+            try:
+                self.openSecondWindow(texto, fecha, central)
+            except Exception as e:
+                print(e)
 
-            self.Second_MainWindow.show()
 
         else:
             self.ui.boardReservaRf.setStyleSheet(
-                "background-color: #00739D;border-radius: 10px;margin: 5px 10px;")
+                "background-color: #01A982;border-radius: 10px;margin: 5px 10px;")
 
     def checkPredictionDecisionTree(self, embalsePredictionsDt):
 
         if embalsePredictionsDt >= 90:
             self.ui.boardReservaDt.setStyleSheet(
                 "background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
-            self.popUpAlert = popup_ui.Ui_Dialog()
-            self.popUpAlert.setupUi(self.Second_MainWindow)
 
-            self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxDt.currentText()
-                                                 + " se encuentra al " + str(embalsePredictionsDt) + "%.")
+            texto = "La reserva del embalse " + self.ui.comboBoxDt.currentText() + " se encuentra al " + str(
+                embalsePredictionsDt) + "%."
 
-            self.popUpAlert.fechaAlert.setText("Fecha de la alerta: " + str(self.ui.fechaDt.text()))
+            fecha = "Fecha de la alerta: " + str(self.ui.fechaDt.text())
 
-            self.popUpAlert.nombreCentral.setText("Alerta para la central: " + self.ui.comboBoxDt.currentText())
+            central = "Alerta para la central: " + self.ui.comboBoxDt.currentText()
+            try:
+                self.openSecondWindow(texto, fecha, central)
+            except Exception as e:
+                print(e)
 
-            self.Second_MainWindow.show()
 
 
         elif embalsePredictionsDt < 30:
             self.ui.boardReservaDt.setStyleSheet("background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
-            self.popUpAlert = popup_ui.Ui_Dialog()
-            self.popUpAlert.setupUi(self.Second_MainWindow)
 
-            self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxDt.currentText()
-                                                 + " se encuentra al " + str(embalsePredictionsDt) + "%."
-                                                 + " Con un nivel más bajo, la presa llegará a su límite inferior.")
+            texto = "La reserva del embalse " + self.ui.comboBoxDt.currentText() + " se encuentra al " + str(
+                embalsePredictionsDt) + "%. Con un nivel más bajo, la presa llegará a su límite inferior."
 
-            self.popUpAlert.fechaAlert.setText("Fecha de la alerta: " + str(self.ui.fechaDt.text()))
+            fecha = "Fecha de la alerta: " + str(self.ui.fechaDt.text())
 
-            self.popUpAlert.nombreCentral.setText("Alerta para la central: " + self.ui.comboBoxDt.currentText())
+            central = "Alerta para la central: " + self.ui.comboBoxDt.currentText()
+            try:
+                self.openSecondWindow(texto, fecha, central)
+            except Exception as e:
+                print(e)
 
-            self.Second_MainWindow.show()
 
         else:
             self.ui.boardReservaDt.setStyleSheet(
-                "background-color: #00739D;border-radius: 10px;margin: 5px 10px;")
+                "background-color: #01A982;border-radius: 10px;margin: 5px 10px;")
+
+
+
+    ####################################################################################################
+
+    # Function to calculate the water left in the dam
 
     def calculateWaterLeft(self):
 
@@ -585,77 +599,108 @@ class MainWindow(QMainWindow):
             self.mensaje_error("No se han creado las predicciones para el embalse")
 
         if self.ui.btnLasso.isChecked():
+            minDemand = self.ui.spinBoxDemanda.text().replace(',','.')
 
-            if self.ui.spinBoxDemanda.text() != "0,0000":
+            minDemand = float(minDemand)
+
+            if minDemand != float(0):
                 # check if dam predictions is full
                 if len(embalsePredictions) == 0:
                     self.mensaje_error("No se han creado las predicciones para el embalse")
                 else:
 
-                    self.popUpAlert = popup_ui.Ui_Dialog()
-
                     agua_total = self.ui.txtCapacidadEmbalseLasso.text()
-
 
                     agua_restante = self.pop_up_agua_restante(agua_total, self.ui.txtReservaActualLasso.text())
 
+                    if agua_restante > 0:
+                        texto = "La reserva del embalse " + self.ui.comboBoxLasso.currentText() + " tendria " + str(
+                            agua_restante) + " hectometros cúbicos de agua"
+                    elif agua_restante < 0:
+                        texto = "La reserva del embalse " + self.ui.comboBoxLasso.currentText() + " NO tendría agua " \
+                                                                                                  "suficiente para esta demanda. \n Quedaría vacía"
+                    fecha = ""
 
-                    self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxLasso.currentText()
-                                                         + " tendria " + str(agua_restante) +
-                                                         " hectometros cúbicos de agua")
-                    self.Second_MainWindow.show()
+                    central = "Central " + self.ui.comboBoxLasso.currentText()
+
+                    self.openSecondWindow(texto, fecha, central)
 
             else:
                 self.mensaje_error("No se ha introducido ninguna cantidad de demanda")
 
 
         if self.ui.btnRandomForest.isChecked():
-            if self.ui.spinBoxDemanda.text() != "0,0000":
+
+            minDemand = self.ui.spinBoxDemanda.text().replace(',', '.')
+
+            minDemand = float(minDemand)
+
+            if minDemand != float(0):
                 # check if dam predictions is full
                 if len(embalsePredictionsRf) == 0:
                     self.mensaje_error("No se han creado las predicciones para el embalse")
                 else:
+
                     agua_total = self.ui.txtCapacidadEmbalseRf.text()
 
-                    # calculate the % of water left
-                    #agua_restante = self.pop_up_agua_restante(agua_total)
-                    agua_actual = (float(agua_total) * float(embalsePredictionsRf[0])) / 100
-                    agua_texto = self.ui.spinBoxDemanda.text()
-                    agua_restante = agua_actual - float(agua_texto.replace(',', '.'))
-                    agua_restante = round(agua_restante, 2)
-                    print("Agua restante")
-                    print(agua_restante)
-                    self.popUpAlert = popup_ui.Ui_Dialog()
-                    self.popUpAlert.setupUi(self.Second_MainWindow)
-                    self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxRf.currentText()
-                                                         + " tendria " + str(agua_restante) +
-                                                         " hectometros cúbicos de agua")
-                    self.Second_MainWindow.show()
+                    agua_restante = self.pop_up_agua_restante(agua_total, self.ui.txtReservaActualRf.text())
+                    if agua_restante > 0:
+                        texto = "La reserva del embalse " + self.ui.comboBoxRf.currentText() + " tendria " + str(agua_restante) + " hectometros cúbicos de agua"
+                    elif agua_restante < 0:
+                        texto = "La reserva del embalse " + self.ui.comboBoxRf.currentText() + " NO tendría agua " \
+                                                                                               "suficiente para esta demanda. \n Quedaría vacía"
+
+                    fecha = ""
+
+                    central = "Central " + self.ui.comboBoxRf.currentText()
+
+                    self.openSecondWindow(texto, fecha, central)
 
             else:
                 self.mensaje_error("No se ha introducido ninguna cantidad de demanda")
-            print("")
 
 
         if self.ui.btnDecisionTree.isChecked():
-            if self.ui.spinBoxDemanda.text() != "0,0000":
+
+            minDemand = self.ui.spinBoxDemanda.text().replace(',', '.')
+
+            minDemand = float(minDemand)
+
+            if minDemand != float(0):
                 # check if dam predictions is full
                 if len(embalsePredictionsDt) == 0:
                     self.mensaje_error("No se han creado las predicciones para el embalse")
+
                 else:
                     agua_total = self.ui.txtCapacidadEmbalseDt.text()
                     # calculate the % of water left
-                    agua_restante = self.pop_up_agua_restante(agua_total)
+                    agua_restante = self.pop_up_agua_restante(agua_total, self.ui.txtReservaActualDt.text())
 
-                    #self.popUpAlert.alertMessage.text
-                    self.popUpAlert.alertMessage.setText("La reserva del embalse " + self.ui.comboBoxDt.currentText()
-                                                         + " tendria " + str(agua_restante) +
-                                                         " hectometros cúbicos de agua")
-                    self.Second_MainWindow.show()
+                    if agua_restante > 0:
+                        texto = "La reserva del embalse " + self.ui.comboBoxDt.currentText() + " tendria " + str(
+                            agua_restante) + " hectometros cúbicos de agua"
+                    elif agua_restante < 0:
+                        texto = "La reserva del embalse " + self.ui.comboBoxDt.currentText() + " NO tendría agua " \
+                                                                                               "suficiente para esta demanda. \n Quedaría vacía"
+
+                    fecha = ""
+
+                    central = "Central " + self.ui.comboBoxDt.currentText()
+
+                    self.openSecondWindow(texto, fecha, central)
 
             else:
                 self.mensaje_error("No se ha introducido ninguna cantidad de demanda")
-            print("")
+
+
+    def pop_up_agua_restante(self, agua_total, prediction):
+        agua_actual = (float(agua_total) * float(prediction)) / 100
+        agua_texto = self.ui.spinBoxDemanda.text()
+        agua_restante = agua_actual - float(agua_texto.replace(',', '.'))
+        agua_restante = round(agua_restante, 2)
+
+
+        return agua_restante
 
 
     def pop_up_agua_restante(self, agua_total, prediction):
@@ -721,7 +766,6 @@ class MainWindow(QMainWindow):
     # Funcion que cierra la aplicacion y las ventanas que esten abiertas
     def closeEvent(self, event):
         try:
-            self.Second_MainWindow.close()
             event.accept()
         except Exception as e:
             print(e)
@@ -731,16 +775,25 @@ class MainWindow(QMainWindow):
 
 
 class SecondWindow(QDialog):
-    def __int__(self):
+    def __init__(self, label_text, label_fecha, label_central):
         super().__init__()
 
-        self.uiPop = popup_ui.Ui_Dialog()
 
-        self.uiPop.setupUi(self)
+        self.ui = popup_ui.Ui_Dialog()
+
+        self.ui.setupUi(self)
+
+        self.ui.alertMessage.setText(label_text)
+        self.ui.fechaAlert.setText(label_fecha)
+        self.ui.nombreCentral.setText(label_central)
 
 
-    def changeText(self):
-        self.uiPop.alertMessage.setText("Hola")
+    def closeEvent(self, event):
+        try:
+            event.accept()
+        except Exception as e:
+            print(e)
+
 
 
 

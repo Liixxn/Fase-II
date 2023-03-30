@@ -1263,6 +1263,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(9)
         self.txtProvinciaDt.setFont(font)
+        self.txtProvinciaDt.setStyleSheet("color: rgb(255, 255, 255);")
         self.txtProvinciaDt.setText("")
         self.txtProvinciaDt.setAlignment(QtCore.Qt.AlignCenter)
         self.txtProvinciaDt.setObjectName("txtProvinciaDt")
@@ -1538,6 +1539,9 @@ class Ui_MainWindow(object):
         self.label_152.setObjectName("label_152")
         self.verticalLayout_62.addWidget(self.label_152)
         self.txtVelMediaDt = QtWidgets.QLabel(self.widget_152)
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.txtVelMediaDt.setFont(font)
         self.txtVelMediaDt.setStyleSheet("color: rgb(255, 255, 255);")
         self.txtVelMediaDt.setText("")
         self.txtVelMediaDt.setAlignment(QtCore.Qt.AlignCenter)
@@ -1565,8 +1569,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_72.addWidget(self.label_162)
         self.txtRachaDt = QtWidgets.QLabel(self.widget_162)
         font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
+        font.setPointSize(9)
+        font.setBold(False)
+        font.setWeight(50)
         self.txtRachaDt.setFont(font)
         self.txtRachaDt.setStyleSheet("color: rgb(255, 255, 255);")
         self.txtRachaDt.setText("")
@@ -1737,7 +1742,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
