@@ -37,6 +37,7 @@ class Ui_Dialog(object):
         font.setPointSize(10)
         self.alertMessage.setFont(font)
         self.alertMessage.setReadOnly(True)
+        self.alertMessage.setOverwriteMode(False)
         self.alertMessage.setObjectName("alertMessage")
         self.horizontalLayout_3.addWidget(self.alertMessage)
         self.verticalLayout.addWidget(self.widget_3)
