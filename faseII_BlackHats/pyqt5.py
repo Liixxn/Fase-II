@@ -1,25 +1,30 @@
 import datetime
 import io
 import sys
+import threading
 import time
+from threading import Thread
+
 import folium
 
 import pandas as pd
-from PyQt5.QtCore import QFile, QTextStream
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import QFile, QTextStream, QTimer
+from PyQt5.QtGui import QPixmap, QMovie, QCloseEvent
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QMessageBox, QComboBox, QSplashScreen, QDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QMessageBox, QComboBox, QSplashScreen, QDialog, \
+    QLabel
 
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5 import QtWidgets
 from matplotlib.backends.backend_qt import MainWindow
 from pyqt_translucent_full_loading_screen_thread import LoadingThread, LoadingTranslucentScreen
-
+from PyQt5.QtCore import QObject, QThread, pyqtSignal
 import data
 import aemet_predictions
 
 import home_ui
 import popup_ui
+import loading_ui
 
 lassoLastDame = ""
 rfLastDam = ""
@@ -31,6 +36,30 @@ cap_total = 0
 provincia = ""
 
 predictionLasso = dict()
+
+t = ""
+f = ""
+c = ""
+
+class Helper(QObject):
+    print("Antes de emitir la signal")
+    finished = pyqtSignal()
+    print("Despues de emitir la signal")
+
+    # def __init__(self):
+    #     super().__init__()
+
+
+
+class MyWarnings(QDialog):
+    def __init__(self):
+        super(MyWarnings, self).__init__()
+        widget = QLabel('wait')
+        layout = QVBoxLayout()
+        layout.addWidget(widget)
+        self.setLayout(layout)
+
+
 
 
 
@@ -45,9 +74,15 @@ class MainWindow(QMainWindow):
 
 
 
-
         self.ui.setupUi(self)
 
+        self.movie = QMovie('./icons/loading-gif.gif')
+
+        self.ui.labelLoading.setMovie(self.movie)
+
+        self.movie.start()
+
+        self.ui.labelLoading.setHidden(True)
         # Inicializacion de los elementos
         ventanaPrincipal = self.ui
 
@@ -71,7 +106,8 @@ class MainWindow(QMainWindow):
         ventanaPrincipal.comboBoxLasso.currentTextChanged.connect(self.displayDataLasso)
 
         # botones para el random forest
-        ventanaPrincipal.btnHoy.clicked.connect(self.displayDataRf)
+        ventanaPrincipal.btnHoy.clicked.connect(self.push_me)
+
         ventanaPrincipal.btnManiana.clicked.connect(self.displayDataRf)
         ventanaPrincipal.btn2dias.clicked.connect(self.displayDataRf)
         ventanaPrincipal.btn3dias.clicked.connect(self.displayDataRf)
@@ -98,6 +134,7 @@ class MainWindow(QMainWindow):
         ventanaPrincipal.btn5dias3.clicked.connect(self.displayDataDecisionTree)
         ventanaPrincipal.btn6dias3.clicked.connect(self.displayDataDecisionTree)
 
+
         #######################################################################################
         # lasso map
         layoutLasso = QVBoxLayout()
@@ -114,14 +151,7 @@ class MainWindow(QMainWindow):
         ventanaPrincipal.mapaDt.setLayout(layoutDt)
         self.create_map(layoutDt, 40.416775, -3.703790, 6)
 
-    def __startLoadingThread(self):
-        self.__loadingTranslucentScreen = LoadingTranslucentScreen(parent=self,
-                                                                   description_text='Waiting')
-        self.__loadingTranslucentScreen.setDescriptionLabelDirection('Right')
-        self.__thread = LoadingThread(loading_screen=self.__loadingTranslucentScreen)
-        # for second result
-        # self.__thread = MyThread(loading_screen=self.__loadingTranslucentScreen)
-        self.__thread.start()
+
 
     def create_map(self, layout, x, y, zoom):
         coordinate = (x, y)
@@ -154,25 +184,7 @@ class MainWindow(QMainWindow):
         webView.setHtml(data.getvalue().decode())
         layout.addWidget(webView)
         return layout
-        # elementos = m._children
-        #
-        # marcadores = []
-        # for elemento in elementos.values():
-        #     if isinstance(elemento, folium.Marker):
-        #         marcadores.append(elemento)
-        # for marcador in marcadores:
-        #     print("Marcador encontrado en ubicación: ", marcador.location)
 
-        ###################################################################################################
-
-    def zoom_map(self, central, layout_central):
-        """# dams_df = pd.read_csv("data/damLocation.csv", sep=',')
-        print(central)
-        #self.m.zoom_start = 10
-        print(self.ui.mapaLasso.layout().itemAt(0).widget().show())"""
-        layout_map = QVBoxLayout()
-        self.ui.mapaLasso.setLayout(layout_map)
-        self.create_map(layout_map, 40.416775, -3.703790, 12)
 
     ######################################################################################################
     # Funcion para mostrar los errores
@@ -190,6 +202,7 @@ class MainWindow(QMainWindow):
     def openSecondWindow(self, texto, fecha, central):
 
         self.secondWindow = SecondWindow(texto, fecha, central)
+
         self.secondWindow.show()
 
 
@@ -238,7 +251,32 @@ class MainWindow(QMainWindow):
             self.ui.btnDecisionTree.setChecked(True)
             self.ui.stackedWidget.setCurrentIndex(3)
 
-    def displayDataRf(self):
+
+    def push_me(self):
+        print("Muestra mywarnings")
+
+        self.a = MyWarnings()
+        self.a.show()
+
+        print("Antes crear instancia helper")
+        self.helper = Helper()
+
+        print("Despues crear instancia helper")
+        self.helper.finished.connect(lambda: self.widget.setText('done!'))
+        print("Despues de connect finished")
+        self.helper.finished.connect(self.a.close)
+        print("Despues de connect close")
+        print("Llamada al thread")
+        self.mihilo = threading.Thread(target=self.displayDataRf, args=(self.a, ))
+        self.mihilo.start()
+
+
+
+        print("Despues de thread")
+
+    def displayDataRf(self, ventanaLoad):
+
+        print("Entra en displayDataRf")
 
         if ((self.ui.btnHoy.isChecked()) or (self.ui.btnManiana.isChecked()) or (self.ui.btn2dias.isChecked()) or
                 (self.ui.btn3dias.isChecked()) or (self.ui.btn4dias.isChecked()) or (self.ui.btn5dias.isChecked())
@@ -249,19 +287,31 @@ class MainWindow(QMainWindow):
             global rfLastDam
             global cap_total
             global embalsePredictionsRf
-            global provincia
+            global t, f, c
+
             if rfLastDam != embalse:
 
+                print("Antes generate model")
                 embalsePredictionsRf, cap_total, provincia = data.generate_model(2, embalse)
                 embalsePredictionsRf = [round(elem, 2) for elem in embalsePredictionsRf]
+                print("Despues generate model")
+
+                ventanaLoad.close()
+
                 rfLastDam = embalse
 
             if self.ui.btnHoy.isChecked():
                 try:
                     self.btn_checked_random_forest(0, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+
                     self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[0]))
-                    self.checkPredictionRandomForest(embalsePredictionsRf[0])
+
+                    t, f, c = self.checkPredictionRandomForest(embalsePredictionsRf[0])
+
+                    self.openSecondWindow(t, f, c)
+
                 except Exception as e:
+                    print(e)
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
             if self.ui.btnManiana.isChecked():
@@ -313,6 +363,8 @@ class MainWindow(QMainWindow):
                     self.mensaje_error("No hay datos para la fecha seleccionada")
         else:
             self.mensaje_error("No se ha seleccionado una fecha para mostrar los datos")
+
+
 
     ###########################################################################################
 
@@ -511,7 +563,11 @@ class MainWindow(QMainWindow):
                 "background-color: #01A982;border-radius: 10px;margin: 5px 10px;")
 
     def checkPredictionRandomForest(self, embalsePredictionsRf):
+        print("Antes de check prediction random forest")
 
+        texto = ""
+        fecha = ""
+        central = ""
         if embalsePredictionsRf >= 90:
             self.ui.boardReservaRf.setStyleSheet(
                 "background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
@@ -522,10 +578,12 @@ class MainWindow(QMainWindow):
             fecha = "Fecha de la alerta: " + str(self.ui.fechaRf.text())
 
             central = "Alerta para la central: " + self.ui.comboBoxRf.currentText()
-            try:
-                self.openSecondWindow(texto, fecha, central)
-            except Exception as e:
-                print(e)
+            # try:
+            #     print("Antes de abrir la 2 ventana")
+            #     self.openSecondWindow(texto, fecha, central)
+            #     print("Despues de abrir la 2 ventana")
+            # except Exception as e:
+            #     print(e)
 
 
 
@@ -538,15 +596,18 @@ class MainWindow(QMainWindow):
             fecha = "Fecha de la alerta: " + str(self.ui.fechaRf.text())
 
             central = "Alerta para la central: " + self.ui.comboBoxRf.currentText()
-            try:
-                self.openSecondWindow(texto, fecha, central)
-            except Exception as e:
-                print(e)
+            # try:
+            #     self.openSecondWindow(texto, fecha, central)
+            # except Exception as e:
+            #     print(e)
 
 
         else:
             self.ui.boardReservaRf.setStyleSheet(
                 "background-color: #01A982;border-radius: 10px;margin: 5px 10px;")
+
+        print("Después de check prediction random forest")
+        return texto, fecha, central
 
     def checkPredictionDecisionTree(self, embalsePredictionsDt):
 
@@ -763,12 +824,15 @@ class MainWindow(QMainWindow):
 
     ##############################################################################################3333
 
+
     # Funcion que cierra la aplicacion y las ventanas que esten abiertas
     def closeEvent(self, event):
         try:
             event.accept()
         except Exception as e:
             print(e)
+
+
 
 
 
@@ -793,11 +857,6 @@ class SecondWindow(QDialog):
             event.accept()
         except Exception as e:
             print(e)
-
-
-
-
-
 
 
 

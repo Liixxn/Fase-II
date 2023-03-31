@@ -297,6 +297,8 @@ def predictions_preprocessing(df_embalse, historic_data, alias):
 pd.set_option('display.max_columns', None)
 
 def generate_model(model, municipality):
+
+    print("Dentro generate model")
     # each number represents a specific model: 1 = random forest,  2 = lasso ,  3 = decision tree
     # if day 6 or 7 have null values is better not to predict them
     # prediction_data dataframe which contains the data of the days to predict
