@@ -3,6 +3,7 @@ import json
 import os
 import time
 from datetime import date, datetime, timedelta, time as date_time
+import random
 import requests
 import pandas as pd
 from zipfile import ZipFile
@@ -12,7 +13,9 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import Lasso
+import warnings
 
+warnings.filterwarnings('ignore')
 
 #############################################################################################
 # Downloads the zip from the url
@@ -260,7 +263,7 @@ def predictions_preprocessing(df_embalse, historic_data, alias):
                             axis=1)
     historic_data['date'] = pd.to_datetime(historic_data['fecha'])
 
-    # using the
+    # using the NAO index to predict the water level of the dams
     nao_data = pd.read_csv("https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.aao.cdas.z700.19790101_current.csv")
     nao_date = pd.to_datetime(nao_data[["year", "month", "day"]]).values
     nao_data["date"] = nao_date
@@ -288,6 +291,8 @@ def predictions_preprocessing(df_embalse, historic_data, alias):
 pd.set_option('display.max_columns', None)
 
 def generate_model(model, municipality):
+
+
     # each number represents a specific model: 1 = random forest,  2 = lasso ,  3 = decision tree
     # if day 6 or 7 have null values is better not to predict them
     # prediction_data dataframe which contains the data of the days to predict
@@ -315,10 +320,6 @@ def generate_model(model, municipality):
     prediction_data = aemet_predictions.select_municipality(municipality)
     df, agua_total = predictions_preprocessing(embalse, historic_data, embalseAlias)
 
-
-
-
-
     df = df.drop(['embalse','indicativo', 'nombre', 'provincia'], axis=1)
     prediction_data = prediction_data.dropna()
     prediction_data['aao_index_cdas'] = aemet_predictions.nao_predictions()
@@ -327,7 +328,7 @@ def generate_model(model, municipality):
     # Establish the target
     X = df.drop('TARGET', axis=1)
     Y = df['TARGET']
-    print(Y)
+
     # Split the data into training and testing
     X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
 
@@ -356,7 +357,3 @@ def generate_model(model, municipality):
 
 
     return prediccion, agua_total, provincia
-
-
-predic = generate_model(3, "Central de Tajo de la Encantada")
-print(predic)

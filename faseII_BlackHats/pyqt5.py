@@ -1,23 +1,21 @@
 import datetime
 import io
 import sys
-import time
 import folium
-
 import pandas as pd
+from PyQt5 import QtGui
 from PyQt5.QtCore import QFile, QTextStream
 from PyQt5.QtGui import QPixmap
-
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QMessageBox, QComboBox, QSplashScreen
-
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QMessageBox, QSplashScreen, QDialog
 from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5 import QtWidgets
 from matplotlib.backends.backend_qt import MainWindow
+
+# Import several files
 import data
 import aemet_predictions
-
 import home_ui
 import popup_ui
+
 
 lassoLastDame = ""
 rfLastDam = ""
@@ -29,20 +27,17 @@ provincia = ""
 predictionLasso = dict()
 
 
-
-# Clase principal de la aplicacion
+# Main class of the application
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        # Carga de las diferentes ventanas
 
         self.ui = home_ui.Ui_MainWindow()
 
-
         self.ui.setupUi(self)
 
-        # Inicializacion de los elementos
+        # Initialize the main window
         ventanaPrincipal = self.ui
 
         ventanaPrincipal.stackedWidget.setCurrentIndex(0)
@@ -64,7 +59,7 @@ class MainWindow(QMainWindow):
         ventanaPrincipal.comboBoxDt.currentTextChanged.connect(self.displayDataDecisionTree)
         ventanaPrincipal.comboBoxLasso.currentTextChanged.connect(self.displayDataLasso)
 
-        # botones para el random forest
+        # buttons for random forest
         ventanaPrincipal.btnHoy.clicked.connect(self.displayDataRf)
         ventanaPrincipal.btnManiana.clicked.connect(self.displayDataRf)
         ventanaPrincipal.btn2dias.clicked.connect(self.displayDataRf)
@@ -72,9 +67,8 @@ class MainWindow(QMainWindow):
         ventanaPrincipal.btn4dias.clicked.connect(self.displayDataRf)
         ventanaPrincipal.btn5dias.clicked.connect(self.displayDataRf)
         ventanaPrincipal.btn6dias.clicked.connect(self.displayDataRf)
-        # ventanaPrincipal.comboBoxRt.currentIndexChanged.connect(self.displayDataRf)
 
-        # botones para el lasso
+        # buttons for lasso
         ventanaPrincipal.btnHoy2.clicked.connect(self.displayDataLasso)
         ventanaPrincipal.btnManiana2.clicked.connect(self.displayDataLasso)
         ventanaPrincipal.btn2dias2.clicked.connect(self.displayDataLasso)
@@ -83,7 +77,7 @@ class MainWindow(QMainWindow):
         ventanaPrincipal.btn5dias2.clicked.connect(self.displayDataLasso)
         ventanaPrincipal.btn6dias2.clicked.connect(self.displayDataLasso)
 
-        # botones para el Decision Tree
+        # buttons for decision tree
         ventanaPrincipal.btnHoy3.clicked.connect(self.displayDataDecisionTree)
         ventanaPrincipal.btnManiana3.clicked.connect(self.displayDataDecisionTree)
         ventanaPrincipal.btn2dias3.clicked.connect(self.displayDataDecisionTree)
@@ -121,11 +115,11 @@ class MainWindow(QMainWindow):
         for i in range(0, (dams_df['Central'].size) - 1):
             coordinates = dams_df['Coordenadas'][i].replace(',', '').split()
 
-            # Se ingresa el contenido en el popup
+            # Content of the popup
             iframe = folium.IFrame('Nombre de la central: ' + (dams_df["Central"][i]) + '\n\n Ubicación: ' + (
                 dams_df["Ubicación"][i]) + '\n\n Potencia instalada: ' + (dams_df["Potencia instalada"][i]))
 
-            # se inicializa el pop up y su tamaño
+            # creates the map and its size
             popup = folium.Popup(iframe, min_width=200, max_width=200)
 
             folium.Marker(location=[coordinates[0], coordinates[1]],
@@ -160,7 +154,7 @@ class MainWindow(QMainWindow):
         self.create_map(layout_map, 40.416775, -3.703790, 12)
 
     ######################################################################################################
-    # Funcion para mostrar los errores
+    # Function to show errors
     def mensaje_error(self, mensaje):
         QMessageBox.critical(
             self,
@@ -171,7 +165,7 @@ class MainWindow(QMainWindow):
         )
 
     ######################################################################################################
-
+    # Function to show warnings
     def openSecondWindow(self, texto, fecha, central):
 
         self.secondWindow = SecondWindow(texto, fecha, central)
@@ -208,7 +202,7 @@ class MainWindow(QMainWindow):
             embalsePredictions = []
 
     #################################################################################################333333
-
+    # Function to change the page in home
     def toogleButtonHome(self):
 
         if str(self.sender().objectName()).__contains__("Lasso"):
@@ -223,6 +217,8 @@ class MainWindow(QMainWindow):
             self.ui.btnDecisionTree.setChecked(True)
             self.ui.stackedWidget.setCurrentIndex(3)
 
+    ######################################################################################################
+    # Function to display data in random forest
     def displayDataRf(self):
 
         if ((self.ui.btnHoy.isChecked()) or (self.ui.btnManiana.isChecked()) or (self.ui.btn2dias.isChecked()) or
@@ -230,21 +226,23 @@ class MainWindow(QMainWindow):
                 or (self.ui.btn6dias.isChecked())):
 
             embalse = self.ui.comboBoxRf.currentText()
-            """self.zoom_map(embalse, self.ui.mapaRf)"""
+
             global rfLastDam
             global cap_total
-            global embalsePredictions
-            global provincia
+            global embalsePredictionsRf
+
             if rfLastDam != embalse:
-                embalsePredictions, cap_total, provincia = data.generate_model(2, embalse)
-                embalsePredictions = [round(elem, 2) for elem in embalsePredictions]
+
+                embalsePredictionsRf, cap_total, provincia = data.generate_model(2, embalse)
+                embalsePredictionsRf = [round(elem, 2) for elem in embalsePredictionsRf]
+
                 rfLastDam = embalse
 
             if self.ui.btnHoy.isChecked():
                 try:
                     self.btn_checked_random_forest(0, aemet_predictions.select_municipality(embalse), cap_total, provincia)
-                    self.ui.txtReservaActualRf.setText(str(embalsePredictions[0]))
-                    self.checkPredictionRandomForest(embalsePredictions[0])
+                    self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[0]))
+                    self.checkPredictionRandomForest(embalsePredictionsRf[0])
                 except Exception as e:
                     self.mensaje_error("No hay datos para la fecha seleccionada")
 
@@ -299,7 +297,7 @@ class MainWindow(QMainWindow):
             self.mensaje_error("No se ha seleccionado una fecha para mostrar los datos")
 
     ###########################################################################################
-
+    # Function to display data in decision tree
     def displayDataDecisionTree(self):
 
         if ((self.ui.btnHoy3.isChecked()) or (self.ui.btnManiana3.isChecked()) or (self.ui.btn2dias3.isChecked()) or
@@ -308,7 +306,6 @@ class MainWindow(QMainWindow):
 
 
             embalse = self.ui.comboBoxDt.currentText()
-            print(embalse)
             global dTreeDam
             global cap_total
             global embalsePredictions
@@ -378,7 +375,7 @@ class MainWindow(QMainWindow):
             self.mensaje_error("No se ha seleccionado una fecha para mostrar los datos")
 
     ###########################################################################################
-
+    # Function to display data in lasso
     def displayDataLasso(self):
 
         if ((self.ui.btnHoy2.isChecked()) or (self.ui.btnManiana2.isChecked()) or (self.ui.btn2dias2.isChecked()) or
@@ -456,7 +453,10 @@ class MainWindow(QMainWindow):
         else:
             self.mensaje_error("No se ha seleccionado una fecha para mostrar los datos")
 
+    ###########################################################################################
 
+
+    # Function to check the prediction of lasso
     def checkPredictionLasso(self, embalsePredictions):
         if embalsePredictions >= 90:
             self.ui.boardReservaLasso.setStyleSheet(
@@ -493,9 +493,11 @@ class MainWindow(QMainWindow):
             self.ui.boardReservaLasso.setStyleSheet(
                 "background-color: #01A982;border-radius: 10px;margin: 5px 10px;")
 
-    def checkPredictionRandomForest(self, embalsePredictions):
+    ###########################################################################################
+    # Function to check the prediction of random forest
+    def checkPredictionRandomForest(self, embalsePredictionsRf):
 
-        if embalsePredictions >= 90:
+        if embalsePredictionsRf >= 90:
             self.ui.boardReservaRf.setStyleSheet(
                 "background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
 
@@ -511,7 +513,6 @@ class MainWindow(QMainWindow):
                 print(e)
 
 
-
         elif embalsePredictions < 30:
             self.ui.boardReservaRf.setStyleSheet("background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
 
@@ -525,15 +526,15 @@ class MainWindow(QMainWindow):
                 self.openSecondWindow(texto, fecha, central)
             except Exception as e:
                 print(e)
-
-
         else:
             self.ui.boardReservaRf.setStyleSheet(
                 "background-color: #01A982;border-radius: 10px;margin: 5px 10px;")
 
-    def checkPredictionDecisionTree(self, embalsePredictions):
 
-        if embalsePredictions >= 90:
+    # Function to check the prediction of decision tree
+    def checkPredictionDecisionTree(self, embalsePredictionsDt):
+
+        if embalsePredictionsDt >= 90:
             self.ui.boardReservaDt.setStyleSheet(
                 "background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
 
@@ -570,10 +571,9 @@ class MainWindow(QMainWindow):
                 "background-color: #01A982;border-radius: 10px;margin: 5px 10px;")
 
 
-
     ####################################################################################################
 
-    # Function to calculate the water left in the dam
+    # Function to calculate the water left in the dam and show it in the pop up
 
     def calculateWaterLeft(self):
 
@@ -675,7 +675,7 @@ class MainWindow(QMainWindow):
             else:
                 self.mensaje_error("No se ha introducido ninguna cantidad de demanda")
 
-
+    # Function to calculate the water left in the dam
     def pop_up_agua_restante(self, agua_total, prediction):
         agua_actual = (float(agua_total) * float(prediction)) / 100
         agua_texto = self.ui.spinBoxDemanda.text()
@@ -685,6 +685,9 @@ class MainWindow(QMainWindow):
 
         return agua_restante
 
+    ####################################################################################################
+
+    # Function to set the values of the dams in the window
     def btn_checked_random_forest(self, day, data, cap_total, provincia):
         unixToDatetime = datetime.datetime.fromtimestamp(data.at[day, "date"]).date()  # Unix Time
         velMed = round(data.at[day, "velmedia"], 2)
@@ -718,7 +721,6 @@ class MainWindow(QMainWindow):
         self.ui.txtCapacidadEmbalseLasso.setText(str(cap_total))
 
     def btn_checked_decision_tree(self, day, data, cap_total, provincia):
-        print(data.dtypes)
         unixToDatetime = datetime.datetime.fromtimestamp(data.at[day, "date"]).date()  # Unix Time
         velMed = round(data.at[day, "velmedia"], 2)
         racha = round(data.at[day, "racha"], 2)
@@ -747,6 +749,8 @@ class MainWindow(QMainWindow):
 
 
 
+
+# Class for the second window
 class SecondWindow(QDialog):
     def __init__(self, label_text, label_fecha, label_central):
         super().__init__()
@@ -756,6 +760,7 @@ class SecondWindow(QDialog):
 
         self.ui.setupUi(self)
 
+        # Set the text of the labels
         self.ui.alertMessage.setText(label_text)
         self.ui.fechaAlert.setText(label_fecha)
         self.ui.nombreCentral.setText(label_central)
@@ -766,19 +771,6 @@ class SecondWindow(QDialog):
             event.accept()
         except Exception as e:
             print(e)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -795,6 +787,8 @@ if __name__ == "__main__":
     # Data gathering
     url = 'https://www.miteco.gob.es/es/agua/temas/evaluacion-de-los-recursos-hidricos/bd-embalses_tcm30-538779.zip'
 
+    # TODO
+
     # data.zip_download(url, './bbdd_embalses.zip')
     #
     # data.fileFromZip('bbdd_embalses.zip', 'BD-Embalses.mdb')
@@ -808,6 +802,7 @@ if __name__ == "__main__":
     app.setStyleSheet(style_stream.readAll())
 
     window = MainWindow()
+    window.setWindowIcon(QtGui.QIcon(r"BlackHats_logo.png"))
     window.show()
     splash.finish(window)
 
