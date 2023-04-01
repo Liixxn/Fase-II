@@ -70,6 +70,12 @@
 }
 
 
+#btnGuardarRf, #btnGuardarLasso, #btnGuardarDt {
+    background-color: #117B82;
+    color: white;
+    font-weight: bold;
+}
+
 
 #labelRf, #labelLasso, #labelDt, #label_3 {
     font-size: 14px;
