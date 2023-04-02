@@ -8,7 +8,6 @@ import random
 import requests
 import pandas as pd
 from zipfile import ZipFile
-import pypyodbc
 import aemet_predictions
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.model_selection import train_test_split
