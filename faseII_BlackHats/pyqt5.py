@@ -819,7 +819,7 @@ class SecondWindow(QDialog):
 if __name__ == "__main__":
     app = QApplication(['', '--no-sandbox'])
 
-    pixmap = QPixmap("imgs/BlackHats-logo.png")
+    pixmap = QPixmap("imgs/Droplet_logo.png")
     splash = QSplashScreen(pixmap)
     splash.show()
     app.processEvents()
@@ -842,7 +842,7 @@ if __name__ == "__main__":
     app.setStyleSheet(style_stream.readAll())
 
     window = MainWindow()
-    window.setWindowIcon(QtGui.QIcon(r"BlackHats_logo.png"))
+    window.setWindowIcon(QtGui.QIcon(r"Droplet_icon.png"))
     window.show()
     splash.finish(window)
 
