@@ -238,11 +238,11 @@ class MainWindow(QMainWindow):
 
         if str(self.sender().objectName()).__contains__("Lasso"):
             self.ui.btnLasso.setChecked(True)
-            self.ui.stackedWidget.setCurrentIndex(1)
+            self.ui.stackedWidget.setCurrentIndex(2)
 
         if str(self.sender().objectName()).__contains__("RandomForest"):
             self.ui.btnRandomForest.setChecked(True)
-            self.ui.stackedWidget.setCurrentIndex(2)
+            self.ui.stackedWidget.setCurrentIndex(1)
 
         if str(self.sender().objectName()).__contains__("DecisionTree"):
             self.ui.btnDecisionTree.setChecked(True)
@@ -259,6 +259,7 @@ class MainWindow(QMainWindow):
             embalse = self.ui.comboBoxRf.currentText()
             global rfLastDam
             global cap_total
+            global provincia
             global embalsePredictionsRf
 
             if rfLastDam != embalse:
@@ -556,7 +557,7 @@ class MainWindow(QMainWindow):
                 print(e)
 
 
-        elif embalsePredictions < 30:
+        elif embalsePredictionsRf < 30:
             self.ui.boardReservaRf.setStyleSheet("background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
 
             texto = "La reserva del embalse " + self.ui.comboBoxRf.currentText() + " se encuentra al " + str(
@@ -593,7 +594,7 @@ class MainWindow(QMainWindow):
 
 
 
-        elif embalsePredictions < 30:
+        elif embalsePredictionsDt < 30:
             self.ui.boardReservaDt.setStyleSheet("background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
 
             texto = "La reserva del embalse " + self.ui.comboBoxDt.currentText() + " se encuentra al " + str(
