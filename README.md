@@ -1,7 +1,8 @@
 
 <h1>DROPLET</h1>
 
-Aplicación de gestión de centrales hidroeléctricas en PyQt5
+Aplicación de gestión de centrales hidroeléctricas en PyQt5.
+
 Esta aplicación está diseñada para ayudar en la gestión de centrales hidroeléctricas mediante una interfaz gráfica de usuario construida con PyQt5.
 
 El objetivo del proyecto es crear un sistema que, dado valores climatológicos, pueda predecir los niveles de agua en los embalses en diferentes días. 
