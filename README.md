@@ -5,10 +5,10 @@
 
 Esta aplicación está diseñada para ayudar en la gestión de centrales hidroeléctricas mediante una interfaz gráfica de usuario construida con PyQt5.
 
-El objetivo del proyecto es crear un sistema que, dado valores climatológicos, pueda predecir los niveles de agua en los embalses en diferentes días. 
+El objetivo del proyecto es crear un sistema que, dado valores climatológicos, pueda predecir los niveles de agua en los embalses en diferentes días.
 Se busca facilitar y garantizar la gestión de los embalses mediante la utilización de esta información.
 
-La aplicación, se encuentra diseñada bajo el concepto de “dashboard” o “panel de control”, herramienta de gestión de la información que monitoriza, analiza y muestra de manera visual métricas sobre las distintas presas. 
+La aplicación, se encuentra diseñada bajo el concepto de “dashboard” o “panel de control”, herramienta de gestión de la información que monitoriza, analiza y muestra de manera visual métricas sobre las distintas presas.
 Cuenta con diferentes pestañas: una pestaña principal que da la bienvenida al usuario, y tres pestañas con el nombre correspondiente a su algoritmo.
 El logo de Droplet es el siguiente:
 <div align="center">
@@ -39,14 +39,14 @@ puede instalárselo con el siguiente comando en una terminal.</p>
 python get-pip.py
 ```
 
-<p>A continuación, navegue desde la terminal hasta la ruta en la que se encuentre el proyecto. Uno de los ficheros que se encuentra denominado, 
+<p>A continuación, navegue desde la terminal hasta la ruta en la que se encuentre el proyecto. Uno de los ficheros que se encuentra denominado,
 <i>requirements.txt</i> contiene todas las librerías que Droplet necesita. Instálelas con el siguiente comando:</p>
 
 ```
 pip install -r requirements.txt
 ```
 
-<p>Tras la finalización de las diversas instalaciones, solo tiene que ejecutar el fichero principal <b>pyqt5.py</b> y ya podrá disfrutar de todas las 
+<p>Tras la finalización de las diversas instalaciones, solo tiene que ejecutar el fichero principal <b>pyqt5.py</b> y ya podrá disfrutar de todas las
 funcionalidades que ofrece la aplicación.</p>
 
 <hr>
@@ -80,27 +80,45 @@ de Droplet.</p>
 <div align="center">
   <img src="faseII_BlackHats/imgs/home.png" alt="Ventana Principal de Droplet" width="60%" height="60%">
 </div>
-  
+
 <h3 align="center">Modelos</h3>
 <div align="center">
   <img src="faseII_BlackHats/imgs/modelo.png" alt="Ventana de un modelo" width="60%" height="60%">
 </div>
-  
+
 <h3 align="center">Predicción para un embalse</h3>
 <div align="center">
   <img src="faseII_BlackHats/imgs/dato.png" alt="Prediccion para un embalse" width="60%" height="60%">
 </div>
-  
+
 <h3 align="center">Muestreo de alertas</h3>
 <div align="center">
   <img src="faseII_BlackHats/imgs/alerta.png" alt="Alerta de la aplicación" width="60%" height="60%">
 </div>
-  
+
 <h3 align="center">Guardado de resultados</h3>
 <div align="center">
   <img src="faseII_BlackHats/imgs/csv.png" alt="Guardado de resultados en csv" width="60%" height="60%">
 </div>
+# Docker
 
+**No se recomienda** el uso de docker ya que limita mucho la experiencia como usuario de la plicación, debido a las limitaciones del contenedor. **A través de docker esta aplicación puede que no funcione como es debido**.
 
-
-  
+## Inicializar docker
+Para poder lanzar el docker debera seguir las siguientes instrucciones:
+- Primero nos situamos en la carpeta en la que se encuentra el proyecto
+```sh
+cd /faseII_BlackHats/
+```
+- Para construir una imagen de Docker a partir del Dockerfile
+```sh
+sudo docker build -t droplet
+```
+- A continuación el comando "he xhost +local:docker" otorga acceso al servidor X para el usuario docker, que es el usuario dentro del contenedor. Esto debería permitir que el contenedor se conecte al servidor X en la máquina host y muestre la aplicación de la GUI.
+```sh
+xhost +local:docker
+```
+- Para ejecutar el contenedor Docker de la aplicación "droplet".
+```sh
+sudo docker run -it --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix droplet
+```
