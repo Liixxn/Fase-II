@@ -36,7 +36,7 @@ El logo de Droplet es el siguiente:
 puede instalárselo con el siguiente comando en una terminal.</p>
 
 ```
-pyhton get-pip.py
+python get-pip.py
 ```
 
 <p>A continuación, navegue desde la terminal hasta la ruta en la que se encuentre el proyecto. Uno de los ficheros que se encuentra denominado, 
@@ -88,7 +88,7 @@ de Droplet.</p>
   
 <h3 align="center">Predicción para un embalse</h3>
 <div align="center">
-  <img src="faseII_BlackHats/imgs/home.png" alt="Prediccion para un embalse" width="60%" height="60%">
+  <img src="faseII_BlackHats/imgs/dato.png" alt="Prediccion para un embalse" width="60%" height="60%">
 </div>
   
 <h3 align="center">Muestreo de alertas</h3>
