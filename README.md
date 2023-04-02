@@ -12,7 +12,7 @@ La aplicación, se encuentra diseñada bajo el concepto de “dashboard” o “
 Cuenta con diferentes pestañas: una pestaña principal que da la bienvenida al usuario, y tres pestañas con el nombre correspondiente a su algoritmo.
 El logo de Droplet es el siguiente:
 <div align="center">
-  <img src="faseII_BlackHats/Droplet_icon.png" width="100" height="100">
+  <img src="faseII_BlackHats/droplet_sin_fondo.png" width="250" height="250">
 </div>
 
 <hr>
@@ -26,7 +26,7 @@ El logo de Droplet es el siguiente:
 <a href="https://riverbankcomputing.com/software/pyqt/intro" target="_blank" rel="noreferrer"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Python_and_Qt.svg" alt="PyQt" width="40" height="40"/> </a>
 <a href="https://jupyter.org" target="_blank" rel="noreferrer"><img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="Jupyter Notebook" width="40" height="40"/> </a>
 <a href="https://www.jetbrains.com/es-es/pycharm/" target="_blank" rel="noreferrer"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/PyCharm_Icon.svg" alt="PyCharm" width="40" height="40"/> </a>
-<a href="https://www.docker.com" target="_blank" rel="noreferrer"><img src="https://1000logos.net/wp-content/uploads/2021/11/Docker-Logo-2013.png" alt="Docker" width="40" height="40"/> </a>
+<a href="https://www.docker.com" target="_blank" rel="noreferrer"><img src="https://1000logos.net/wp-content/uploads/2021/11/Docker-Logo-2013.png" alt="Docker" width="50" height="40"/> </a>
 
 <hr>
 
@@ -72,3 +72,35 @@ de Droplet.</p>
 <ul>
   <li><b><i>data</i></b>: carpeta que guarda los diferentes archivos con la información que Droplet procesa.</li>
 </ul>
+
+
+<hr>
+
+<h3 align="center">Ventana Principal de Droplet</h3>
+<div align="center">
+  <img src="faseII_BlackHats/imgs/home.png" alt="Ventana Principal de Droplet" width="60%" height="60%">
+</div>
+  
+<h3 align="center">Modelos</h3>
+<div align="center">
+  <img src="faseII_BlackHats/imgs/modelo.png" alt="Ventana de un modelo" width="60%" height="60%">
+</div>
+  
+<h3 align="center">Predicción para un embalse</h3>
+<div align="center">
+  <img src="faseII_BlackHats/imgs/home.png" alt="Prediccion para un embalse" width="60%" height="60%">
+</div>
+  
+<h3 align="center">Muestreo de alertas</h3>
+<div align="center">
+  <img src="faseII_BlackHats/imgs/alerta.png" alt="Alerta de la aplicación" width="60%" height="60%">
+</div>
+  
+<h3 align="center">Guardado de resultados</h3>
+<div align="center">
+  <img src="faseII_BlackHats/imgs/csv.png" alt="Guardado de resultados en csv" width="60%" height="60%">
+</div>
+
+
+
+  
