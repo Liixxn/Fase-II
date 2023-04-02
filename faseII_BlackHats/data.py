@@ -1,6 +1,7 @@
 import datetime
 import json
 import os
+import subprocess
 import time
 from datetime import date, datetime, timedelta, time as date_time
 import random
@@ -16,6 +17,7 @@ from sklearn.linear_model import Lasso
 import warnings
 
 warnings.filterwarnings('ignore')
+
 
 #############################################################################################
 # Downloads the zip from the url
@@ -34,34 +36,18 @@ def zip_download(url, save_path, chunk_size=128):
 def fileFromZip(ziptoread, fileToOpen):
     # the system loads the zip file
     with ZipFile(ziptoread, 'r') as zip:
-
         # the fileToOpen (the mdb file) gets unziped and stored in the data file
         zip.extract(fileToOpen, './data/')
 
 
-
 # converts the .mdb file to a csv
-def bbddToCsv(bbddfile, tableName, csvName):
-    pypyodbc.lowercase = False
-
-    conn = pypyodbc.connect(r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=' + bbddfile + ';')
-    # Open Cursor and execute SQL
-    cur = conn.cursor()
-    # Obtain all the information from the table
-    query = "SELECT * FROM [" + tableName + "];"
-    cur.execute(query)
-    # Save the data into a dataframe
-    df = pd.read_sql(query, conn)
-    # Transform dataframe to csv
-    df.to_csv(csvName, index=False, sep=";")
-
-    # Close connections
-    cur.close()
-    conn.close()
+def bbddToCsv(bbddfile='BD-Embalses.mdb', tablename='T_Datos Embalses 1988-2023', csvname='embalses.csv'):
+    tables = subprocess.check_output(["mdb-export", bbddfile, tablename])
+    with open(csvname, 'w') as f:
+        f.write(tables.decode())
 
 
 #############################################################################################
-
 
 
 def get_dam():
@@ -71,11 +57,8 @@ def get_dam():
     return dict
 
 
-
-
 # check if there is new info on the embalses DB
 def updateData():
-
     # the embalses zip gets downloaded
     zip_download(
         'https://www.miteco.gob.es/es/agua/temas/evaluacion-de-los-recursos-hidricos/bd-embalses_tcm30-538779.zip',
@@ -102,14 +85,14 @@ def updateData():
             # deleted new csv because there was no new data
             os.remove("./data/embalses2.csv")
     else:
-        #if there wasn't a file of embalses, then the downloaded file becomes the main one
+        # if there wasn't a file of embalses, then the downloaded file becomes the main one
         os.remove("./data/embalses.csv")
         # rename new file name from embalses2.csv to embalses.csv
         os.rename("./data/embalses2.csv", "./data/embalses.csv")
 
+
 # method to obtain the climatic data for every dam
 def get_aemet_data_embalse(embalse, idema, last_date_dataframe, date_delta):
-
     # declares the dataframe which will contain the csv info. And the api_key to access the AEMET API
     df = pd.DataFrame()
     api_key = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtdHJnb21lejAwQGdtYWlsLmNvbSIsImp0aSI6IjEzODdkM2VkLWFkODItNGYxYy1iNThlLWU3Mzg3MjM4OWExOSIsImlzcyI6IkFFTUVUIiwiaWF0IjoxNjY2NjAxMTM4LCJ1c2VySWQiOiIxMzg3ZDNlZC1hZDgyLTRmMWMtYjU4ZS1lNzM4NzIzODlhMTkiLCJyb2xlIjoiIn0.jZclNltVxWR1_zn4MN-8xzTYNhpIyWK_70altWc-aks'
@@ -178,6 +161,7 @@ def get_aemet_data_embalse(embalse, idema, last_date_dataframe, date_delta):
     # save the data
     df_aemet.to_csv("./data/aemet_data.csv", index=False, encoding='utf-8-sig', sep=',')
 
+
 def update_aemet_data():
     # get all the dams
     embalses = get_dam()
@@ -204,10 +188,8 @@ def update_aemet_data():
             get_aemet_data_embalse(embalse['Hidroeléctrica'], embalse['Indicativo'], 0, 99999)
 
 
-
 # preprocess the data from the downloaded csv
 def dataframe_preprocessing(df_aemet):
-
     # the following columns are drop due to irrelevance for the model
     df_aemet = df_aemet.drop(['dir', 'altitud', 'horatmax', 'horaracha',
                               'horatmin', 'horaPresMax', 'horaPresMin', 'presMax', 'presMin'], axis=1)
@@ -237,15 +219,12 @@ def dataframe_preprocessing(df_aemet):
     aemet_data['tmin'] = aemet_data['tmin'].astype(float)
     aemet_data['fecha'] = pd.to_datetime(aemet_data['fecha'])
 
-
-
     # returns the dataframe preprocessed
     return aemet_data
 
 
 # preprocessing the data for predictions
 def predictions_preprocessing(df_embalse, historic_data, alias):
-
     # gets just the data from the desired dam alias
     historic_data = historic_data.loc[historic_data['embalse'] == alias]
     embalse = df_embalse[(df_embalse['EMBALSE_NOMBRE'] == alias)]
@@ -260,7 +239,7 @@ def predictions_preprocessing(df_embalse, historic_data, alias):
     # store the total water of the dam and drops the irrelevant columns for the model and changes the date to unix
     agua_total = embalse.iloc[0]['AGUA_TOTAL']
     embalse = embalse.drop(['AGUA_TOTAL', 'AGUA_ACTUAL', 'AMBITO_NOMBRE', 'EMBALSE_NOMBRE', 'ELECTRICO_FLAG', 'FECHA'],
-                            axis=1)
+                           axis=1)
     historic_data['date'] = pd.to_datetime(historic_data['fecha'])
 
     # using the NAO index to predict the water level of the dams
@@ -282,30 +261,28 @@ def predictions_preprocessing(df_embalse, historic_data, alias):
     df = df.fillna(0)
     df['date'] = dates
 
-
-
-
     return df, agua_total
 
 
 pd.set_option('display.max_columns', None)
 
+
 def generate_model(model, municipality):
-
-
     # each number represents a specific model: 1 = random forest,  2 = lasso ,  3 = decision tree
     # if day 6 or 7 have null values is better not to predict them
     # prediction_data dataframe which contains the data of the days to predict
     # df contains the dataframes to trai
 
     centrales = [{'Central': 'Central de Aldeadávila', 'Alias': 'Aldeadávila', 'ID': '37014', 'provincia': 'Salamanca'},
-                 {'Central': 'Central José María de Oriol', 'Alias': 'Alcántara', 'ID': '10008', 'provincia': 'Cáceres'},
+                 {'Central': 'Central José María de Oriol', 'Alias': 'Alcántara', 'ID': '10008',
+                  'provincia': 'Cáceres'},
                  {'Central': 'Central de Villarino', 'Alias': 'Almendra', 'ID': '37364', 'provincia': 'Salamanca'},
                  {'Central': 'Central de Cortes-La Muela', 'Alias': 'La Muela', 'ID': '46099', 'provincia': 'Valencia'},
                  {'Central': 'Central de Saucelle', 'Alias': 'Saucelle', 'ID': '37302', 'provincia': 'Salamanca'},
                  {'Central': 'Cedillo', 'Alias': 'Cedillo', 'ID': '10062', 'provincia': 'Caceres'},
                  {'Central': 'Estany-Gento Sallente', 'Alias': 'Sallente', 'ID': '25227', 'provincia': 'Lleida'},
-                 {'Central': 'Central de Tajo de la Encantada', 'Alias': 'Conde Guadalhorce', 'ID': '29012', 'provincia': 'Málaga'},
+                 {'Central': 'Central de Tajo de la Encantada', 'Alias': 'Conde Guadalhorce', 'ID': '29012',
+                  'provincia': 'Málaga'},
                  {'Central': 'Central de Aguayo', 'Alias': 'Alsa', 'ID': '39070', 'provincia': 'Cantabria'},
                  {'Central': 'Mequinenza', 'Alias': 'MEQUINENZA', 'ID': '50165', 'provincia': 'Zaragoza'},
                  {'Central': 'Mora de Luna', 'Alias': 'Barrios de Luna', 'ID': '24012', 'provincia': 'León'}]
@@ -320,10 +297,9 @@ def generate_model(model, municipality):
     prediction_data = aemet_predictions.select_municipality(municipality)
     df, agua_total = predictions_preprocessing(embalse, historic_data, embalseAlias)
 
-    df = df.drop(['embalse','indicativo', 'nombre', 'provincia'], axis=1)
+    df = df.drop(['embalse', 'indicativo', 'nombre', 'provincia'], axis=1)
     prediction_data = prediction_data.dropna()
     prediction_data['aao_index_cdas'] = aemet_predictions.nao_predictions()
-
 
     # Establish the target
     X = df.drop('TARGET', axis=1)
@@ -354,6 +330,5 @@ def generate_model(model, municipality):
         dtree.fit(X_train, y_train)
 
         prediccion = dtree.predict(prediction_data)
-
 
     return prediccion, agua_total, provincia

@@ -18,7 +18,6 @@ import aemet_predictions
 import home_ui
 import popup_ui
 
-
 lassoLastDame = ""
 rfLastDam = ""
 dTreeDam = ""
@@ -33,11 +32,11 @@ listaDias = [datetime.datetime.now(), datetime.datetime.now() + datetime.timedel
              datetime.datetime.now() + datetime.timedelta(days=4), datetime.datetime.now() + datetime.timedelta(days=5),
              datetime.datetime.now() + datetime.timedelta(days=6)]
 
+
 # Main class of the application
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-
 
         self.ui = home_ui.Ui_MainWindow()
 
@@ -113,24 +112,23 @@ class MainWindow(QMainWindow):
         self.create_map(layoutDt, 40.416775, -3.703790, 6)
 
     def guardarModeloLasso(self):
-        if len(embalsePredictions)==0:
+        if len(embalsePredictions) == 0:
             self.mensaje_error("No se pueden guardar resultados, ya que no hay predicciones.")
         else:
             self.saveDataframe(embalsePredictions)
 
     def guardarModeloRf(self):
-        if len(embalsePredictionsRf)==0:
+        if len(embalsePredictionsRf) == 0:
             self.mensaje_error("No se pueden guardar resultados, ya que no hay predicciones.")
         else:
             self.saveDataframe(embalsePredictionsRf)
 
     def guardarModeloDt(self):
 
-        if len(embalsePredictionsDt)==0:
+        if len(embalsePredictionsDt) == 0:
             self.mensaje_error("No se pueden guardar resultados, ya que no hay predicciones.")
         else:
             self.saveDataframe(embalsePredictionsDt)
-
 
     def saveDataframe(self, embalsePredictions_save):
         files = [('CSV', '*.csv'),
@@ -154,7 +152,6 @@ class MainWindow(QMainWindow):
             tkinter.messagebox.showinfo("Información", "El archivo se ha guardado correctamente.")
         else:
             self.mensaje_error("El formato seleccionado no es válido")
-
 
     def create_map(self, layout, x, y, zoom):
         coordinate = (x, y)
@@ -205,7 +202,6 @@ class MainWindow(QMainWindow):
 
         self.secondWindow = SecondWindow(texto, fecha, central)
         self.secondWindow.show()
-
 
     ######################################################################################################
     # Function to change the page
@@ -266,16 +262,15 @@ class MainWindow(QMainWindow):
             global embalsePredictionsRf
 
             if rfLastDam != embalse:
-
                 embalsePredictionsRf, cap_total, provincia = data.generate_model(2, embalse)
                 embalsePredictionsRf = [round(elem, 2) for elem in embalsePredictionsRf]
-
 
                 rfLastDam = embalse
 
             if self.ui.btnHoy.isChecked():
                 try:
-                    self.btn_checked_random_forest(0, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_random_forest(0, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[0]))
                     self.checkPredictionRandomForest(embalsePredictionsRf[0])
                 except Exception as e:
@@ -284,7 +279,8 @@ class MainWindow(QMainWindow):
 
             if self.ui.btnManiana.isChecked():
                 try:
-                    self.btn_checked_random_forest(1, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_random_forest(1, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[1]))
                     self.checkPredictionRandomForest(embalsePredictionsRf[1])
                 except Exception as e:
@@ -292,7 +288,8 @@ class MainWindow(QMainWindow):
 
             if self.ui.btn2dias.isChecked():
                 try:
-                    self.btn_checked_random_forest(2, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_random_forest(2, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[2]))
                     self.checkPredictionRandomForest(embalsePredictionsRf[2])
                 except Exception as e:
@@ -300,7 +297,8 @@ class MainWindow(QMainWindow):
 
             if self.ui.btn3dias.isChecked():
                 try:
-                    self.btn_checked_random_forest(3, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_random_forest(3, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[3]))
                     self.checkPredictionRandomForest(embalsePredictionsRf[3])
                 except Exception as e:
@@ -308,7 +306,8 @@ class MainWindow(QMainWindow):
 
             if self.ui.btn4dias.isChecked():
                 try:
-                    self.btn_checked_random_forest(4, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_random_forest(4, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[4]))
                     self.checkPredictionRandomForest(embalsePredictionsRf[4])
                 except Exception as e:
@@ -316,7 +315,8 @@ class MainWindow(QMainWindow):
 
             if self.ui.btn5dias.isChecked():
                 try:
-                    self.btn_checked_random_forest(5, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_random_forest(5, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[5]))
                     self.checkPredictionRandomForest(embalsePredictionsRf[5])
                 except Exception as e:
@@ -324,7 +324,8 @@ class MainWindow(QMainWindow):
 
             if self.ui.btn6dias.isChecked():
                 try:
-                    self.btn_checked_random_forest(6, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_random_forest(6, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualRf.setText(str(embalsePredictionsRf[6]))
                     self.checkPredictionRandomForest(embalsePredictionsRf[6])
                 except Exception as e:
@@ -340,7 +341,6 @@ class MainWindow(QMainWindow):
                 (self.ui.btn3dias3.isChecked()) or (self.ui.btn4dias3.isChecked()) or (self.ui.btn5dias3.isChecked())
                 or (self.ui.btn6dias3.isChecked())):
 
-
             embalse = self.ui.comboBoxDt.currentText()
 
             global dTreeDam
@@ -354,7 +354,8 @@ class MainWindow(QMainWindow):
 
             if self.ui.btnHoy3.isChecked():
                 try:
-                    self.btn_checked_decision_tree(0, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_decision_tree(0, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[0]))
                     self.checkPredictionDecisionTree(embalsePredictionsDt[0])
                 except Exception as e:
@@ -362,7 +363,8 @@ class MainWindow(QMainWindow):
 
             if self.ui.btnManiana3.isChecked():
                 try:
-                    self.btn_checked_decision_tree(1, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_decision_tree(1, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[1]))
                     self.checkPredictionDecisionTree(embalsePredictionsDt[1])
                 except Exception as e:
@@ -370,7 +372,8 @@ class MainWindow(QMainWindow):
 
             if self.ui.btn2dias3.isChecked():
                 try:
-                    self.btn_checked_decision_tree(2, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_decision_tree(2, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[2]))
                     self.checkPredictionDecisionTree(embalsePredictionsDt[2])
                 except Exception as e:
@@ -378,7 +381,8 @@ class MainWindow(QMainWindow):
 
             if self.ui.btn3dias3.isChecked():
                 try:
-                    self.btn_checked_decision_tree(3, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_decision_tree(3, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[3]))
                     self.checkPredictionDecisionTree(embalsePredictionsDt[3])
                 except Exception as e:
@@ -386,7 +390,8 @@ class MainWindow(QMainWindow):
 
             if self.ui.btn4dias3.isChecked():
                 try:
-                    self.btn_checked_decision_tree(4, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_decision_tree(4, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[4]))
                     self.checkPredictionDecisionTree(embalsePredictionsDt[4])
                 except Exception as e:
@@ -394,7 +399,8 @@ class MainWindow(QMainWindow):
 
             if self.ui.btn5dias3.isChecked():
                 try:
-                    self.btn_checked_decision_tree(5, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_decision_tree(5, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[5]))
                     self.checkPredictionDecisionTree(embalsePredictionsDt[5])
                 except Exception as e:
@@ -402,7 +408,8 @@ class MainWindow(QMainWindow):
 
             if self.ui.btn6dias3.isChecked():
                 try:
-                    self.btn_checked_decision_tree(6, aemet_predictions.select_municipality(embalse), cap_total, provincia)
+                    self.btn_checked_decision_tree(6, aemet_predictions.select_municipality(embalse), cap_total,
+                                                   provincia)
                     self.ui.txtReservaActualDt.setText(str(embalsePredictionsDt[6]))
                     self.checkPredictionDecisionTree(embalsePredictionsDt[6])
                 except Exception as e:
@@ -492,15 +499,14 @@ class MainWindow(QMainWindow):
 
     ###########################################################################################
 
-
     # Function to check the prediction of lasso
     def checkPredictionLasso(self, embalsePredictions):
         if embalsePredictions >= 90:
             self.ui.boardReservaLasso.setStyleSheet(
                 "background-color: #e9c46a;border-radius: 10px;margin: 5px 10px;")
 
-
-            texto = "La reserva del embalse " + self.ui.comboBoxLasso.currentText() + " se encuentra al " + str(embalsePredictions) + "%."
+            texto = "La reserva del embalse " + self.ui.comboBoxLasso.currentText() + " se encuentra al " + str(
+                embalsePredictions) + "%."
 
             fecha = "Fecha de la alerta: " + str(self.ui.fechaLasso.text())
 
@@ -567,7 +573,6 @@ class MainWindow(QMainWindow):
             self.ui.boardReservaRf.setStyleSheet(
                 "background-color: #01A982;border-radius: 10px;margin: 5px 10px;")
 
-
     # Function to check the prediction of decision tree
     def checkPredictionDecisionTree(self, embalsePredictionsDt):
 
@@ -607,7 +612,6 @@ class MainWindow(QMainWindow):
             self.ui.boardReservaDt.setStyleSheet(
                 "background-color: #01A982;border-radius: 10px;margin: 5px 10px;")
 
-
     ####################################################################################################
 
     # Function to calculate the water left in the dam and show it in the pop up
@@ -620,7 +624,7 @@ class MainWindow(QMainWindow):
 
         if self.ui.btnLasso.isChecked():
 
-            minDemand = self.ui.spinBoxDemanda.text().replace(',','.')
+            minDemand = self.ui.spinBoxDemanda.text().replace(',', '.')
 
             minDemand = float(minDemand)
 
@@ -649,7 +653,6 @@ class MainWindow(QMainWindow):
             else:
                 self.mensaje_error("No se ha introducido ninguna cantidad de demanda")
 
-
         if self.ui.btnRandomForest.isChecked():
 
             minDemand = self.ui.spinBoxDemanda.text().replace(',', '.')
@@ -666,7 +669,8 @@ class MainWindow(QMainWindow):
 
                     agua_restante = self.pop_up_agua_restante(agua_total, self.ui.txtReservaActualRf.text())
                     if agua_restante > 0:
-                        texto = "La reserva del embalse " + self.ui.comboBoxRf.currentText() + " tendria " + str(agua_restante) + " hectometros cúbicos de agua"
+                        texto = "La reserva del embalse " + self.ui.comboBoxRf.currentText() + " tendria " + str(
+                            agua_restante) + " hectometros cúbicos de agua"
                     elif agua_restante < 0:
                         texto = "La reserva del embalse " + self.ui.comboBoxRf.currentText() + " NO tendría agua " \
                                                                                                "suficiente para esta demanda. \n Quedaría vacía"
@@ -679,7 +683,6 @@ class MainWindow(QMainWindow):
 
             else:
                 self.mensaje_error("No se ha introducido ninguna cantidad de demanda")
-
 
         if self.ui.btnDecisionTree.isChecked():
 
@@ -720,7 +723,6 @@ class MainWindow(QMainWindow):
         agua_restante = agua_actual - float(agua_texto.replace(',', '.'))
         agua_restante = round(agua_restante, 2)
 
-
         return agua_restante
 
     ####################################################################################################
@@ -741,8 +743,6 @@ class MainWindow(QMainWindow):
         self.ui.txtSolRf.setText(str(data.at[day, "sol"]))
         self.ui.txtProvinciaRf.setText(str(provincia))
         self.ui.txtCapacidadEmbalseRf.setText(str(cap_total))
-
-
 
     def btn_checked_lasso(self, day, data, cap_total, provincia):
         unixToDatetime = datetime.datetime.fromtimestamp(data.at[day, "date"]).date()  # Unix Time
@@ -786,15 +786,10 @@ class MainWindow(QMainWindow):
             print(e)
 
 
-
-
-
-
 # Class for the second window
 class SecondWindow(QDialog):
     def __init__(self, label_text, label_fecha, label_central):
         super().__init__()
-
 
         self.ui = popup_ui.Ui_Dialog()
 
@@ -805,13 +800,11 @@ class SecondWindow(QDialog):
         self.ui.fechaAlert.setText(label_fecha)
         self.ui.nombreCentral.setText(label_central)
 
-
     def closeEvent(self, event):
         try:
             event.accept()
         except Exception as e:
             print(e)
-
 
 
 ##################################################################################33333
